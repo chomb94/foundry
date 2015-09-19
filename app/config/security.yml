@@ -1,0 +1,58 @@
+security:
+    providers:
+       # in_memory:
+        #    memory: ~
+        #user_db_provider:
+        #    entity:
+        #        class: AppBundle:User
+        #        property: username
+                # if you're using multiple entity managers
+                # manager_name: customer
+        app_user:                               
+            id: app.user.provider
+    #encoders:
+        #Symfony\Component\Security\Core\User\User: plaintext
+        #AppBundle\Entity\User:
+            #algorithm: bcrypt
+    
+    firewalls:
+        secured_area:
+            anonymous: ~
+            oauth:
+                resource_owners:
+                    google:             "/login/check-google"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+
+                oauth_user_provider:
+                    #non persistent
+                    #service: hwi_oauth.user.provider
+                    #from DB
+                    #service: hwi_oauth.user.provider.entity
+                    service: app.user.provider
+            logout:
+                path: /logout
+
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        #login:
+            #pattern: ^/(login|connect)
+            #anonymous: ~
+
+        default:
+            anonymous: ~
+            http_basic: ~
+            #provider: user_db_provider
+            #form_login:
+                #login_path: /login
+                #check_path: /login_check
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/connect, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # require ROLE_ADMIN for /admin*
+        - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/user, roles: IS_AUTHENTICATED_FULLY }

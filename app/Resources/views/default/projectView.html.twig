@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<div class="page-header">
+  <h1>{{ project.title|e }}</h1>
+  <a href="/">&lt;-Back</a>
+</div>
+<h3>Short Decription:</h3>
+<p>
+  {{ project.shortDescription|e }}
+</p>
+<hr>
+<h3>Full Description:</h3>
+<p>
+  {{ project.fullDescription|e }}
+</p>
+
+{% if project.videoUrl != '' %}
+<h3>Video:</h3>
+<iframe width="560" height="315" src="{{ project.videoUrl|e }}" frameborder="0" allowfullscreen></iframe>
+
+{% endif %}
+
+<h3>People needed:</h3>
+<p>
+  {{ project.team|e }}
+</p>
+
+<h3>Risks and Challenges:</h3>
+<p>
+  {{ project.risksChallenges|e }}
+</p>
+
+<h3>DeliveryPromise:</h3>
+<p>
+  {{ project.deliveryPromise|e }}
+</p>
+
+<p>
+Creation Date:????????
+</p>
+
+{% endblock %}

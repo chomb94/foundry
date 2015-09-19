@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Login Check Google</h1>
+
+
+{# % if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <p>Username: {{ app.user.username }}</p>
+{% else %}
+	<p>No Username</p>
+{% endif %}
+#}
+{% endblock %}
+

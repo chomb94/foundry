@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="jumbotron">
+  <h1>He, Welcome!</h1>
+  <p>Welcome {{ user.username| default("toto") }}!
+</div>
+
+<div class="page-header">
+	<h1>Hot Projects</h1>
+</div>
+
+{% for project in projects %}
+<div class="col-sm-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title project_title_panel">{{ project.title|e }}</h3>
+    </div>
+    <div class="panel-body">
+    <img src="{{ vich_uploader_asset(project, 'imageFile') }}" alt="{{ project.title }}"/>
+      <p>
+      	{{ project.shortDescription|e }}
+      </p>
+      <p>
+      	<a class="btn btn-default" href="/project/view/{{ project.id }}" role="button">View details »</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
