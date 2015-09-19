@@ -1,6 +1,15 @@
 body {
 	padding-top: 70px;
-    padding-bottom: 30px;
+    /* padding-bottom: 30px; */
+    color: #313131;
+    font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    background: #f4f4f6;
+}
+
+.jumbotron {
+    background-color: #fff;
+    text-align: center;
 }
 
 .navbar-inverse {
@@ -37,3 +46,83 @@ body {
     position: relative;
     line-height: 20px;
 }
+
+.crop {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+}
+
+.crop img {
+    width: 100%;
+    #height: 300px;
+    #margin: -75px 0 0 -100px;
+}
+
+.cropdescription {
+    max-height: 200px;
+    overflow: hidden;
+    display: block;
+    height: 100px;
+    font-size: 12px;
+    margin: 8px 0 8px 0;
+    text-align: justify;
+}
+
+.cropdescription>a {
+    color: black;
+    text-decoration: none;
+}
+
+.cropdescription>a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.ico-big {
+    font-size: 24px;
+    display: inline-block;
+}
+
+.panel-default>.panel-heading{
+    background-color: #fff;
+}
+
+.panel-default {
+    border-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    overflow:hidden;
+}
+
+.btn {
+    box-shadow: 2px 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.footer {
+    bottom: 0;
+    width: 100%;
+    background-color: #666;
+    color: #eee;
+    margin-top: 24px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    font-size: 18px;
+}
+
+.progress {
+    height: 8px;
+    margin-bottom: 2px;
+}
+
+.panel-footer {
+    background-color: #fff;
+    border: none;
+    font-size: 10px;
+    padding: 8px 0 16px;
+}
+
+.text-light {
+    color: #999;
+}
+
