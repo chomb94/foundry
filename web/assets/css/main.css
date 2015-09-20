@@ -1,5 +1,5 @@
 body {
-	padding-top: 70px;
+	padding-top: 50px;
     /* padding-bottom: 30px; */
     color: #313131;
     font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -8,8 +8,22 @@ body {
 }
 
 .jumbotron {
-    background-color: #fff;
+    /*background-color: #fff;*/
+    background-image:url(/assets/images/jumbotronbck1-dark.jpg);
+    background-position: 50% 50%;
+    background-size:100%;
     text-align: center;
+    color: #fff;
+    text-shadow: rgba(0, 0, 0, 0.498039) 0px 1px 3px;
+}
+
+.jumbotron .btn {
+    text-shadow: none;
+}
+
+.jumbotron-footer>a {
+    padding: 20px 0 0 0;
+    color: #fff;
 }
 
 .navbar-inverse {
@@ -108,6 +122,11 @@ body {
     padding-top: 24px;
     padding-bottom: 24px;
     font-size: 18px;
+}
+
+.footer-sillywalk {
+    padding-top: 20px;
+    text-align: right;
 }
 
 .progress {
