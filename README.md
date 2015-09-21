@@ -7,3 +7,5 @@ Composer fr image uploader :
 https://github.com/dustin10/VichUploaderBundle/blob/master/Resources/doc/generating_urls.md
 
 Bundle for Google O.Auth : https://github.com/hwi/HWIOAuthBundle
+
+Neon style : http://codepen.io/NobodyRocks/pen/qzfoc

@@ -1,12 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
 
-<div class="jumbotron">
+{% block jumbotron %}
+<div class="jumbotron" style="background-image: url(/assets/images/jumbotronbck{{ backgroundImgNum }}-dark.jpg)">
   <h1>He, Welcome!</h1>
   <p>Welcome {{ user.username| default("toto") }}!</p>
-  <a class="btn btn-lg btn-success ico-big" href="/user/project/publish"><span class="glyphicon glyphicon-certificate ico ico-big"></span> Start your project !</a>
+  <a class="btn btn-lg" href="/user/project/publish"><span class="glyphicon glyphicon-certificate ico ico-big-jumbotron"></span> Start your project !</a>
 </div>
+
+{% endblock %}
+
+{% block body %}
 
 <div class="page-header">
 	<h1>Hot Projects</h1>

@@ -16,6 +16,7 @@ class DefaultController extends Controller
     {
     	$user = $this->getUser();
         $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->findAll();
+        $randonum= rand(1,2);
 
         // replace this example code with whatever you need
         return $this->render('default/homepage.html.twig', array(
@@ -23,6 +24,7 @@ class DefaultController extends Controller
             'menu_hp' => 'active',
             'projects' => $projects,
             'user' => $user,
+            'backgroundImgNum' => $randonum,
         ));
     }
 

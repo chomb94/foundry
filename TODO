@@ -1,11 +1,15 @@
-TODO :
-
+Need have:
 - Fiche projet
 - Tri des projets sur la HP par plus récent en premier
 - Modifier un projet
 - Gérer les palliers
-- CSS Flat : http://designmodo.github.io/Flat-UI/
+- Moteur de recherche
+
+Must Have:
 - Adapter le formulaire des des phrases d'aide
 - Pouvoir exporter le projet en Slides (slideshare ?)
 - Promouvoir (share lien, presentation, ...) : par mail, blablashare, etc
 - Pouvoir mettre un slide share au lieu (ou en plus) de la video
+
+Nice to have:
+- CSS Flat : http://designmodo.github.io/Flat-UI/
