@@ -8,6 +8,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="project",indexes={@ORM\index(name="user_id", columns={"user_id"})})
  * @Vich\Uploadable
  */
 class Project {
