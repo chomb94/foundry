@@ -30,7 +30,7 @@ class UserProjectPublishController extends Controller
            $manager = $this->get("doctrine")->getManager();
            $manager->persist($project);
            $manager->flush();
-           return $this->redirectToRoute('app_user_steps_publish');
+           return $this->redirectToRoute('app_usersteps_publish', ['id'=>$project->getId()]);
         }
 
         return $this->render('default/projectPublish.html.twig', [
