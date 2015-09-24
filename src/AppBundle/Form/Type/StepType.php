@@ -13,6 +13,7 @@ class StepType extends AbstractType
         ->add('title', 'text')
         ->add('shortDescription', 'textarea')
         ->add('endDate',  'date')
+        ->add('price',  'integer')
         ->add('save', 'submit')
         ;
     }

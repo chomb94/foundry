@@ -34,6 +34,10 @@ class Step {
      * @ORM\Column(type="datetime")
      */
     protected $endDate;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $price;
 
     /**
      * Get id
@@ -161,4 +165,28 @@ class Step {
     {
         return $this->endDate;
     }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     * @return integer
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }     
+
 }

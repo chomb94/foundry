@@ -17,12 +17,12 @@ class UserStepsController extends Controller
     public function Publish($id, Request $request)
     {
 
-        $form = $this->createForm(new StepType());
-        $form->handleRequest($request);
         $project = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
         $project_id = $project->getId();
         $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy( ['project_id' => $project_id]);
 
+        $form = $this->createForm(new StepType());
+        $form->handleRequest($request);
         $step = $form->getData();
 
         if ($form->isValid()) {
