@@ -1,0 +1,6 @@
+# Application
+/app/cache/*
+/app/logs/*
+
+# External files
+/vendor/
