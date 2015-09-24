@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Steps</h1>
+<h2>For {{ project_title }}</h2>
+<hr/>
+
+{% for step in steps %}
+<p>
+<strong>{{ step.title }}</strong></p><br />
+{{ step.shortDescription|e }}</p>
+Price : {{ step.price }} Bitoniots</p>
+{% endfor %}
+<hr/>
+
+{% form_theme form 'form_theme.html.twig' %}
+
+{{ form_start(form) }}
+
+{{ form_errors(form) }}
+
+{{ form_label(form.title) }}
+{{ form_widget(form.title, {help_text:"toto toto tata"}) }}
+{{ form_errors(form.title) }}
+
+{{ form_label(form.shortDescription) }}
+{{ form_widget(form.shortDescription, {help_text:"toto toto tata"}) }}
+{{ form_errors(form.shortDescription) }}
+
+{{ form_label(form.endDate) }}
+{{ form_widget(form.endDate, {help_text:"toto totoaea rae tata"}) }}
+{{ form_errors(form.endDate) }}
+
+{{ form_rest(form) }}
+
+{{ form_end(form) }}
+
+{% endblock %}

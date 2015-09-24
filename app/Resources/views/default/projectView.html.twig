@@ -8,6 +8,11 @@
   <a href="/">&lt;-Back</a>
 </div>
 <h3>Short Decription:</h3>
+My project ? {% if myproject %}Yes
+
+<p><a href="/user/project/{{ project_id }}/steps/publish">Add Steps</a></p>
+
+{% else %}No{% endif %}
 <p>
   {{ project.shortDescription|e }}
 </p>

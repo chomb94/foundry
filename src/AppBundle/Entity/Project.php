@@ -26,7 +26,7 @@ class Project {
      */
     protected $title;
     /**
-     * @ORM\Column(type="string", length=400)
+     * @ORM\Column(type="string", length=500)
      */
     protected $short_description;
     /**
