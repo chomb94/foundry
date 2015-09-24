@@ -15,10 +15,14 @@ class ProjectViewController extends Controller
     public function projectView($id)
     {
         $project = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
-
+        $user = $this->getUser();
+        $user_id = $user->getId();
+        $myproject = ($user_id == $project->getUserId());
+        
         return $this->render('default/projectView.html.twig', [
             'project' => $project,
             'project_id' => $id,
+            'myproject' => $myproject,
         ]); 
     }
 }
