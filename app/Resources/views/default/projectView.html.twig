@@ -53,11 +53,14 @@
 		<div class="steps-sidebar">
 		<h2>Steps</h2>
 		{% for step in steps %}
-		<hr />
-		<strong>{{ step.title }}</strong>
-		<p>{{ step.shortDescription|e }}</p>
+			<hr />
+			<strong>{{ step.title }}</strong>
+			<p>{{ step.shortDescription|e }}</p>
 		{% endfor %}
-		<form action="/user/project/{{ project_id }}/pledge/{credit}" method="post">
+		{% if error == 1 %}
+			<p>Not enough credits available!</p>
+		{% endif %}
+		<form action="/user/project/{{ project_id }}/pledge" method="post">
 		<input type="number" id="price" name="price" required="required" class="form-control">
 		<button type="submit" id="project_save" name="step" class="btn-default btn">Pledge</button>
 		</form>

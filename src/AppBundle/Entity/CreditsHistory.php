@@ -25,15 +25,11 @@ class CreditsHistory {
      */
     protected $nbCreditsSpent;
     /**
-     * @ORM\Column(type="integer")
-     */
-    protected $project_id;
-    /**
      * @ORM\Column(type="datetime")
      */
     protected $pledgeDate;
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Project")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Project")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
      */
     protected $project;
@@ -93,29 +89,6 @@ class CreditsHistory {
     public function getNbCreditsSpent()
     {
         return $this->nbCreditsSpent;
-    }
-    
-    /**
-     * Set project_id
-     *
-     * @param string $project_id
-     * @return integer
-     */
-    public function setProjectId($project_id)
-    {
-        $this->project_id = $project_id;
-
-        return $this;
-    }
-
-    /**
-     * Get project_id
-     *
-     * @return integer 
-     */
-    public function getProjectId()
-    {
-        return $this->project_id;
     }
     
     /**

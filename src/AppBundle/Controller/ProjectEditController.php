@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\ProjectType;
+use AppBundle\Entity\CreditsHistory;
 
 class ProjectEditController extends Controller
 {
@@ -38,6 +39,37 @@ class ProjectEditController extends Controller
             'form' => $form->createView(),
             'menu_start' => 'active',
         ]);
+    }
 
+    /**
+     * @Route("/user/project/{id}/pledge")
+     */
+    public function projectPledge(Request $request, $id)
+    {
+        $user = $this->getUser();
+        $user_id = $user->getId();
+        $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
+        $user_credits = $this->getDoctrine()->getRepository("AppBundle:UserCredits")->findBy(['user_id' => $user_id])[0];
+
+        if ($user_credits->getCredits() - $request->get("price") < 0) {
+          return $this->redirectToRoute(
+            'app_projectview_projectview',
+            ['id'=>$project->getId(), 'error' => 1]);
+        }
+
+        $creditHistory = new CreditsHistory();
+        $creditHistory->setUserId($user_id);
+        $creditHistory->setProject($project);
+        $creditHistory->setNbCreditsSpent($request->get("price"));
+        $creditHistory->setPledgeDate(date_create("now"));
+
+        $user_credits->setCredits($user_credits->getCredits() - $request->get("price"));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($creditHistory);
+        $em->persist($user_credits);
+        $em->flush();
+
+        return $this->redirectToRoute('app_projectview_projectview', ['id'=>$project->getId()]);
     }
 }
