@@ -17,12 +17,13 @@ class ProjectType extends AbstractType
                 'download_link' => true, // not mandatory, default is true
             ))
             ->add('shortDescription', 'textarea')
-            ->add('videoUrl', 'text')
-            ->add('team', 'textarea')
-            ->add('fullDescription', 'textarea')
-            ->add('risksChallenges',  'textarea')
-            ->add('deliveryPromise',  'textarea')
-            ->add('published',  'checkbox')
+            ->add('endDate',  'date')
+            ->add('videoUrl', 'text', ['required'=>false])
+            ->add('team', 'textarea', ['required'=>false])
+            ->add('fullDescription', 'textarea', ['required'=>false])
+            ->add('risksChallenges',  'textarea', ['required'=>false])
+            ->add('deliveryPromise',  'textarea', ['required'=>false])
+            ->add('published',  'checkbox', ['required'=>false])
             ->add('save', 'submit')
         ;
     }

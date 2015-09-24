@@ -18,6 +18,10 @@ class Project {
      */
     protected $id;
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $user_id;
+    /**
      * @ORM\Column(type="string", length=100)
      */
     protected $title;
@@ -26,23 +30,23 @@ class Project {
      */
     protected $short_description;
     /**
-     * @ORM\Column(type="string", length=400)
+     * @ORM\Column(type="string", length=500, nullable=true)
      */
     protected $team; // Who?
     /**
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $full_description; // Why? What? How?
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $video_url;
     /**
-     * @ORM\Column(type="string", length=200)
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $risks_challenges;
     /**
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $delivery_promise;
     /**
@@ -54,7 +58,11 @@ class Project {
      */
     protected $creationDate;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $endDate;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $imageName;
      /**
@@ -76,6 +84,30 @@ class Project {
     {
         return $this->id;
     }
+
+    /**
+     * Set user_id
+     *
+     * @param string $use_id
+     * @return integer
+     */
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * Get user_id
+     *
+     * @return integer 
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+    
 
     /**
      * Set title
@@ -282,6 +314,29 @@ class Project {
     public function getCreationDate()
     {
         return $this->creationDate;
+    }
+
+    /**
+     * Set endDate
+     *
+     * @param \DateTime $endDate
+     * @return Project
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return \endDate 
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 
     /**

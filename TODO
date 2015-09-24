@@ -1,4 +1,5 @@
 Need have:
+- End date
 - Fiche projet
 - Tri des projets sur la HP par plus récent en premier
 - Modifier un projet
@@ -7,6 +8,7 @@ Need have:
 - Ajouter Filkatr pour aider à présenter :) (en embed des slidshare, par exemple)
 
 Must Have:
+- La date de fin doit etre < à une date D+90 jours (par exemple)
 - Adapter le formulaire des des phrases d'aide
 - Pouvoir exporter le projet en Slides (slideshare ?)
 - Promouvoir (share lien, presentation, ...) : par mail, blablashare, etc
