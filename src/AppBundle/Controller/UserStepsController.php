@@ -19,6 +19,7 @@ class UserStepsController extends Controller
 
         $project = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
         $project_id = $project->getId();
+        $user = $this->getUser();
 
         $form = $this->createForm(new StepType());
         $form->handleRequest($request);
