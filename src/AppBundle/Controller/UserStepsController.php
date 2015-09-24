@@ -20,6 +20,10 @@ class UserStepsController extends Controller
         $project = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
         $project_id = $project->getId();
         $user = $this->getUser();
+        $user_id = $user->getId();
+        // Est-ce bien mon projet ?
+        if ($project->getUserId() <> $user_id) die();
+
 
         $form = $this->createForm(new StepType());
         $form->handleRequest($request);
@@ -33,7 +37,6 @@ class UserStepsController extends Controller
           $manager = $this->get("doctrine")->getManager();
           $manager->persist($step);
           $manager->flush();
-          //return $this->redirectToRoute('app_user_steps_publish');
         }
 
         $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy( ['project_id' => $project_id]);

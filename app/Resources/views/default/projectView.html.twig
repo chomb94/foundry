@@ -7,13 +7,14 @@
 		<div class="page-header">
 		  <h1>{{ project.title|e }}</h1>
 		  <a href="/">&lt;-Back</a>
+		<p>My project {% if myproject %}
+			<a class="btn btn-default" href="/user/project/{{ project_id }}/steps/publish">Add Steps</a>
+			<a class="btn btn-default" href="/user/project/{{ project_id }}/edit">Edit Project</a></p>
+		</p>
+
+		{% endif %}
 		</div>
 		<h3>Short Decription:</h3>
-		My project ? {% if myproject %}Yes
-
-		<p><a href="/user/project/{{ project_id }}/steps/publish">Add Steps</a></p>
-
-		{% else %}No{% endif %}
 		<p>
 		  {{ project.shortDescription|e }}
 		</p>
@@ -55,8 +56,11 @@
 		<hr />
 		<strong>{{ step.title }}</strong>
 		<p>{{ step.shortDescription|e }}</p>
-		<a href="#" class="btn btn-default">Pledge</a>
 		{% endfor %}
+		<form action="/user/project/{{ project_id }}/pledge/{credit}" method="post">
+		<input type="number" id="price" name="price" required="required" class="form-control">
+		<button type="submit" id="project_save" name="step" class="btn-default btn">Pledge</button>
+		</form>
 		</div>
 		{% if myproject %}
 		<p><a href="/user/project/{{ project_id }}/steps/publish">Add Steps</a></p>
