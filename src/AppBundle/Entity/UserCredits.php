@@ -4,11 +4,10 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
- * @Vich\Uploadable
+ * @ORM\Table(name="user_credits",indexes={@ORM\index(name="user_id", columns={"user_id"})})
  */
 class UserCredits {
     /**
