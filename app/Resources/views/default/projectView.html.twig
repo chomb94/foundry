@@ -7,13 +7,14 @@
 		<div class="page-header">
 		  <h1>{{ project.title|e }}</h1>
 		  <a href="/">&lt;-Back</a>
+		<p>My project {% if myproject %}
+			<a class="btn btn-default" href="/user/project/{{ project_id }}/steps/publish">Add Steps</a>
+			<a class="btn btn-default" href="/user/project/{{ project_id }}/edit">Edit Project</a></p>
+		</p>
+
+		{% endif %}
 		</div>
 		<h3>Short Decription:</h3>
-		<p>My project {% if myproject %}
-
-		<a class="btn btn-default" href="/user/project/{{ project_id }}/steps/publish">Add Steps</a></p>
-
-		{% else %}No{% endif %}
 		<p>
 		  {{ project.shortDescription|e }}
 		</p>
