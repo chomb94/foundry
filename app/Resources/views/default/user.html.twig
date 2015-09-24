@@ -4,7 +4,7 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>I am {{ user.username| default("toto") }}, my id is ({{user.id}})</span></h1>
+                <h1><span>I am {{ user.username | e }}, my id is ({{user.id}})</span></h1>
                 <h1><span>I have {{ credits.getCredits | default("0") }} credit(s)</span></h1>
             </div>
         </div>
@@ -16,7 +16,7 @@
                 <h1><span>Pledged projects</span></h1>
                 <ul>
             	{% for projectPledged in projectsPledged %}
-                	<li>{{ projectPledged.nbCreditsSpent }} credit(s) spent for project <strong>{{ projectPledged.project.title }}</strong> ({{ projectPledged.pledgeDate | date('d M Y, h:m:s') }})</li>
+                	<li>{{ projectPledged.nbCreditsSpent }} credit(s) spent for project <strong>{{ projectPledged.project.title | e }}</strong> ({{ projectPledged.pledgeDate | date('d M Y, h:m:s') }})</li>
                 {% endfor %}
                 </ul>
             </div>

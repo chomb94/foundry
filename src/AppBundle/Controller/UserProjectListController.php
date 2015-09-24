@@ -15,11 +15,10 @@ class UserProjectListController extends Controller
     public function userProjectList()
     {
         $user = $this->getUser();
-        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->findAll();
+        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->findBy(array('user_id' => $user->getId()));
         
         // replace this example code with whatever you need
         return $this->render('default/userProjectList.html.twig', array(
-            //'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
             'menu_myprojects' => 'active',
             'projects' => $projects,
             'user' => $user,
