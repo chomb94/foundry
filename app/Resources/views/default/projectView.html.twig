@@ -54,8 +54,14 @@
 		{% for step in steps %}
 		<hr />
 		<strong>{{ step.title }}</strong>
+		<p>{{ step.shortDescription|e }}</p>
+		<a href="#" class="btn btn-default">Pledge</a>
 		{% endfor %}
 		</div>
+		{% if myproject %}
+		<p><a href="/user/project/{{ project_id }}/steps/publish">Add Steps</a></p>
+		{% endif %}
+
 	</div>
 </div>
 {% endblock %}

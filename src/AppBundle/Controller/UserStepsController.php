@@ -41,6 +41,7 @@ class UserStepsController extends Controller
         return $this->render('default/stepsPublish.html.twig', [
             'form' => $form->createView(),
             'project_title' => $project->getTitle(),
+            'project_id' => $project->getId(),
             'steps' => $step_list,
             'menu_myprojects' => 'active',
         ]);
