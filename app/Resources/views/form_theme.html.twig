@@ -13,3 +13,10 @@
 		<p><i>{{ help_text }}</i></p>
 	{% endif %}
 {%- endblock textarea_widget -%}
+
+{% block date_widget -%}
+    {{- parent() -}}
+	{% if help_text | default(false) %}
+		<p><i>{{ help_text }}</i></p>
+	{% endif %}
+{% endblock date_widget -%}
