@@ -18,6 +18,10 @@ class Project {
      */
     protected $id;
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $user_id;
+    /**
      * @ORM\Column(type="string", length=100)
      */
     protected $title;
@@ -80,6 +84,30 @@ class Project {
     {
         return $this->id;
     }
+
+    /**
+     * Set user_id
+     *
+     * @param string $use_id
+     * @return integer
+     */
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * Get user_id
+     *
+     * @return integer 
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+    
 
     /**
      * Set title

@@ -5,13 +5,14 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Form\Type\ProjectType;
+use AppBundle\Form\Type\StepType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserProjectPublishController extends Controller
+class UserStepsPublishController extends Controller
 {
     /**
-     * @Route("/user/project/publish")
+     * @Route("/user/steps/publish")
      */
     public function userProjectPublish(Request $request)
     {
@@ -21,16 +22,14 @@ class UserProjectPublishController extends Controller
 
         if ($form->isValid()) {
           $user = $this->getUser();
-          $user_id = $user->getId();
-
+          var_dump($user->getId());die();
            // perform some action, such as saving the task to the database
            // Store in DB
            $project->setCreationDate(new \DateTime());
-           $project->setUserId($user_id);
            $manager = $this->get("doctrine")->getManager();
            $manager->persist($project);
            $manager->flush();
-           return $this->redirectToRoute('app_user_steps_publish');
+           return $this->redirectToRoute('app_steps_publication');
         }
 
         return $this->render('default/projectPublish.html.twig', [
