@@ -16,7 +16,7 @@
                 <h1><span>Pledged projects</span></h1>
                 <ul>
             	{% for projectPledged in projectsPledged %}
-                	<li>{{ projectPledged.nbCreditsSpent }} credit(s) spent for project <strong>{{ projectPledged.project.title | e }}</strong> ({{ projectPledged.pledgeDate | date('d M Y, h:m:s') }})</li>
+                	<li>{{ projectPledged.nbCreditsSpent }} credit(s) spent for project <a href="/project/view/{{ projectPledged.id }}"><strong>{{ projectPledged.project.title | e }}</strong></a> ({{ projectPledged.pledgeDate | date('d M Y, h:m:s') }})</li>
                 {% endfor %}
                 </ul>
             </div>
