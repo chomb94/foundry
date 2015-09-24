@@ -18,11 +18,13 @@ class ProjectViewController extends Controller
         $user = $this->getUser();
         $user_id = $user->getId();
         $myproject = ($user_id == $project->getUserId());
+        $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy( ['project_id' => $id]);
         
         return $this->render('default/projectView.html.twig', [
             'project' => $project,
             'project_id' => $id,
             'myproject' => $myproject,
+            'steps' => $step_list,
         ]); 
     }
 }

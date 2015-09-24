@@ -173,6 +173,12 @@ body {
     color: #999;
 }
 
+.steps-sidebar {
+  background-color: white;
+  padding: 12px 8px;
+  margin: 12px 0;
+}
+
 @-webkit-keyframes neon5 {
   from {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;
