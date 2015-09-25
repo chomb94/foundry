@@ -438,15 +438,8 @@ class Project {
     {
         $percentage = 0;
 
-        $step_currentValue = 0;
-        $step_totalValue = 1;
-        foreach ($this->allSteps as $oneStep) {
-            if ($oneStep->getPriceToFinish() > 0) {
-                $step_currentValue = $oneStep->getPrice() - $oneStep->getPriceToFinish();
-                $step_totalValue = $oneStep->getPrice();
-                break;
-            }
-        }
+        $step_currentValue = $this->getNbCreditsDone();
+        $step_totalValue = $this->getNbCreditsTotal();
         return round($step_currentValue * 100 / $step_totalValue);
     }
 
