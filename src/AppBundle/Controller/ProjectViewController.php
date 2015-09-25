@@ -32,6 +32,7 @@ class ProjectViewController extends Controller
             'userCredits' => $user_credits,
             'steps' => $project->getSteps(),
             'error' => $request->get("error", 0),
+            'user' => $user,
         ]); 
     }
 }

@@ -32,7 +32,7 @@ class ProjectEditController extends Controller
            $manager = $this->get("doctrine")->getManager();
            $manager->persist($project);
            $manager->flush();
-           return $this->redirectToRoute('app_projectview_projectview', ['id'=>$project->getId()]);
+           return $this->redirectToRoute('app_projectview_projectview', ['id' => $project->getId()]);
         }
 
         return $this->render('default/projectPublish.html.twig', [

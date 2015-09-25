@@ -46,6 +46,7 @@ class UserStepsController extends Controller
             'project_id' => $project->getId(),
             'steps' => $step_list,
             'menu_myprojects' => 'active',
+            'user' => $user,
         ]);
         
        
