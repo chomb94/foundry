@@ -335,4 +335,8 @@ body {
   }
 }
 
+.projectCard {
+  cursor:pointer;
+}
+
 

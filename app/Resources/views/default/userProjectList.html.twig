@@ -11,4 +11,10 @@
 {% for project in projects %}
   {% include 'default/oneProjectCard.html.twig' %}
 {% endfor %}
+
+<script>
+	$('.projectCard').on('click', function(e) {
+		window.location.href=$(this).data('url');
+	});
+</script>
 {% endblock %}

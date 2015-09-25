@@ -449,4 +449,24 @@ class Project {
         }
         return round($step_currentValue * 100 / $step_totalValue);
     }
+
+    public function getNbCreditsDone()
+    {
+        $nbCredits = 0;
+        foreach ($this->allSteps as $oneStep) {
+            if ($oneStep->isCompleted()) {
+                $nbCredits += $oneStep->getPrice();
+            } else {
+                $nbCredits += ($oneStep->getPrice() - $oneStep->getPriceToFinish());
+            }
+        }
+        return $nbCredits;
+    }
+
+    public function getNbCreditsTotal()
+    {
+        $nbCredits = 0;
+        foreach ($this->allSteps as $oneStep) $nbCredits += $oneStep->getPrice();
+        return $nbCredits;
+    }
 }

@@ -1,19 +1,17 @@
-<div class="col-sm-4">
+<div class="col-sm-4 projectCard" data-url="/project/view/{{ project.id }}">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title project_title_panel">{{ project.title|e }}</h3>
     </div>
     <div class="panel-body">
       <div class="crop">
-        <a href="/project/view/{{ project.id }}">
           <img src="{{ vich_uploader_asset(project, 'imageFile') }}" alt="{{ project.title }}"/>
-        </a>
       </div>
       <div class="project-image-container">
-        <img src="{{ user.profilePicture }}" alt="jean-marc.charles@blablacar.com" class="img-project">
+        <img src="{{ user.profilePicture }}" alt="{{ user.nickname | e }}" class="img-project">
       </div>
       <div class="cropdescription">
-          <a href="/project/view/{{ project.id }}">{{ project.shortDescription|e }}</a>
+          {{ project.shortDescription|e }}
       </div>
       <div class="progress">
         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ project.percentageOfProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percentageOfProgress }}%">
@@ -21,8 +19,7 @@
         </div>
       </div>
       <div class="panel-footer">
-        <p>{{ project.credits | length }} <span class="text-light">ratings</span></p>
-        <p>XX <span class="text-light">pledges</span> - XX <span class="text-light">Days remains</span></p>
+        <p>{{ project.nbCreditsDone }} <span class="text-light">credits</span> / {{ project.nbCreditsTotal }} <span class="text-light">total credits</span></p>
       </div>
       <p>
       	<a class="btn btn-default" href="/project/view/{{ project.id }}" role="button">View details »</a>
