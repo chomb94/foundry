@@ -19,8 +19,7 @@
         </div>
       </div>
       <div class="panel-footer">
-        <p>{{ project.credits | length }} <span class="text-light">ratings</span></p>
-        <p>XX <span class="text-light">pledges</span> - XX <span class="text-light">Days remains</span></p>
+        <p>{{ project.nbCreditsDone }} <span class="text-light">credits</span> / {{ project.nbCreditsTotal }} <span class="text-light">total credits</span></p>
       </div>
       <p>
       	<a class="btn btn-default" href="/project/view/{{ project.id }}" role="button">View details »</a>
