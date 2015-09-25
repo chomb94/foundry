@@ -174,13 +174,67 @@ body {
 }
 
 .steps-sidebar {
-  background-color: white;
-  padding: 12px 8px;
-  margin: 0px 0;
+    background-color: white;
+    margin: 0px;
+    padding: 4px;
+}
+
+.steps-sidebar > h2 {
+   padding: 8px 8px;
+   text-align: center;
+}
+
+.steps-sidebar  h3 {
+   padding: 4px 0px 14px;
+   margin: 0;
+   font-size: 18px;
+}
+
+.steps-sidebar > .one-step {
+  margin: 16px 8px;
+}
+
+.steps-sidebar > .tocomplete {
+    padding: 12px 8px;
+    color: #999;
+    background-color: #f6f6f6;
+}
+
+.steps-sidebar > .inprogress {
+    padding: 12px 8px;
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+
+}
+
+.steps-sidebar > .completed {
+    padding: 12px 8px;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
 }
 
 .project-container-text {
   padding: 12px;
+}
+
+.input-price {
+  width: 100px;
+  height: 52px;
+  font-size: 28px;
+  display: block;
+  float: left;
+}
+
+.steps-sidebar .btn {
+  font-size: 18px;
+  height: 52px;
+  margin-left: 12px;
+}
+
+.steps-sidebar form {
+  margin: 24px 0 24px 48px;
 }
 
 .project-container {
