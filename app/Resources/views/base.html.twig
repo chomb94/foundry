@@ -36,6 +36,8 @@
                 <ul class="dropdown-menu">
                   <li class="{{ menu_myprojects | default('')}}"><a href="/user/project/list">My projects</a></li>
                   <li class="{{ menu_myprofile | default('')}}"><a href="/user/profile">My profile</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/logout">Logout</a></li>
                 </ul>
               </li>
               <li class="dropdown">
@@ -46,7 +48,6 @@
                   <li class="dropdown-header">Other</li>
                   <li><a href="/admin">Admin</a></li>
                   <li><a href="/login">Google Connect</a></li>
-                  <li><a href="/logout">Logout</a></li>
                 </ul>
               </li>
             </ul>
