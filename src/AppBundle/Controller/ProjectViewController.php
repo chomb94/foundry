@@ -18,7 +18,7 @@ class ProjectViewController extends Controller
         $project = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
         $user = $this->getUser();
         $user_id = $user->getId();
-        $myproject = ($user_id == $project->getUserId());
+        $myproject = ($user_id == $project->getUser()->getId());
         $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $id]);
         $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $project]);
         $user_credits = $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findBy(['user_id' => $user_id])[0];
