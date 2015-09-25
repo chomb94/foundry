@@ -3,7 +3,9 @@
 {% block body %}
 <div class="page-header text-center">
   <h1>{{ project.title|e }}</h1>
-  <p>By {{ project.user.nickname }}</p>
+  <p>By {{ project.user.nickname }}
+  <img src="{{ project.user.profilePicture }}" class="img-project-main"/>
+  </p>
   <p>It's my project : 
 	{% if myproject %}
 	<a class="" href="/user/project/{{ project_id }}/steps/publish">Add Steps</a>
@@ -60,13 +62,20 @@
 		<h2>Steps{% if myproject %}<a href="/user/project/{{ project_id }}/steps/publish">+</a>{% endif %}</h2>
 		{% for step in steps %}
 			<div class="one-step {% if step.isCompleted %}completed{% elseif step.isDisplayPledgeForm %}inprogress{% else %}tocomplete{% endif %}">
-			<h3>{{ step.title }}</h3> (price: {{ step.price }})
-			<p>{{ step.shortDescription|e }}</p>
+			<div class="step-title">
+				<h3>{{ step.title }}</h3>
+			</div>
+			<div class="step-price">
+				<span class="step-price-bg">{{ step.price }}</span> Credits
+			</div>
+			<div class="clearfix"></div>
+			<p class="step-sidebar-description">{{ step.shortDescription|e }}</p>
 			<p>
-			{% if step.isCompleted %}
-			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-				<strong>Completed!</strong>
-			{% elseif step.isDisplayPledgeForm %}
+				<div class="step-credits">
+				{% if step.isCompleted %}
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+					Completed!
+				{% elseif step.isDisplayPledgeForm %}
 				{{ step.priceToFinish }} credit(s) remaining to achieve this step!
 				{% if error == 1 %}
 					<p><strong>Not enough credits available!</strong></p>
@@ -78,6 +87,7 @@
 			{% else %}
 				Coming next...
 			{% endif %}
+				</div>
 			</p>
 			</div>
 		{% endfor %}

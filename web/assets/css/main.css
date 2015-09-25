@@ -197,7 +197,7 @@ body {
 }
 
 .steps-sidebar  h3 {
-   padding: 4px 0px 14px;
+   padding: 6px 0px 14px;
    margin: 0;
    font-size: 18px;
 }
@@ -227,6 +227,10 @@ body {
     border-color: #d6e9c6;
 }
 
+.step-sidebar-description {
+  margin-top: 12px;
+}
+
 .project-container-text {
   padding: 12px;
 }
@@ -242,6 +246,7 @@ body {
     top: 136px;
 }
 
+.img-project-main,
 .img-project {
     width: 48px;
     height: 48px;
@@ -251,6 +256,26 @@ body {
     margin: 6px 0 0 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border: 1px solid white;
+}
+
+.img-project-main {
+    margin: -6px 0 6px 6px;
+}
+
+.step-title {
+  float: left;
+}
+
+.step-price {
+  float: right;
+  margin-right: 16px;
+}
+.step-price-bg{
+  font-size: 24px; 
+}
+
+.step-credits {
+  font-weight: bold;
 }
 
 .input-price {
