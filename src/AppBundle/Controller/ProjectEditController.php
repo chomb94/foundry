@@ -20,9 +20,9 @@ class ProjectEditController extends Controller
         $form = $this->createForm(new ProjectType(), $project_init);
         $form->handleRequest($request);
         $project = $form->getData();
+        $user = $this->getUser();
 
         if ($form->isValid()) {
-          $user = $this->getUser();
           $user_id = $user->getId();
 
            // perform some action, such as saving the task to the database
@@ -32,12 +32,13 @@ class ProjectEditController extends Controller
            $manager = $this->get("doctrine")->getManager();
            $manager->persist($project);
            $manager->flush();
-           return $this->redirectToRoute('app_projectview_projectview', ['id' => $project->getId()]);
+           return $this->redirectToRoute('app_projectview_projectview', ['id' => $project->getId(), 'user' => $user]);
         }
 
         return $this->render('default/projectPublish.html.twig', [
             'form' => $form->createView(),
             'menu_start' => 'active',
+            'user' => $user,
         ]);
     }
 
@@ -70,6 +71,6 @@ class ProjectEditController extends Controller
         $em->persist($user_credits);
         $em->flush();
 
-        return $this->redirectToRoute('app_projectview_projectview', ['id'=>$project->getId()]);
+        return $this->redirectToRoute('app_projectview_projectview', ['id'=>$project->getId(), 'user'=>$user]);
     }
 }
