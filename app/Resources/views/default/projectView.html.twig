@@ -7,13 +7,14 @@
 		<div class="page-header">
 		  <h1>{{ project.title|e }}</h1>
 		  <a href="/">&lt;-Back</a>
-		<p>My project {% if myproject %}
+		<p>My project
+			{% if myproject %}
 			<a class="btn btn-default" href="/user/project/{{ project_id }}/steps/publish">Add Steps</a>
-			<a class="btn btn-default" href="/user/project/{{ project_id }}/edit">Edit Project</a></p>
+			<a class="btn btn-default" href="/user/project/{{ project_id }}/edit">Edit Project</a>
+			{% endif %}
 		</p>
-
-		{% endif %}
 		</div>
+		<div><img src="{{ vich_uploader_asset(project, 'imageFile') }}" alt="{{ project.title }}"/></div>
 		<h3>Short Decription:</h3>
 		<p>
 		  {{ project.shortDescription|e }}
@@ -51,24 +52,29 @@
 	</div>
 	<div class="col-md-4">
 		<div class="steps-sidebar">
-		<h2>Steps</h2>
+		<h2>Steps{% if myproject %}<a href="/user/project/{{ project_id }}/steps/publish">+</a>{% endif %}</h2>
 		{% for step in steps %}
 			<hr />
-			<strong>{{ step.title }}</strong>
+			<div>
+			<strong>{{ step.title }}</strong> (price: {{ step.price }})
 			<p>{{ step.shortDescription|e }}</p>
+			{% if step.isCompleted %}
+				Completed!
+			{% elseif step.isDisplayPledgeForm %}
+				{{ step.priceToFinish }} credit(s) remaining to achieve this step!
+				{% if error == 1 %}
+					<p><strong>Not enough credits available!</strong></p>
+				{% endif %}
+				<form action="/user/project/{{ project_id }}/pledge" method="post">
+				<input type="number" id="price" name="price" required="required" class="form-control" min="0" max="{{ userCredits.credits }}"">
+				<button type="submit" id="project_save" name="step" class="btn-default btn">Pledge</button>
+				</form>
+			{% else %}
+				Coming next...
+			{% endif %}
+			</div>
 		{% endfor %}
-		{% if error == 1 %}
-			<p>Not enough credits available!</p>
-		{% endif %}
-		<form action="/user/project/{{ project_id }}/pledge" method="post">
-		<input type="number" id="price" name="price" required="required" class="form-control">
-		<button type="submit" id="project_save" name="step" class="btn-default btn">Pledge</button>
-		</form>
 		</div>
-		{% if myproject %}
-		<p><a href="/user/project/{{ project_id }}/steps/publish">Add Steps</a></p>
-		{% endif %}
-
 	</div>
 </div>
 {% endblock %}

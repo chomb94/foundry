@@ -39,6 +39,10 @@ class Step {
      */
     protected $price;
 
+    protected $isCompleted;
+    protected $priceToFinish;
+    protected $displayPledgeForm;
+
     /**
      * Get id
      *
@@ -189,4 +193,72 @@ class Step {
         return $this->price;
     }     
 
+    /**
+     * Set if the step is already completed or not
+     *
+     * @param boolean $isCompleted
+     * @return Step
+     */
+    public function setIsCompleted($isCompleted)
+    {
+        $this->isCompleted = $isCompleted;
+
+        return $this;
+    }  
+
+    /**
+     * Get price
+     *
+     * @return boolean 
+     */
+    public function isCompleted()
+    {
+        return $this->isCompleted;
+    }
+
+    /**
+     * Set price to finish the step
+     *
+     * @param string $priceToFinish
+     * @return integer
+     */
+    public function setPriceToFinish($priceToFinish)
+    {
+        $this->priceToFinish = $priceToFinish;
+
+        return $this;
+    }
+
+    /**
+     * Get price to finish the step
+     *
+     * @return integer 
+     */
+    public function getPriceToFinish()
+    {
+        return $this->priceToFinish;
+    }
+
+    /**
+     * Set if twe should display the pledge form or not
+     *
+     * @param boolean $displayPledgeForm
+     * @return Step
+     */
+    public function setIsDisplayPledgeForm($displayPledgeForm)
+    {
+        $this->displayPledgeForm = $displayPledgeForm;
+
+        return $this;
+    }  
+
+    /**
+     * Tell if we should display the pledge action
+     *
+     * @return boolean 
+     */
+    public function isDisplayPledgeForm()
+    {
+        return $this->displayPledgeForm;
+    }
 }

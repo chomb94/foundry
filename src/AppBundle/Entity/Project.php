@@ -66,16 +66,21 @@ class Project {
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $imageName;
+
+
      /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     */
+    protected $allSteps;
+    protected $allCredits;
+
+     /**
      * @Vich\UploadableField(mapping="project_image", fileNameProperty="imageName")
      * 
      * @var File
      */
     private $imageFile;
-
-
+ 
     /**
      * Get id
      *
@@ -385,4 +390,47 @@ class Project {
     {
         return $this->imageFile;
     }
+
+    public function getSteps()
+    {
+        return $this->allSteps;
+    }
+
+    public function getCredits()
+    {
+        return $this->allCredits;
+    }
+
+    public function setStepsAndCredits($allSteps, $allCredits)
+    {
+        $this->allSteps = $allSteps;
+        $this->allCredits = $allCredits;
+
+        // Computing sum of all credit already pledged
+        $totalAlreadyPledged = 0;
+        foreach ($allCredits as $oneCredit) $totalAlreadyPledged += $oneCredit->getNbCreditsSpent();
+
+        // Checking for each step if it's already completed or not
+        $firstElementToDo = true;
+        foreach ($allSteps as $oneStep) {
+            if ($totalAlreadyPledged >= $oneStep->getPrice()) {
+                $oneStep->setIsCompleted(true);
+                $oneStep->setPriceToFinish(0);
+                $oneStep->setIsDisplayPledgeForm(false);
+                $totalAlreadyPledged -= $oneStep->getPrice();
+            } else if ($totalAlreadyPledged > 0) {
+                $oneStep->setIsCompleted(false);
+                $oneStep->setPriceToFinish($oneStep->getPrice() - $totalAlreadyPledged);
+                $oneStep->setIsDisplayPledgeForm(true);
+                $totalAlreadyPledged = 0;
+                $firstElementToDo = false;
+            } else {
+                $oneStep->setIsCompleted(false);
+                $oneStep->setPriceToFinish($oneStep->getPrice());
+                $oneStep->setIsDisplayPledgeForm($firstElementToDo);
+                $firstElementToDo = false;
+            }
+        }
+    }
+
 }

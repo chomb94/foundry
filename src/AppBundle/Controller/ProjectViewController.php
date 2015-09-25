@@ -21,13 +21,42 @@ class ProjectViewController extends Controller
         $myproject = ($user_id == $project->getUserId());
         $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $id]);
         $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $project]);
-        
+        $user_credits = $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findBy(['user_id' => $user_id])[0];
+        /*
+        // Computing sum of all credit already pledged
+        $totalAlreadyPledged = 0;
+        foreach ($all_credits as $oneCredit) $totalAlreadyPledged += $oneCredit->getNbCreditsSpent();
+
+        // Checking for each step if it's already completed or not
+        $firstElementToDo = true;
+        foreach ($step_list as $oneStep) {
+            if ($totalAlreadyPledged >= $oneStep->getPrice()) {
+                $oneStep->setIsCompleted(true);
+                $oneStep->setPriceToFinish(0);
+                $oneStep->setIsDisplayPledgeForm(false);
+                $totalAlreadyPledged -= $oneStep->getPrice();
+            } else if ($totalAlreadyPledged > 0) {
+                $oneStep->setIsCompleted(false);
+                $oneStep->setPriceToFinish($oneStep->getPrice() - $totalAlreadyPledged);
+                $oneStep->setIsDisplayPledgeForm(true);
+                $totalAlreadyPledged = 0;
+                $firstElementToDo = false;
+            } else {
+                $oneStep->setIsCompleted(false);
+                $oneStep->setPriceToFinish($oneStep->getPrice());
+                $oneStep->setIsDisplayPledgeForm($firstElementToDo);
+                $firstElementToDo = false;
+            }
+        }
+        */
+        $project->setStepsAndCredits($step_list, $all_credits);
 
         return $this->render('default/projectView.html.twig', [
             'project' => $project,
             'project_id' => $id,
             'myproject' => $myproject,
-            'steps' => $step_list,
+            'userCredits' => $user_credits,
+            'steps' => $project->getSteps(),
             'error' => $request->get("error", 0),
         ]); 
     }
