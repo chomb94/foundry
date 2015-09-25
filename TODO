@@ -1,4 +1,5 @@
 Need have:
+- Virer les TODO
 - End date
 - Fiche projet
 - Tri des projets sur la HP par plus récent en premier
@@ -6,6 +7,9 @@ Need have:
 - Gérer les palliers
 - Moteur de recherche
 - Ajouter Filkatr pour aider à présenter :) (en embed des slidshare, par exemple)
+- Ajouter nom de l'auteur du projet + Récupérer photo
+- Partager le projet
+- Faire un badge "Winner" quand les steps sont atteins (n faire plusieur en fonciton premier steps vs tous les steps)
 
 Must Have:
 - La date de fin doit etre < à une date D+90 jours (par exemple)
