@@ -3,7 +3,7 @@
 {% block body %}
 <div class="page-header text-center">
   <h1>{{ project.title|e }}</h1>
-  <p>By {{ project.user.username }}</p>
+  <p>By {{ project.user.nickname }}</p>
   <p>It's my project : 
 	{% if myproject %}
 	<a class="" href="/user/project/{{ project_id }}/steps/publish">Add Steps</a>

@@ -48,6 +48,13 @@ class UserGoogle extends OAuthUser
      */
     protected $profilePicture;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nickname", type="string", length=255, nullable=true)
+     */
+    protected $nickname;
+
 
     public function __construct()
     {
@@ -165,6 +172,21 @@ class UserGoogle extends OAuthUser
     public function getProfilePicture()
     {
         return $this->profilePicture;
+    }
+
+    /* @param string $nickname
+     */
+    public function setNickname($nickname)
+    {
+        $this->nickname = $nickname;
+    }
+ 
+    /**
+     * @return string
+     */
+    public function getNickname()
+    {
+        return $this->nickname;
     }
 
 }

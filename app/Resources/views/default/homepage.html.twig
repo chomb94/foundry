@@ -4,7 +4,7 @@
 {% block jumbotron %}
 <div class="jumbotron" style="background-image: url(/assets/images/jumbotronbck{{ backgroundImgNum }}-dark.jpg)">
   <h1>He, Welcome!</h1>
-  <p>Welcome {{ user.username| default("toto") }}!</p>
+  <p>Welcome {{ user.nickname | default("to you") }}</p>
   <a class="btn btn-lg" href="/user/project/publish"><span class="glyphicon glyphicon-certificate ico ico-big-jumbotron"></span> Start your project !</a>
 </div>
 
