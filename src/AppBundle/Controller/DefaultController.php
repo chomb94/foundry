@@ -16,6 +16,13 @@ class DefaultController extends Controller
     {
     	$user = $this->getUser();
         $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->findAll();
+
+        foreach ($projects as $oneProject) {
+            $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
+            $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
+            $oneProject->setStepsAndCredits($step_list, $all_credits);
+        }
+
         $randonum= rand(1,2);
 
         // replace this example code with whatever you need

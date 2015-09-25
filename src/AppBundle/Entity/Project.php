@@ -433,4 +433,19 @@ class Project {
         }
     }
 
+    public function getPercentageOfProgress()
+    {
+        $percentage = 0;
+
+        $step_currentValue = 0;
+        $step_totalValue = 1;
+        foreach ($this->allSteps as $oneStep) {
+            if ($oneStep->getPriceToFinish() > 0) {
+                $step_currentValue = $oneStep->getPrice() - $oneStep->getPriceToFinish();
+                $step_totalValue = $oneStep->getPrice();
+                break;
+            }
+        }
+        return round($step_currentValue * 100 / $step_totalValue);
+    }
 }
