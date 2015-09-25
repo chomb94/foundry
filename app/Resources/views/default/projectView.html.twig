@@ -17,13 +17,14 @@
 
 <div class="row">
 	<div class="col-md-8 project-container">
-		<div><img width="100%" src="{{ vich_uploader_asset(project, 'imageFile') }}" alt="{{ project.title }}"/></div>
+		<div>
+			<img width="100%" src="{{ vich_uploader_asset(project, 'imageFile') }}" alt="{{ project.title }}"/>
+		</div>
 		<div class="project-container-text">
 			<div class="Project-shortdescription">
 				<p>
 				  {{ project.shortDescription|e }}
 				</p>
-				<p>TODO : Add Statistics and other infos HERE</p>
 			</div>
 			<hr>
 			<h3>Full Description:</h3>
@@ -53,13 +54,13 @@
 			</p>
 
 			<p>
-			Creation Date:????????
+			Creation Date: {{ project.creationDate.date }}
 			</p>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<div class="steps-sidebar">
-		<h2>Steps{% if myproject %}<a href="/user/project/{{ project_id }}/steps/publish">+</a>{% endif %}</h2>
+		<h2>Steps{% if myproject %}{% endif %}</h2>
 		{% for step in steps %}
 			<div class="one-step {% if step.isCompleted %}completed{% elseif step.isDisplayPledgeForm %}inprogress{% else %}tocomplete{% endif %}">
 			<div class="step-title">
@@ -93,7 +94,7 @@
 		{% endfor %}
 		</div>
 		<div class="sidebar-footer text-center">
-			<a href="" class="btn btn-default btn-xs">Add a new step</a>	
+			<a href="/user/project/{{ project_id }}/steps/publish" class="btn btn-default btn-xs">Add a new step</a>	
 		</div>
 	</div>
 </div>

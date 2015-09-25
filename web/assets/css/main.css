@@ -197,23 +197,23 @@ body {
 }
 
 .steps-sidebar  h3 {
-   padding: 6px 0px 14px;
+   padding: 8px 0px 14px;
    margin: 0;
    font-size: 18px;
 }
 
 .steps-sidebar > .one-step {
-  margin: 16px 8px;
+    margin: 12px 4px;
+    padding: 12px 16px;
+    text-align: justify;
 }
 
 .steps-sidebar > .tocomplete {
-    padding: 12px 8px;
     color: #999;
     background-color: #f6f6f6;
 }
 
 .steps-sidebar > .inprogress {
-    padding: 12px 8px;
     color: #31708f;
     background-color: #d9edf7;
     border-color: #bce8f1;
@@ -221,7 +221,6 @@ body {
 }
 
 .steps-sidebar > .completed {
-    padding: 12px 8px;
     color: #3c763d;
     background-color: #dff0d8;
     border-color: #d6e9c6;
@@ -231,8 +230,13 @@ body {
   margin-top: 12px;
 }
 
+.project-edit {
+  background-color: #fff;
+}
+
 .project-container-text {
-  padding: 12px;
+  padding: 24px;
+  text-align: justify;
 }
 
 .project-image-container {

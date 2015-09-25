@@ -16,11 +16,11 @@ class UserStepsEditController extends Controller
     public function stepEditAction(Request $request, $id)
     {
         $step_init = $this->get("doctrine")->getRepository("AppBundle:Step")->find($id);
+        $user = $this->getUser();
         $form = $this->createForm(new StepType(), $step_init);
         $form->handleRequest($request);
         $step = $form->getData();
         $project_id = $step_init->getProjectId();
-        var_dump($project_id);
         $project = $this->get("doctrine")->getRepository("AppBundle:Project")->find($project_id);
 
 
@@ -41,6 +41,7 @@ class UserStepsEditController extends Controller
             'project_title' => $project->getTitle(),
             'project_id' => $project->getId(),
             'steps' => $step_list,
+            'user' => $user,
             'menu_myprojects' => 'active',
         ]);
     }

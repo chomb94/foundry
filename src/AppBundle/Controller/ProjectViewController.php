@@ -22,7 +22,6 @@ class ProjectViewController extends Controller
         $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $id]);
         $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $project]);
         $user_credits = $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findBy(['user_id' => $user_id])[0];
-
         $project->setStepsAndCredits($step_list, $all_credits);
 
         return $this->render('default/projectView.html.twig', [
