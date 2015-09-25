@@ -50,8 +50,10 @@
                   <li><a href="/login">Google Connect</a></li>
                 </ul>
               </li>
-              <li>{{ user.username }}</li>
-              <li><img src="{{ user.profilePicture }}" alt="{{ user.username }}" width=50 height=50/></li>
+              {% if user %}
+                <li>{{ user.username }}</li>
+                <li><img src="{{ user.profilePicture }}" alt="{{ user.username }}" width=50 height=50/></li>
+              {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div>
