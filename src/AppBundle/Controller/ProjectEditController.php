@@ -28,7 +28,7 @@ class ProjectEditController extends Controller
            // perform some action, such as saving the task to the database
            // Store in DB
            $project->setCreationDate(new \DateTime());
-           $project->setUserId($user_id);
+           $project->setUser($user);
            $manager = $this->get("doctrine")->getManager();
            $manager->persist($project);
            $manager->flush();
