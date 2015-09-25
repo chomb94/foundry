@@ -25,11 +25,6 @@ class UserGoogle extends OAuthUser
     protected $username;
 
     /**
-     * @ORM\Column(type="string", length=64)
-     */
-    protected $password;
-
-    /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
     protected $email;
@@ -45,6 +40,14 @@ class UserGoogle extends OAuthUser
      * @ORM\Column(name="is_active", type="boolean")
      */
     protected $isActive;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profile_picture", type="string", length=255, nullable=true)
+     */
+    protected $profilePicture;
+
 
     public function __construct()
     {
@@ -63,11 +66,6 @@ class UserGoogle extends OAuthUser
         // you *may* need a real salt depending on your encoder
         // see section on salt below
         return null;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
     }
 
     /**
@@ -89,19 +87,6 @@ class UserGoogle extends OAuthUser
     public function setUsername($username)
     {
         $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
 
         return $this;
     }
@@ -143,6 +128,7 @@ class UserGoogle extends OAuthUser
     {
         return $this->googleId;
     }
+
     /**
      * Set isActive
      *
@@ -165,4 +151,20 @@ class UserGoogle extends OAuthUser
     {
         return $this->isActive;
     }
+
+    /* @param string $profilePicture
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+    }
+ 
+    /**
+     * @return string
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
+    }
+
 }

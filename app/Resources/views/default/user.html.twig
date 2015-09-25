@@ -6,6 +6,7 @@
             <div id="welcome">
                 <h1><span>I am {{ user.username | e }}, my id is ({{user.id}})</span></h1>
                 <h1><span>I have {{ credits.getCredits | default("0") }} credit(s)</span></h1>
+                <img src="{{ user.profilePicture}} " alt="{{ user.username | e }}"/>
             </div>
         </div>
     </div>

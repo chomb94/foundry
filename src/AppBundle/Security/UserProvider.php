@@ -16,9 +16,9 @@ class UserProvider extends EntityUserProvider {
             // User not found, let's register them.
             $user = new UserGoogle();
             $user->setEmail($response->getEmail());
-            $user->setPassword('toto');
             $user->setGoogleId($response->getUsername());
             $user->setUsername($response->getEmail());
+            $user->setProfilePicture($response->getProfilePicture());
 
             $this->em->persist($user);
             $this->em->flush();
