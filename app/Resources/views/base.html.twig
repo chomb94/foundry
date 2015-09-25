@@ -61,7 +61,7 @@
                   </ul>
               </li>
             {% if user %}
-              <li><img src="{{ user.profilePicture }}" alt="{{ user.username }}" width=50 height=50/></li>
+              <li><img src="{{ user.profilePicture }}" alt="{{ user.username }}" class="img-navbar"/></li>
             {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
@@ -79,13 +79,13 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-2">
-              <img src="{{ asset('assets/images/noneshallpass.png') }}" alt="None shall pass" width="150px">
+              <img src="{{ asset('assets/images/noneshallpass.png') }}" alt="None shall pass" width="150px" />
             </div>
             <div class="col-lg-8">
                None shall pass ! It is the end of the page.
             </div>
             <div class="col-lg-2 footer-sillywalk">
-              <img src="{{ asset('assets/images/silly-walk.gif') }}" alt="None shall pass" width="100px">
+              <img src="{{ asset('assets/images/silly-walk.gif') }}" alt="None shall pass" width="100px" />
             </div>
           </div>
         </div>
