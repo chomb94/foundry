@@ -439,7 +439,7 @@ class Project {
         $percentage = 0;
 
         $step_currentValue = $this->getNbCreditsDone();
-        $step_totalValue = $this->getNbCreditsTotal();
+        $step_totalValue = ($this->getNbCreditsTotal() == 0 ? 1 : $this->getNbCreditsTotal());
         return round($step_currentValue * 100 / $step_totalValue);
     }
 
