@@ -19,10 +19,6 @@ class Project {
      */
     protected $id;
     /**
-     * @ORM\Column(type="integer")
-     */
-    protected $user_id;
-    /**
      * @ORM\Column(type="string", length=100)
      */
     protected $title;
@@ -66,6 +62,11 @@ class Project {
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $imageName;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserGoogle")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
 
 
      /**
@@ -92,26 +93,26 @@ class Project {
     }
 
     /**
-     * Set user_id
+     * Set user
      *
-     * @param string $use_id
-     * @return integer
+     * @param UserGoogle $user
+     * @return Project
      */
-    public function setUserId($user_id)
+    public function setUser($user)
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get user_id
+     * Get user
      *
-     * @return integer 
+     * @return UserGoogle
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->user_id;
+        return $this->user;
     }
     
 
