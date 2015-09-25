@@ -14,15 +14,15 @@ class UserController extends Controller
     public function userMainAction()
     {
         $user = $this->getUser();
-        $userCredits = $this->get("doctrine")->getRepository("AppBundle:UserCredits")->find($user->getId());
-        
+        $userCredits = $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findBy(array('user_id' => $user->getId()))[0];
+
         $projectsPledged = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(array('user_id' => $user->getId()));
 
         // replace this example code with whatever you need
         return $this->render('default/user.html.twig', array(
             'menu_myprofile' => 'active',
             'user' => $user,
-            'credits' => $userCredits,
+            'userCredits' => $userCredits,
             'projectsPledged' => $projectsPledged,
         ));
     }
