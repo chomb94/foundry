@@ -22,7 +22,7 @@ class UserStepsController extends Controller
         $user = $this->getUser();
         $user_id = $user->getId();
         // Est-ce bien mon projet ?
-        if ($project->getUserId() <> $user_id) die();
+        if ($project->getUser()->getId() <> $user_id) die();
 
         $form = $this->createForm(new StepType());
         $form->handleRequest($request);
