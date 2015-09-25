@@ -8,7 +8,7 @@
           <img src="{{ vich_uploader_asset(project, 'imageFile') }}" alt="{{ project.title }}"/>
       </div>
       <div class="project-image-container">
-        <img src="{{ user.profilePicture }}" alt="{{ user.nickname | e }}" class="img-project">
+        <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">
       </div>
       <div class="cropdescription">
           {{ project.shortDescription|e }}
