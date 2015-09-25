@@ -12,7 +12,6 @@
 		<link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        
     </head>
     <body role="document">
 
@@ -31,17 +30,6 @@
             <ul class="nav navbar-nav">
               <li class="{{ menu_hp | default('')}}"><a href="/">Home</a></li>
               <li class="{{ menu_start | default('')}}"><a href="/user/project/publish">Start a project</a></li>
-
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cool Features <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/user/project/publish">Start your project</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Other</li>
-                  <li><a href="/admin">Admin</a></li>
-                  <li><a href="/login">Google Connect</a></li>
-                </ul>
-              </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
