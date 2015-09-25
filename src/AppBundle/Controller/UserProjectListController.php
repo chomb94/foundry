@@ -15,7 +15,7 @@ class UserProjectListController extends Controller
     public function userProjectList()
     {
         $user = $this->getUser();
-        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->findBy(array('user_id' => $user->getId()));
+        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->findByUser($user);
 
         foreach ($projects as $oneProject) {
             $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
