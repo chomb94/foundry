@@ -93,9 +93,11 @@
 			</div>
 		{% endfor %}
 		</div>
+		{% if myproject %}
 		<div class="sidebar-footer text-center">
 			<a href="/user/project/{{ project_id }}/steps/publish" class="btn btn-default btn-xs">Add a new step</a>	
 		</div>
+		{% endif %}
 	</div>
 </div>
 {% endblock %}

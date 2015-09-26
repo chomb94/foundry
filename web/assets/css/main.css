@@ -8,10 +8,11 @@ body {
 }
 
 @font-face {
-  font-family: 'Audiowide';
+  /* font-family: 'Audiowide'; */
+  font-family: 'Quicksand', sans-serif;
   font-style: normal;
   font-weight: 400;
-  src: local('Audiowide'), local('Audiowide-Regular'), url(http://themes.googleusercontent.com/static/fonts/audiowide/v2/8XtYtNKEyyZh481XVWfVOj8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+  /* src: local('Audiowide'), local('Audiowide-Regular'), url(http://themes.googleusercontent.com/static/fonts/audiowide/v2/8XtYtNKEyyZh481XVWfVOj8E0i7KZn-EPnyo3HZu7kw.woff) format('woff'); */
 }
 
 .jumbotron {
@@ -24,13 +25,13 @@ body {
     text-shadow: rgba(0, 0, 0, 0.498039) 0px 1px 3px;
 }
 
-/*
 .jumbotron .btn  {
-  box-shadow: 0px 0px 32px rgba(0, 0, 0, 0.5); 
-  text-shadow: none;
+    font-size: 24px;
+    box-shadow: 0px 0px 32px rgba(0, 0, 0, 0.2); 
+    text-shadow: none;
 }
-*/
 
+/*
 .jumbotron .btn:hover  {
     color: #fff;
     -webkit-animation: neon5 1.5s ease-in-out infinite alternate;
@@ -40,15 +41,16 @@ body {
 
 
 .jumbotron .btn {
-    font-size: 48px;
+    font-size: 32px;
     font-family: Audiowide;
     color: #FF9900;
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  transition: all 0.5s;}
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;}
+*/
 
 .ico-big-jumbotron {
-    font-size: 36px;
+    /* font-size: 36px; */
 }
 
 .jumbotron-footer>a {
@@ -252,13 +254,13 @@ body {
 
 .img-project-main,
 .img-project {
-    width: 48px;
-    height: 48px;
-    -webkit-border-radius: 24px;
-    -moz-border-radius: 24px;
-    border-radius: 24px;
+    width: 56px;
+    height: 56px;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
     margin: 6px 0 0 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
     border: 1px solid white;
 }
 

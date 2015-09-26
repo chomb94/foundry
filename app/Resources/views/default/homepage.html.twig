@@ -2,10 +2,10 @@
 
 
 {% block jumbotron %}
-<div class="jumbotron" style="background-image: url(/assets/images/jumbotronbck{{ backgroundImgNum }}-dark.jpg)">
+<div class="jumbotron" style="background-image: url(/assets/images/btf-car2.jpg)">
   <h1>He, Welcome!</h1>
   <p>Welcome {{ user.nickname | default("to you") }}</p>
-  <a class="btn btn-lg" href="/user/project/publish"><span class="glyphicon glyphicon-certificate ico ico-big-jumbotron"></span> Start your project !</a>
+  <a class="btn btn-lg btn-success" href="/user/project/publish">Start your project</a>
 </div>
 
 {% endblock %}
