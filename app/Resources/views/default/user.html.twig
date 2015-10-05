@@ -4,9 +4,9 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>I am {{ user.nickname | e }}, my id is ({{user.id}})</span></h1>
+                <h1><span>I am {{ user.nickname | e }}</span></h1>
                 <h1><span>I have {{ userCredits.credits | default("0") }} credit(s)</span></h1>
-                <img src="{{ user.profilePicture}} " alt="{{ user.username | e }}"/>
+                <img class="img-profile-main" src="{{ user.profilePicture}} " alt="{{ user.username | e }}"/>
             </div>
         </div>
     </div>

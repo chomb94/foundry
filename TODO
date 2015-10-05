@@ -1,21 +1,20 @@
 Need have:
+- Categorier
 - Virer les TODO
 - End date
-- Fiche projet
-- Tri des projets sur la HP par plus récent en premier
-- Modifier un projet
-- Gérer les palliers
-- Moteur de recherche
-- Ajouter Filkatr pour aider à présenter :) (en embed des slidshare, par exemple)
-- Ajouter nom de l'auteur du projet + Récupérer photo
-- Partager le projet
-- Faire un badge "Winner" quand les steps sont atteins (n faire plusieur en fonciton premier steps vs tous les steps)
-- Project view:	<p>TODO : Add Statistics and other infos HERE</p>
 - Faire blog sur fiche projet
 - Faire messagerie publique
+- Partager le projet (créer un widget)
+- Faire un badge "Winner" quand les steps sont atteins (n faire plusieur en fonciton premier steps vs tous les steps)
+- Ajouter Filkatr pour aider à présenter :) (en embed des slidshare, par exemple)
+- Project view:	<p>TODO : Add Statistics and other infos HERE</p>
+- Tri des projets sur la HP par plus récent en premier ou date end plus proche
+- Moteur de recherche
+- Lien/import d'une presentation google
 
 
 Must Have:
+- Envoyer des alertes mail quand new projet/message recu/pledge recu (toute activite)
 - Fzire mailto pour contact direct
 - Pledge : "Je veux jsute soutenir le projet" sans mise (comme une sorte de vote)
 - La date de fin doit etre < à une date D+90 jours (par exemple)
