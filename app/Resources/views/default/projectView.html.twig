@@ -6,13 +6,13 @@
   <p>By {{ project.user.nickname }}
   <img src="{{ project.user.profilePicture }}" class="img-project-main"/>
   </p>
+{% if myproject %}
   <p>It's my project : 
-	{% if myproject %}
-	<a class="" href="/user/project/{{ project_id }}/steps/publish">Add Steps</a>
-	-
-	<a class="" href="/user/project/{{ project_id }}/edit">Edit Project</a>
-	{% endif %}
-</p>
+  <a class="" href="/user/project/{{ project_id }}/steps/publish">Add Steps</a>
+  -
+  <a class="" href="/user/project/{{ project_id }}/edit">Edit Project</a>
+  </p>
+{% endif %}
 </div>
 
 <div class="row">
@@ -59,6 +59,13 @@
 		</div>
 	</div>
 	<div class="col-md-4">
+		<div class="steps-sidebar summary">
+			<h2>Summary</h2>
+			<p>
+				<span class="summary_days_label">Days to go: <span class="summary_days {% if project.getDaysToGo < 10 %}red{% endif %}">{{ project.getDaysToGo }}</span></span>
+			</p>
+
+		</div>
 		<div class="steps-sidebar">
 		<h2>Steps{% if myproject %}{% endif %}</h2>
 		{% for step in steps %}

@@ -19,7 +19,12 @@
         </div>
       </div>
       <div class="panel-footer">
-        <p>{{ project.nbCreditsDone }} <span class="text-light">credits</span> / {{ project.nbCreditsTotal }} <span class="text-light">total credits</span></p>
+        <div class="left"
+          <p>{{ project.nbCreditsDone }} <span class="text-light">credits</span> / {{ project.nbCreditsTotal }} <span class="text-light">total credits</span></p>
+        </div>
+        <div class="right">
+          <p><span class="{% if project.getDaysToGo < 10 %}red{% endif %}">{{ project.getDaysToGo }}</span><span class="text-light"> days to go</span></p>
+        </div>
       </div>
       <p>
       	<a class="btn btn-default" href="/project/view/{{ project.id }}" role="button">View details »</a>

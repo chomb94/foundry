@@ -58,6 +58,10 @@ h1 {
     transition: all 0.5s;}
 */
 
+.red {
+  color: #FF0000;
+}
+
 .ico-big-jumbotron {
     /* font-size: 36px; */
 }
@@ -130,7 +134,7 @@ h1 {
     display: block;
     height: 100px;
     font-size: 12px;
-    margin: 32px 0 8px 0;
+    margin: 32px 0 32px 0;
     text-align: justify;
 }
 
@@ -209,12 +213,13 @@ h1 {
 
 .steps-sidebar {
     background-color: white;
-    margin: 0px;
+    margin: 0px 0px 32px 0px;
     padding: 4px;
 }
 
 .steps-sidebar > h2 {
-   padding: 8px 8px;
+  margin: 6px 0;
+   padding: 8px 8px 8px;
    text-align: center;
 }
 
@@ -250,6 +255,22 @@ h1 {
 
 .step-sidebar-description {
   margin-top: 12px;
+}
+
+.summary {
+  padding-bottom: 16px;
+  text-align: center;
+}
+
+.summary_days {
+  position: relative;
+  top: 5px;
+  font-size: 30px;
+  margin: 0px 8px;
+}
+
+.summary_days_label {
+  vertical-align: middle;
 }
 
 .project-edit {
@@ -372,5 +393,6 @@ h1 {
 .projectCard {
   cursor:pointer;
 }
+
 
 

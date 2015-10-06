@@ -462,4 +462,13 @@ class Project {
         foreach ($this->allSteps as $oneStep) $nbCredits += $oneStep->getPrice();
         return $nbCredits;
     }
+
+
+    public function getDaysToGo()
+    {
+        $endDate = $this->getEndDate()->getTimestamp();
+        $now = time();
+        $diff = (integer)(($endDate - $now) / (60 * 60 * 24));
+        return $diff;
+    }
 }
