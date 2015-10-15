@@ -2,8 +2,7 @@
 
 
 {% block jumbotron %}
-<div class="jumbotron" style="background-image: url(/assets/images/btf-car2.jpg)">
-  <h1>He, Welcome!</h1>
+<div class="jumbotron">
   <p>Welcome {{ user.nickname | default("to you") }}</p>
   <a class="btn btn-lg btn-success" href="/user/project/publish">Start your project</a>
 </div>
