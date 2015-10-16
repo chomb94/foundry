@@ -29,7 +29,7 @@
 		{{ form_widget(form.endDate, {help_text:"Do you have a deadline for this project?"}) }}
 		{{ form_errors(form.endDate) }}
 
-		{{ form_label(form.videoUrl) }}
+		{# form_label(form.videoUrl) }}
 		{{ form_widget(form.videoUrl, {help_text:"Embeded youtube URL if you have one..."}) }}
 		{{ form_errors(form.videoUrl) }}
 
@@ -59,7 +59,7 @@
 
 		{{ form_label(form.published) }}
 		{{ form_widget(form.published, {help_text:"toto toto tata"}) }}
-		{{ form_errors(form.published) }}
+		{{ form_errors(form.published) #}
 
 		{{ form_rest(form) }}
 

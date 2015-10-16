@@ -27,31 +27,39 @@
 				</p>
 			</div>
 			<hr>
+
+			{% if project.videoUrl != '' %}
 			<h3>Full Description:</h3>
 			<p>
 			  {{ project.fullDescription|e }}
 			</p>
+			{% endif %}
 
 			{% if project.videoUrl != '' %}
 			<h3>Video:</h3>
 			<iframe width="560" height="315" src="{{ project.videoUrl|e }}" frameborder="0" allowfullscreen></iframe>
-
 			{% endif %}
 
+			{% if project.team != '' %}
 			<h3>People needed:</h3>
 			<p>
 			  {{ project.team|e }}
 			</p>
+			{% endif %}
 
+			{% if project.risksChallenges != '' %}
 			<h3>Risks and Challenges:</h3>
 			<p>
 			  {{ project.risksChallenges|e }}
 			</p>
+			{% endif %}
 
+			{% if project.deliveryPromise != '' %}
 			<h3>DeliveryPromise:</h3>
 			<p>
 			  {{ project.deliveryPromise|e }}
 			</p>
+			{% endif %}
 
 			<p>
 			Creation Date: {{ project.creationDate.date }}
