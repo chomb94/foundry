@@ -17,3 +17,7 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # Google Sign-In
+    google_client_id: put your google client id
+    google_secret: put your google secret
