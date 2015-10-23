@@ -1,0 +1,7 @@
+parameters:
+    app.user.provider.class: AppBundle\Security\UserProvider
+
+services:
+    app.user.provider:
+        class: %app.user.provider.class%
+        arguments: [@doctrine, 'AppBundle\Entity\UserGoogle', { google: googleId}, 'default']
