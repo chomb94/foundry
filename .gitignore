@@ -36,6 +36,10 @@
 # Composer PHAR
 /composer.phar
 
+# Uploads
+web/assets/uploads/projects
+!web/assets/uploads/projects/.gitkeep
+
 # Because we love apple juice with ice cubes
 .DS_Store
 nbproject

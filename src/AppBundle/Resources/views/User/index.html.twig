@@ -1,12 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
 
 {% block body %}
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>I am {{ user.nickname | e }}</span></h1>
+                <h1><span>I am {{ user.nickname }}</span></h1>
                 <h1><span>I have {{ userCredits.credits | default("0") }} credit(s)</span></h1>
-                <img class="img-profile-main" src="{{ user.profilePicture}} " alt="{{ user.username | e }}"/>
+                <img class="img-profile-main" src="{{ user.profilePicture }} " alt="{{ user.username }}"/>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
                 <h1><span>Pledged projects</span></h1>
                 <ul>
             	{% for projectPledged in projectsPledged %}
-                	<li>{{ projectPledged.nbCreditsSpent }} credit(s) spent for project <a href="/project/view/{{ projectPledged.project.id }}"><strong>{{ projectPledged.project.title | e }}</strong></a> ({{ projectPledged.pledgeDate | date('d M Y, h:m:s') }})</li>
+                	<li>{{ projectPledged.nbCreditsSpent }} credit(s) spent for project <a href="{{ path('projectView', {id: projectPledged.project.id}) }}"><strong>{{ projectPledged.project.title }}</strong></a> ({{ projectPledged.pledgeDate | date('d M Y, h:m:s') }})</li>
                 {% endfor %}
                 </ul>
             </div>

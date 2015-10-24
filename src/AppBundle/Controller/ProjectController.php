@@ -42,7 +42,6 @@ class ProjectController extends Controller
 
         return [
             'project'     => $project,
-            'project_id'  => $id,
             'myproject'   => $myproject,
             'userCredits' => $user_credits,
             'steps'       => $project->getSteps(),
@@ -83,7 +82,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * @Route("/project/list", name="projectList')
+     * @Route("/project/list", name="projectList")
      * @Security("has_role('ROLE_USER')")
      * @Template()
      */
@@ -140,7 +139,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * @Route("/project/publish", name="projectPublish')
+     * @Route("/project/publish", name="projectPublish")
      * @Security("has_role('ROLE_USER')")
      * @Template()
      */
@@ -168,7 +167,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * @Route("/project/step/{id}/edit", name="projectStepEdit')
+     * @Route("/project/step/{id}/edit", name="projectStepEdit")
      * @Security("has_role('ROLE_USER')")
      * @Template("AppBundle:Project:step.html.twig")
      */
@@ -198,8 +197,7 @@ class ProjectController extends Controller
 
         return [
             'form'            => $form->createView(),
-            'project_title'   => $project->getTitle(),
-            'project_id'      => $project->getId(),
+            'project'         => $project,
             'steps'           => $step_list,
             'user'            => $user,
             'menu_myprojects' => 'active',
@@ -207,11 +205,11 @@ class ProjectController extends Controller
     }
 
     /**
-     * @Route("/user/project/{id}/steps/publish", name="projectStepPublish')
+     * @Route("/user/project/{id}/steps/publish", name="projectStepPublish")
      * @Security("has_role('ROLE_USER')")
      * @Template("AppBundle:Project:step.html.twig")
      */
-    public function publishStepAction($id, Request $request)
+    public function stepPublishAction($id, Request $request)
     {
         $project    = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
         $project_id = $project->getId();
@@ -238,8 +236,7 @@ class ProjectController extends Controller
 
         return [
             'form'            => $form->createView(),
-            'project_title'   => $project->getTitle(),
-            'project_id'      => $project->getId(),
+            'project'         => $project,
             'steps'           => $step_list,
             'menu_myprojects' => 'active',
             'user'            => $user,

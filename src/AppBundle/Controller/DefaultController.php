@@ -16,8 +16,6 @@ class DefaultController extends Controller
     {
     	$user = $this->getUser();
 
-        // ***
-        // @TODO must be optimized
         $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->findAll();
 
         foreach ($projects as $oneProject) {
@@ -25,7 +23,6 @@ class DefaultController extends Controller
             $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
             $oneProject->setStepsAndCredits($step_list, $all_credits);
         }
-        // ***
 
         return array(
             'menu_hp' => 'active',
