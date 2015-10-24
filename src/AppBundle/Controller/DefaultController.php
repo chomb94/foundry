@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Base\BaseController;
 
 class DefaultController extends BaseController
@@ -15,7 +14,7 @@ class DefaultController extends BaseController
      */
     public function indexAction()
     {
-    	$user = $this->getUser();
+        $user = $this->getUser();
 
         $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->findAll();
 
@@ -32,4 +31,3 @@ class DefaultController extends BaseController
         );
     }
 }
-

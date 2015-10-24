@@ -19,4 +19,3 @@ class AdminController extends BaseController
         return array();
     }
 }
-

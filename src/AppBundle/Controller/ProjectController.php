@@ -2,11 +2,9 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
@@ -16,7 +14,6 @@ use AppBundle\Base\BaseController;
 
 class ProjectController extends BaseController
 {
-
     /**
      * @Route("/project/view/{id}", name="projectView")
      * @Security("has_role('ROLE_USER')")
@@ -131,6 +128,7 @@ class ProjectController extends BaseController
             $manager = $this->get("doctrine")->getManager();
             $manager->persist($project);
             $manager->flush();
+
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
         }
 
@@ -159,6 +157,7 @@ class ProjectController extends BaseController
             $manager = $this->get("doctrine")->getManager();
             $manager->persist($project);
             $manager->flush();
+
             return $this->redirectToRoute('projectStepPublish', ['id' => $project->getId(), 'user' => $user]);
         }
 
@@ -219,7 +218,7 @@ class ProjectController extends BaseController
         $user       = $this->getUser();
         $user_id    = $user->getId();
 
-        if ($project->getUser()->getId() <> $user_id) {
+        if ($project->getUser()->getId() != $user_id) {
             throw $this->createAccessDeniedException();
         }
 
@@ -245,5 +244,4 @@ class ProjectController extends BaseController
             'user'            => $user,
         ];
     }
-
 }

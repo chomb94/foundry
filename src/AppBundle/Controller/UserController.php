@@ -2,16 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Base\BaseController;
 
 class UserController extends BaseController
 {
-
     /**
      * @Route("/user/profile", name="userIndex")
      * @Security("has_role('ROLE_USER')")
@@ -31,5 +28,4 @@ class UserController extends BaseController
             'projectsPledged' => $projectsPledged,
         ];
     }
-
 }
