@@ -50,7 +50,7 @@ class Project
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $published;
+    protected $published = false;
     /**
      * @ORM\Column(type="datetime")
      */
@@ -77,7 +77,7 @@ class Project
 
     /**
      * @Vich\UploadableField(mapping="project_image", fileNameProperty="imageName")
-     * 
+     *
      * @var File
      */
     private $imageFile;

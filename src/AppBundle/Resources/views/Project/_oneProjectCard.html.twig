@@ -1,11 +1,11 @@
-<div class="col-sm-4 projectCard" data-url="/project/view/{{ project.id }}">
+<div class="col-sm-4 projectCard" data-url="{{ path('projectView', {id: project.id}) }}">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title project_title_panel">{{ project.title|e }}</h3>
     </div>
     <div class="panel-body">
       <div class="crop">
-          <img src="{{ vich_uploader_asset(project, 'imageFile') }}" alt="{{ project.title }}"/>
+          <img src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title }}"/>
       </div>
       <div class="project-image-container">
         <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">

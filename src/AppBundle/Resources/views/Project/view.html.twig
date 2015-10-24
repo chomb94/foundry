@@ -18,7 +18,7 @@
 <div class="row">
 	<div class="col-md-8 project-container">
 		<div>
-			<img width="100%" src="{{ vich_uploader_asset(project, 'imageFile') }}" alt="{{ project.title|e('html_attr') }}"/>
+			<img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/>
 		</div>
 		<div class="project-container-text">
 			<div class="Project-shortdescription">
@@ -96,7 +96,7 @@
                         {% if error == 1 %}
                             <p><strong>Not enough credits available!</strong></p>
                         {% endif %}
-                        <form action="{{ path('projectPledge', {id: project.id}) }}/pledge" method="post">
+                        <form action="{{ path('projectPledge', {id: project.id}) }}" method="post">
                             <input type="number" id="price" name="price" required="required" class="form-control input-price" min="0" max="{{ userCredits.credits }}">
                             <button type="submit" id="project_save" name="step" class="btn-success btn"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Pledge</button>
                         </form>
@@ -109,7 +109,7 @@
 		</div>
 		{% if myproject %}
 		<div class="sidebar-footer text-center">
-			<a href="{{ path('projectStepPublish', {id: project_id}) }}" class="btn btn-default btn-xs">Add a new step</a>
+			<a href="{{ path('projectStepPublish', {id: project.id}) }}" class="btn btn-default btn-xs">Add a new step</a>
 		</div>
 		{% endif %}
 	</div>

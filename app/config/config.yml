@@ -82,7 +82,7 @@ vich_uploader:
 
     mappings:
         project_image:
-            uri_prefix:         /uploads/projects
+            uri_prefix:         uploads/projects
             upload_destination: %kernel.root_dir%/../web/uploads/projects
             inject_on_load:     false
             delete_on_update:   true
