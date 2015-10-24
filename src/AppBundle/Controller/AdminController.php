@@ -14,7 +14,7 @@ class AdminController extends Controller
      * @Security("has_role('ROLE_ADMIN')")
      * @Template()
      */
-    public function adminAction()
+    public function indexAction()
     {
         return array();
     }

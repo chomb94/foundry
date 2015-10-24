@@ -1,34 +1,35 @@
 <?php
+
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 
 class SecurityController extends Controller
 {
+
     /**
-     * @Route("/pseudo/login", name="login_route")
+     * @Route("/pseudo/login", name="login")
+     * @Template()
      */
     public function loginAction(Request $request)
     {
-    $authenticationUtils = $this->get('security.authentication_utils');
+        $authenticationUtils = $this->get('security.authentication_utils');
 
-    // get the login error if there is one
-    $error = $authenticationUtils->getLastAuthenticationError();
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
 
-    // last username entered by the user
-    $lastUsername = $authenticationUtils->getLastUsername();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-    return $this->render(
-        'security/pseudoLogin.html.twig',
-        array(
+        return [
             // last username entered by the user
             'last_username' => $lastUsername,
             'error'         => $error,
-        )
-    );
+        ];
     }
 
     /**
@@ -36,11 +37,9 @@ class SecurityController extends Controller
      */
     public function loginCheckAction()
     {
-    return new Response('<html><body>Login check. You should not be here.</body></html>');
+        return new Response('<html><body>Login check. You should not be here.</body></html>');
         // this controller will not be executed,
         // as the route is handled by the Security system
-    
     }
-    
-    
+
 }

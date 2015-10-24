@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Your project</h1>
+
+<div class="row">
+	<div class="col-md-8 project-container">
+		<div class="project-container-text">
+
+		{% form_theme form 'form_theme.html.twig' %}
+		
+		{{ form_start(form) }}
+		{{ form_errors(form) }}
+
+		{{ form_label(form.title) }}
+		{{ form_widget(form.title, {help_text:"A powerful name for your idea!"}) }}
+		{{ form_errors(form.title) }}
+
+		{{ form_label(form.imageFile) }}
+		{{ form_widget(form.imageFile, {help_text:"Try to set the most representative image"}) }}
+		{{ form_errors(form.imageFile) }}
+
+		{{ form_label(form.shortDescription) }}
+		{{ form_widget(form.shortDescription) }}
+		{{ form_errors(form.shortDescription) }}
+
+		{{ form_label(form.endDate) }}
+		{{ form_widget(form.endDate, {help_text:"Do you have a deadline for this project?"}) }}
+		{{ form_errors(form.endDate) }}
+
+		{# form_label(form.videoUrl) }}
+		{{ form_widget(form.videoUrl, {help_text:"Embeded youtube URL if you have one..."}) }}
+		{{ form_errors(form.videoUrl) }}
+
+		{{ form_label(form.team) }}
+		{{ form_widget(form.team, {help_text:"Who is part of your dream?"}) }}
+		{{ form_errors(form.team) }}
+
+		{{ form_label(form.fullDescription) }}
+		{{ form_widget(form.fullDescription) }}
+		{{ form_errors(form.fullDescription) }}
+
+		{{ form_label(form.risksChallenges) }}
+		{{ form_widget(form.risksChallenges, {help_text:"Have you identified some risks?"}) }}
+		{{ form_errors(form.risksChallenges) }}
+
+		{{ form_label(form.deliveryPromise) }}
+		{{ form_widget(form.deliveryPromise, {help_text:"Which value will bring your idea?"}) }}
+		{{ form_errors(form.deliveryPromise) }}
+
+		{{ form_label(form.published) }}
+		{{ form_widget(form.published) }}
+		{{ form_errors(form.published) }}
+
+		{{ form_label(form.deliveryPromise) }}
+		{{ form_widget(form.deliveryPromise, {help_text:"toto toto tata"}) }}
+		{{ form_errors(form.deliveryPromise) }}
+
+		{{ form_label(form.published) }}
+		{{ form_widget(form.published, {help_text:"toto toto tata"}) }}
+		{{ form_errors(form.published) #}
+
+		{{ form_rest(form) }}
+
+		{{ form_end(form) }}
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% use "bootstrap_3_layout.html.twig" %}
+
+{% block form_widget_simple -%}
+	{{- parent() -}}
+	{% if help_text | default(false) %}
+		<p><i>{{ help_text }}</i></p>
+	{% endif %}
+{% endblock %}
+
+{%- block textarea_widget -%}
+    {{- parent() -}}
+	{% if help_text | default(false) %}
+		<p><i>{{ help_text }}</i></p>
+	{% endif %}
+{%- endblock textarea_widget -%}
+
+{% block date_widget -%}
+    {{- parent() -}}
+	{% if help_text | default(false) %}
+		<p><i>{{ help_text }}</i></p>
+	{% endif %}
+{% endblock date_widget -%}

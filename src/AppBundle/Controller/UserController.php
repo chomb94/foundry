@@ -4,26 +4,31 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
+
     /**
-     * @Route("/user/profile")
+     * @Route("/user/profile", name="userIndex")
+     * @Security("has_role('ROLE_USER')")
+     * @Template()
      */
-    public function userMainAction()
+    public function indexAction()
     {
-        $user = $this->getUser();
+        $user        = $this->getUser();
         $userCredits = $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findBy(array('user_id' => $user->getId()))[0];
 
         $projectsPledged = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(array('user_id' => $user->getId()));
 
-        // replace this example code with whatever you need
-        return $this->render('default/user.html.twig', array(
-            'menu_myprofile' => 'active',
-            'user' => $user,
-            'userCredits' => $userCredits,
+        return [
+            'menu_myprofile'  => 'active',
+            'user'            => $user,
+            'userCredits'     => $userCredits,
             'projectsPledged' => $projectsPledged,
-        ));
+        ];
     }
+
 }
