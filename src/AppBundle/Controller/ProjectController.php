@@ -12,8 +12,9 @@ use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
 use AppBundle\Entity\CreditsHistory;
 use AppBundle\Entity\UserCredits;
+use AppBundle\Base\BaseController;
 
-class ProjectController extends Controller
+class ProjectController extends BaseController
 {
 
     /**
@@ -77,6 +78,8 @@ class ProjectController extends Controller
         $em->persist($creditHistory);
         $em->persist($user_credits);
         $em->flush();
+
+        $this->success("Your pledge has been taken into account.");
 
         return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
     }

@@ -7,8 +7,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Base\BaseController;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
 
     /**

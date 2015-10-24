@@ -5,9 +5,9 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Base\BaseController;
 
-class AdminController extends Controller
+class AdminController extends BaseController
 {
     /**
      * @Route("/admin", name="admin")

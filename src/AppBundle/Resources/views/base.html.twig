@@ -69,9 +69,10 @@
 
 {% block jumbotron %}{% endblock %}
 
+{% block flash %}{{ include('AppBundle::flash.html.twig', {'close': true}) }}{% endblock %}
 <div class="container theme-showcase" role="main">
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+    {% block body %}{% endblock %}
+    {% block javascripts %}{% endblock %}
 </div>
 
 <footer class="footer">
