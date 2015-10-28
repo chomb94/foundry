@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -12,8 +13,8 @@ class ProjectType extends AbstractType
         $builder
             ->add('title', 'text')
             ->add('imageFile', 'vich_file', array(
-                'required'      => false,
-                'allow_delete'  => true, // not mandatory, default is true
+                'required' => false,
+                'allow_delete' => true, // not mandatory, default is true
                 'download_link' => true, // not mandatory, default is true
             ))
             ->add('shortDescription', 'textarea')
@@ -34,7 +35,6 @@ class ProjectType extends AbstractType
     {
         return 'project';
     }
-
 
     public function configureOptions(OptionsResolver $resolver)
     {

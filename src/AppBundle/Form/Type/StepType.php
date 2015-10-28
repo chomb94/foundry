@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -9,12 +10,12 @@ class StepType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-	  $builder
+        $builder
         ->add('title', 'text')
         ->add('shortDescription', 'textarea')
         ->add('endDate',  'date')
         ->add('price',  'integer')
-        ->add('save', 'submit')
+        ->add('add step', 'submit')
         ;
     }
 
@@ -22,7 +23,6 @@ class StepType extends AbstractType
     {
         return 'step';
     }
-
 
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -3,13 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user_credits",indexes={@ORM\index(name="user_id", columns={"user_id"})})
  */
-class UserCredits {
+class UserCredits
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -24,12 +24,11 @@ class UserCredits {
      * @ORM\Column(type="integer")
      */
     protected $credits;
-  
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -37,10 +36,11 @@ class UserCredits {
     }
 
     /**
-     * Set user_id
+     * Set user_id.
      *
      * @param string $user_id
-     * @return integer
+     *
+     * @return int
      */
     public function setUserId($user_id)
     {
@@ -50,21 +50,21 @@ class UserCredits {
     }
 
     /**
-     * Get user_id
+     * Get user_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getUserId()
     {
         return $this->user_id;
     }
-    
 
     /**
-     * Set credits
+     * Set credits.
      *
      * @param int $credits
-     * @return integer
+     *
+     * @return int
      */
     public function setCredits($credits)
     {
@@ -74,14 +74,12 @@ class UserCredits {
     }
 
     /**
-     * Get user credits
+     * Get user credits.
      *
-     * @return integer 
+     * @return int
      */
     public function getCredits()
     {
         return $this->credits;
     }
-    
-
 }

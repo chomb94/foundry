@@ -8,8 +8,9 @@ use HWI\Bundle\OAuthBundle\Security\Core\User\EntityUserProvider;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
-class UserProvider extends EntityUserProvider {
-	public function loadUserByOAuthUserResponse(UserResponseInterface $response)
+class UserProvider extends EntityUserProvider
+{
+    public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
         try {
             return parent::loadUserByOAuthUserResponse($response);
@@ -27,8 +28,8 @@ class UserProvider extends EntityUserProvider {
 
             $userCredits = new UserCredits();
             $userCredits->setUserId($user->getId());
-            $userCredits->setCredits(5);       
-            
+            $userCredits->setCredits(5);
+
             $this->em->persist($userCredits);
             $this->em->flush();
 

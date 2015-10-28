@@ -1,16 +1,15 @@
 <?php
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
-
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
 
 /**
  * @ORM\Table(name="app_users_google")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
  */
-class UserGoogle extends OAuthUser 
+class UserGoogle extends OAuthUser
 {
     /**
      * @ORM\Column(type="integer")
@@ -28,7 +27,7 @@ class UserGoogle extends OAuthUser
      * @ORM\Column(type="string", length=255, unique=true)
      */
     protected $email;
-    
+
     /**
      * @var string
      *
@@ -55,7 +54,6 @@ class UserGoogle extends OAuthUser
      */
     protected $nickname;
 
-
     public function __construct()
     {
         $this->isActive = true;
@@ -72,13 +70,13 @@ class UserGoogle extends OAuthUser
     {
         // you *may* need a real salt depending on your encoder
         // see section on salt below
-        return null;
+        return;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -86,9 +84,10 @@ class UserGoogle extends OAuthUser
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
+     *
      * @return User
      */
     public function setUsername($username)
@@ -99,9 +98,10 @@ class UserGoogle extends OAuthUser
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
+     *
      * @return User
      */
     public function setEmail($email)
@@ -112,9 +112,9 @@ class UserGoogle extends OAuthUser
     }
 
     /**
-     * Get email
+     * Get email.
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -127,7 +127,7 @@ class UserGoogle extends OAuthUser
     {
         $this->googleId = $googleId;
     }
- 
+
     /**
      * @return string
      */
@@ -137,9 +137,10 @@ class UserGoogle extends OAuthUser
     }
 
     /**
-     * Set isActive
+     * Set isActive.
      *
-     * @param boolean $isActive
+     * @param bool $isActive
+     *
      * @return User
      */
     public function setIsActive($isActive)
@@ -150,9 +151,9 @@ class UserGoogle extends OAuthUser
     }
 
     /**
-     * Get isActive
+     * Get isActive.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsActive()
     {
@@ -165,7 +166,7 @@ class UserGoogle extends OAuthUser
     {
         $this->profilePicture = $profilePicture;
     }
- 
+
     /**
      * @return string
      */
@@ -180,7 +181,7 @@ class UserGoogle extends OAuthUser
     {
         $this->nickname = $nickname;
     }
- 
+
     /**
      * @return string
      */
@@ -188,5 +189,4 @@ class UserGoogle extends OAuthUser
     {
         return $this->nickname;
     }
-
 }

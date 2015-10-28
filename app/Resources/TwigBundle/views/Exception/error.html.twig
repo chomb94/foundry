@@ -1,0 +1,19 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>{{ status_code }} - {{ status_text | title }}</h3>
+
+        <div>&nbsp;</div>
+
+        <div class="text-center">
+            <a href="{{ path('homepage') }}" class="btn btn-default btn-sm">Homepage</a>
+        </div>
+
+    </div>
+    <div class="clear">&nbsp;</div>
+</div>
+
+{% endblock %}

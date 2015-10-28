@@ -3,13 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="credits_history",indexes={@ORM\Index(name="user_id", columns={"user_id"})})
  */
-class CreditsHistory {
+class CreditsHistory
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -35,9 +35,9 @@ class CreditsHistory {
     protected $project;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -45,10 +45,11 @@ class CreditsHistory {
     }
 
     /**
-     * Set user_id
+     * Set user_id.
      *
      * @param string $user_id
-     * @return integer
+     *
+     * @return int
      */
     public function setUserId($user_id)
     {
@@ -58,21 +59,21 @@ class CreditsHistory {
     }
 
     /**
-     * Get user_id
+     * Get user_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getUserId()
     {
         return $this->user_id;
     }
-    
 
     /**
-     * Set number of spent credits
+     * Set number of spent credits.
      *
      * @param int $credits
-     * @return integer
+     *
+     * @return int
      */
     public function setNbCreditsSpent($nbCreditsSpent)
     {
@@ -82,19 +83,20 @@ class CreditsHistory {
     }
 
     /**
-     * Get how many credits spent
+     * Get how many credits spent.
      *
-     * @return integer 
+     * @return int
      */
     public function getNbCreditsSpent()
     {
         return $this->nbCreditsSpent;
     }
-    
+
     /**
-     * Set pledge date
+     * Set pledge date.
      *
      * @param string $pledgeDate
+     *
      * @return datetime
      */
     public function setPledgeDate($pledgeDate)
@@ -105,9 +107,9 @@ class CreditsHistory {
     }
 
     /**
-     * Get pledge date
+     * Get pledge date.
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getPledgeDate()
     {
@@ -123,5 +125,4 @@ class CreditsHistory {
     {
         return $this->project;
     }
-
 }

@@ -1,0 +1,31 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+  <p>Welcome {{ user.nickname | default("to you") }}</p>
+  <a class="btn btn-lg btn-success" href="{{ path('projectPublish') }}">Start your project</a>
+</div>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="page-header">
+	<h1>Hot Projects</h1>
+</div>
+
+{% for project in projects %}
+  {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
+{% endfor %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+	$('.projectCard').on('click', function(e) {
+		document.location = $(this).data('url');
+	});
+</script>
+
+{% endblock %}

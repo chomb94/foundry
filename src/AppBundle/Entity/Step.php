@@ -7,8 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class Step {
-	 /**
+class Step
+{
+    /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -44,9 +45,9 @@ class Step {
     protected $displayPledgeForm;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -54,10 +55,11 @@ class Step {
     }
 
     /**
-     * Set project_id
+     * Set project_id.
      *
      * @param string $project_id
-     * @return integer
+     *
+     * @return int
      */
     public function setProjectId($project_id)
     {
@@ -67,19 +69,20 @@ class Step {
     }
 
     /**
-     * Get project_id
+     * Get project_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getProjectId()
     {
         return $this->project_id;
-    }     
+    }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
+     *
      * @return Step
      */
     public function setTitle($title)
@@ -90,20 +93,20 @@ class Step {
     }
 
     /**
-     * Get title
+     * Get title.
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
         return $this->title;
     }
 
-
     /**
-     * Set short_description
+     * Set short_description.
      *
      * @param string $short_description
+     *
      * @return Step
      */
     public function setShortDescription($short_description)
@@ -114,20 +117,20 @@ class Step {
     }
 
     /**
-     * Get short_description
+     * Get short_description.
      *
-     * @return string 
+     * @return string
      */
     public function getShortdescription()
     {
         return $this->short_description;
     }
-    
 
     /**
-     * Set creationDate
+     * Set creationDate.
      *
      * @param \DateTime $creationDate
+     *
      * @return Step
      */
     public function setCreationDate($creationDate)
@@ -138,9 +141,9 @@ class Step {
     }
 
     /**
-     * Get creationDate
+     * Get creationDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationDate()
     {
@@ -148,9 +151,10 @@ class Step {
     }
 
     /**
-     * Set endDate
+     * Set endDate.
      *
      * @param \DateTime $endDate
+     *
      * @return Step
      */
     public function setEndDate($endDate)
@@ -161,9 +165,9 @@ class Step {
     }
 
     /**
-     * Get endDate
+     * Get endDate.
      *
-     * @return \endDate 
+     * @return \endDate
      */
     public function getEndDate()
     {
@@ -171,10 +175,11 @@ class Step {
     }
 
     /**
-     * Set price
+     * Set price.
      *
      * @param string $price
-     * @return integer
+     *
+     * @return int
      */
     public function setPrice($price)
     {
@@ -184,19 +189,20 @@ class Step {
     }
 
     /**
-     * Get price
+     * Get price.
      *
-     * @return integer 
+     * @return int
      */
     public function getPrice()
     {
         return $this->price;
-    }     
+    }
 
     /**
-     * Set if the step is already completed or not
+     * Set if the step is already completed or not.
      *
-     * @param boolean $isCompleted
+     * @param bool $isCompleted
+     *
      * @return Step
      */
     public function setIsCompleted($isCompleted)
@@ -204,12 +210,12 @@ class Step {
         $this->isCompleted = $isCompleted;
 
         return $this;
-    }  
+    }
 
     /**
-     * Get price
+     * Get price.
      *
-     * @return boolean 
+     * @return bool
      */
     public function isCompleted()
     {
@@ -217,10 +223,11 @@ class Step {
     }
 
     /**
-     * Set price to finish the step
+     * Set price to finish the step.
      *
      * @param string $priceToFinish
-     * @return integer
+     *
+     * @return int
      */
     public function setPriceToFinish($priceToFinish)
     {
@@ -230,9 +237,9 @@ class Step {
     }
 
     /**
-     * Get price to finish the step
+     * Get price to finish the step.
      *
-     * @return integer 
+     * @return int
      */
     public function getPriceToFinish()
     {
@@ -240,9 +247,10 @@ class Step {
     }
 
     /**
-     * Set if twe should display the pledge form or not
+     * Set if twe should display the pledge form or not.
      *
-     * @param boolean $displayPledgeForm
+     * @param bool $displayPledgeForm
+     *
      * @return Step
      */
     public function setIsDisplayPledgeForm($displayPledgeForm)
@@ -250,12 +258,12 @@ class Step {
         $this->displayPledgeForm = $displayPledgeForm;
 
         return $this;
-    }  
+    }
 
     /**
-     * Tell if we should display the pledge action
+     * Tell if we should display the pledge action.
      *
-     * @return boolean 
+     * @return bool
      */
     public function isDisplayPledgeForm()
     {

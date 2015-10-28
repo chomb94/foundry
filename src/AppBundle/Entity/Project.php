@@ -11,7 +11,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Table(name="project",indexes={@ORM\index(name="user_id", columns={"user_id"})})
  * @Vich\Uploadable
  */
-class Project {
+class Project
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -49,7 +50,7 @@ class Project {
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $published;
+    protected $published = false;
     /**
      * @ORM\Column(type="datetime")
      */
@@ -68,24 +69,23 @@ class Project {
      */
     protected $user;
 
-
-     /**
+    /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      */
     protected $allSteps;
     protected $allCredits;
 
-     /**
+    /**
      * @Vich\UploadableField(mapping="project_image", fileNameProperty="imageName")
-     * 
+     *
      * @var File
      */
     private $imageFile;
- 
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -93,9 +93,10 @@ class Project {
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param UserGoogle $user
+     *
      * @return Project
      */
     public function setUser($user)
@@ -106,7 +107,7 @@ class Project {
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return UserGoogle
      */
@@ -114,12 +115,12 @@ class Project {
     {
         return $this->user;
     }
-    
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
+     *
      * @return Project
      */
     public function setTitle($title)
@@ -130,19 +131,20 @@ class Project {
     }
 
     /**
-     * Get title
+     * Get title.
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
         return $this->title;
     }
-    
+
     /**
-     * Set short_description
+     * Set short_description.
      *
      * @param string $short_description
+     *
      * @return Project
      */
     public function setShortDescription($short_description)
@@ -153,19 +155,20 @@ class Project {
     }
 
     /**
-     * Get short_description
+     * Get short_description.
      *
-     * @return string 
+     * @return string
      */
     public function getShortdescription()
     {
         return $this->short_description;
     }
-    
+
     /**
-     * Set team
+     * Set team.
      *
      * @param string $team
+     *
      * @return Project
      */
     public function setTeam($team)
@@ -176,9 +179,9 @@ class Project {
     }
 
     /**
-     * Get team
+     * Get team.
      *
-     * @return string 
+     * @return string
      */
     public function getTeam()
     {
@@ -186,9 +189,10 @@ class Project {
     }
 
     /**
-     * Set full_description
+     * Set full_description.
      *
      * @param string $full_description
+     *
      * @return Project
      */
     public function setFullDescription($full_description)
@@ -199,9 +203,9 @@ class Project {
     }
 
     /**
-     * Get full_description
+     * Get full_description.
      *
-     * @return string 
+     * @return string
      */
     public function getFullDescription()
     {
@@ -209,9 +213,10 @@ class Project {
     }
 
     /**
-     * Set video_url
+     * Set video_url.
      *
      * @param string $video_url
+     *
      * @return Project
      */
     public function setVideoUrl($video_url)
@@ -222,9 +227,9 @@ class Project {
     }
 
     /**
-     * Get video_url
+     * Get video_url.
      *
-     * @return string 
+     * @return string
      */
     public function getVideoUrl()
     {
@@ -232,9 +237,10 @@ class Project {
     }
 
     /**
-     * Set risks_challenges
+     * Set risks_challenges.
      *
      * @param string $risks_challenges
+     *
      * @return Project
      */
     public function setRisksChallenges($risks_challenges)
@@ -245,19 +251,20 @@ class Project {
     }
 
     /**
-     * Get risks_challenges
+     * Get risks_challenges.
      *
-     * @return string 
+     * @return string
      */
     public function getRisksChallenges()
     {
         return $this->risks_challenges;
     }
-    
+
     /**
-     * Set delivery_promise
+     * Set delivery_promise.
      *
      * @param string $delivery_promise
+     *
      * @return Project
      */
     public function setDeliveryPromise($delivery_promise)
@@ -268,9 +275,9 @@ class Project {
     }
 
     /**
-     * Get delivery_promise
+     * Get delivery_promise.
      *
-     * @return string 
+     * @return string
      */
     public function getDeliveryPromise()
     {
@@ -278,9 +285,10 @@ class Project {
     }
 
     /**
-     * Set published
+     * Set published.
      *
-     * @param boolean $published
+     * @param bool $published
+     *
      * @return Project
      */
     public function setPublished($published)
@@ -291,9 +299,9 @@ class Project {
     }
 
     /**
-     * Get published
+     * Get published.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getPublished()
     {
@@ -301,9 +309,10 @@ class Project {
     }
 
     /**
-     * Set creationDate
+     * Set creationDate.
      *
      * @param \DateTime $creationDate
+     *
      * @return Project
      */
     public function setCreationDate($creationDate)
@@ -314,9 +323,9 @@ class Project {
     }
 
     /**
-     * Get creationDate
+     * Get creationDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationDate()
     {
@@ -324,9 +333,10 @@ class Project {
     }
 
     /**
-     * Set endDate
+     * Set endDate.
      *
      * @param \DateTime $endDate
+     *
      * @return Project
      */
     public function setEndDate($endDate)
@@ -337,9 +347,9 @@ class Project {
     }
 
     /**
-     * Get endDate
+     * Get endDate.
      *
-     * @return \endDate 
+     * @return \endDate
      */
     public function getEndDate()
     {
@@ -347,9 +357,10 @@ class Project {
     }
 
     /**
-     * Set imageName
+     * Set imageName.
      *
      * @param string $imageName
+     *
      * @return Project
      */
     public function setImageName($imageName)
@@ -360,9 +371,9 @@ class Project {
     }
 
     /**
-     * Get imageName
+     * Get imageName.
      *
-     * @return string 
+     * @return string
      */
     public function getImageName()
     {
@@ -370,9 +381,10 @@ class Project {
     }
 
     /**
-     * Set imageFile
+     * Set imageFile.
      *
      * @param string $imageFile
+     *
      * @return Project
      */
     public function setImageFile($imageFile)
@@ -383,9 +395,9 @@ class Project {
     }
 
     /**
-     * Get imageFile
+     * Get imageFile.
      *
-     * @return File 
+     * @return File
      */
     public function getImageFile()
     {
@@ -409,7 +421,9 @@ class Project {
 
         // Computing sum of all credit already pledged
         $totalAlreadyPledged = 0;
-        foreach ($allCredits as $oneCredit) $totalAlreadyPledged += $oneCredit->getNbCreditsSpent();
+        foreach ($allCredits as $oneCredit) {
+            $totalAlreadyPledged += $oneCredit->getNbCreditsSpent();
+        }
 
         // Checking for each step if it's already completed or not
         $firstElementToDo = true;
@@ -419,7 +433,7 @@ class Project {
                 $oneStep->setPriceToFinish(0);
                 $oneStep->setIsDisplayPledgeForm(false);
                 $totalAlreadyPledged -= $oneStep->getPrice();
-            } else if ($totalAlreadyPledged > 0) {
+            } elseif ($totalAlreadyPledged > 0) {
                 $oneStep->setIsCompleted(false);
                 $oneStep->setPriceToFinish($oneStep->getPrice() - $totalAlreadyPledged);
                 $oneStep->setIsDisplayPledgeForm(true);
@@ -440,6 +454,7 @@ class Project {
 
         $step_currentValue = $this->getNbCreditsDone();
         $step_totalValue = ($this->getNbCreditsTotal() == 0 ? 1 : $this->getNbCreditsTotal());
+
         return round($step_currentValue * 100 / $step_totalValue);
     }
 
@@ -453,22 +468,26 @@ class Project {
                 $nbCredits += ($oneStep->getPrice() - $oneStep->getPriceToFinish());
             }
         }
+
         return $nbCredits;
     }
 
     public function getNbCreditsTotal()
     {
         $nbCredits = 0;
-        foreach ($this->allSteps as $oneStep) $nbCredits += $oneStep->getPrice();
+        foreach ($this->allSteps as $oneStep) {
+            $nbCredits += $oneStep->getPrice();
+        }
+
         return $nbCredits;
     }
-
 
     public function getDaysToGo()
     {
         $endDate = $this->getEndDate()->getTimestamp();
         $now = time();
-        $diff = (integer)(($endDate - $now) / (60 * 60 * 24));
+        $diff = (integer) (($endDate - $now) / (60 * 60 * 24));
+
         return $diff;
     }
 }
