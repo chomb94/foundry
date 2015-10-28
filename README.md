@@ -11,9 +11,11 @@ https://console.developers.google.com/project
 
 Install the application:
 
+```
 composer install
 php app/console doctrine:schema:create
 php app/console server:run
+```
 
 Run the app: http://127.0.0.1:8000
 
