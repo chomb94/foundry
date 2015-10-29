@@ -33,7 +33,7 @@ class ProjectController extends BaseController
             $user_credits = $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findBy(['user_id' => $user_id])[0];
         } else {
             $user_credits = new UserCredits();
-            $user_credits->setCredits(100);
+            $user_credits->setCredits(10);
         }
 
         $project->setStepsAndCredits($step_list, $all_credits);
@@ -129,6 +129,8 @@ class ProjectController extends BaseController
             $manager->persist($project);
             $manager->flush();
 
+            $this->success("Your project updates have been saved.");
+
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
         }
 
@@ -157,6 +159,8 @@ class ProjectController extends BaseController
             $manager = $this->get("doctrine")->getManager();
             $manager->persist($project);
             $manager->flush();
+
+            $this->success("Your project have been published.");
 
             return $this->redirectToRoute('projectStepPublish', ['id' => $project->getId(), 'user' => $user]);
         }
@@ -193,6 +197,8 @@ class ProjectController extends BaseController
             $manager = $this->get("doctrine")->getManager();
             $manager->persist($step);
             $manager->flush();
+
+            $this->success("Your step updates have been saved.");
         }
 
         $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $project_id]);
@@ -232,6 +238,8 @@ class ProjectController extends BaseController
             $manager = $this->get("doctrine")->getManager();
             $manager->persist($step);
             $manager->flush();
+
+            $this->success("Your step have been published.");
         }
 
         $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $project_id]);
