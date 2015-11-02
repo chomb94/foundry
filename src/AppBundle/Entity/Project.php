@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
  * @ORM\Table(name="project",indexes={@ORM\index(name="user_id", columns={"user_id"})})
  * @Vich\Uploadable
  */
