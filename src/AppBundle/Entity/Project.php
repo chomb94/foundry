@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity
@@ -13,6 +15,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Project
 {
+    const MAX_DURATION = 30; // maximum time a project can gather money
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -57,6 +61,7 @@ class Project
     protected $creationDate;
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @see validateEndDate
      */
     protected $endDate;
     /**
@@ -489,5 +494,27 @@ class Project
         $diff = (integer) (($endDate - $now) / (60 * 60 * 24));
 
         return $diff;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validateEndDate(ExecutionContextInterface $context)
+    {
+        $tm = $this->getEndDate()->getTimestamp();
+        if ($tm <= time()) {
+            $context
+               ->buildViolation('You should choose a date in the future')
+               ->atPath('endDate')
+               ->addViolation()
+            ;
+        }
+        if ($tm > time() + 60 * 60 * 24 * self::MAX_DURATION) {
+            $context
+               ->buildViolation(sprintf("The end date can't be greater than %d days.", self::MAX_DURATION))
+               ->atPath('endDate')
+               ->addViolation()
+            ;
+        }
     }
 }
