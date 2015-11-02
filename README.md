@@ -21,6 +21,8 @@ Run the app: http://127.0.0.1:8000
 
 ## Collaboration
 
+### If you are NOT the repo owner
+
 To collaborate, consider the following instructions, taking care of nicknames in URLs:
 - ninsuo (a collaborator)
 - chomb94 (the upstream)
@@ -49,5 +51,24 @@ Then,
 git checkout master
 git fetch upstream
 git merge upstream/master
+```
+
+### If you are the repo owner
+
+Develop in another branch than master:
+
+```
+git checkout -b dev
+```
+
+Then,
+
+- If your local repo has commits that are not in the upstream, open a pull request.
+
+- If the master branch has commits that are not in your local one, run:
+
+```
+git fetch -p
+git rebase origin/master
 ```
 
