@@ -1,0 +1,22 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+
+    <h1 class="">Do you really want to delete the project "{{ project.title }}" ?<h1>
+    <h3><em>This action can't be undone.</em></h3>
+
+    <br/><br/>
+
+    <div class="text-center">
+        {{ form(form) }}
+    </div>
+
+    <br/><br/>
+
+    <div class="text-center">
+        <a class="btn btn-primary" href="{{ path('projectView', {id: project.id}) }}">
+            Go back to the project
+        </a>
+    </div>
+
+{% endblock %}

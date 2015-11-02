@@ -142,6 +142,51 @@ class ProjectController extends BaseController
     }
 
     /**
+     * @Route("/project/{id}/delete", name="projectDelete")
+     * @Security("has_role('ROLE_USER')")
+     * @Template()
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $repository = $this->get("doctrine")->getRepository("AppBundle:Project");
+        $project    = $repository->find($id);
+
+        if (!$project) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($project->getUser()->getId() !== $this->getUser()->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        // An empty form generates a CRSF token anyway :)
+        $form = $this
+           ->createFormBuilder()
+           ->add('submit', 'submit',
+              array(
+                   'label' => 'Confirm',
+                   'attr' => array(
+                           'class' => 'btn btn-danger',
+                   ),
+           ))
+           ->getForm()
+        ;
+
+        if ($request->isMethod('POST') && $form->handleRequest($request) && $form->isValid()) {
+            $repository->delete($project);
+
+            $this->success("Your project have been deleted.");
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return [
+            'project' => $project,
+            'form'    => $form->createView(),
+        ];
+    }
+
+    /**
      * @Route("/project/publish", name="projectPublish")
      * @Security("has_role('ROLE_USER')")
      * @Template()
