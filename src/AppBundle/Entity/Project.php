@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class Project
 {
-    const MAX_DURATION = 30; // maximum time a project can gather money
+    const MAX_DURATION = 90; // maximum time a project can gather money
 
     /**
      * @ORM\Column(type="integer")
