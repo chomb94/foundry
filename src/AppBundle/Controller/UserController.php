@@ -17,9 +17,17 @@ class UserController extends BaseController
     public function indexAction()
     {
         $user        = $this->getUser();
-        $userCredits = $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findBy(array('user_id' => $user->getId()))[0];
+        $userCredits = $this
+           ->get("doctrine")
+           ->getRepository("AppBundle:UserCredits")
+           ->findBy(array('user_id' => $user->getId()))[0]
+        ;
 
-        $projectsPledged = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(array('user_id' => $user->getId()));
+        $projectsPledged = $this
+           ->get("doctrine")
+           ->getRepository("AppBundle:CreditsHistory")
+           ->findBy(array('user_id' => $user->getId()))
+        ;
 
         return [
             'menu_myprofile'  => 'active',

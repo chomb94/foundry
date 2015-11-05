@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
+use AppBundle\Entity\Project;
 use AppBundle\Entity\CreditsHistory;
 use AppBundle\Entity\UserCredits;
 use AppBundle\Base\BaseController;
@@ -33,7 +34,7 @@ class ProjectController extends BaseController
             $user_credits = $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findBy(['user_id' => $user_id])[0];
         } else {
             $user_credits = new UserCredits();
-            $user_credits->setCredits(100);
+            $user_credits->setCredits(10);
         }
 
         $project->setStepsAndCredits($step_list, $all_credits);
@@ -129,6 +130,8 @@ class ProjectController extends BaseController
             $manager->persist($project);
             $manager->flush();
 
+            $this->success("Your project updates have been saved.");
+
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
         }
 
@@ -140,15 +143,61 @@ class ProjectController extends BaseController
     }
 
     /**
+     * @Route("/project/{id}/delete", name="projectDelete")
+     * @Security("has_role('ROLE_USER')")
+     * @Template()
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $repository = $this->get("doctrine")->getRepository("AppBundle:Project");
+        $project    = $repository->find($id);
+
+        if (!$project) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($project->getUser()->getId() !== $this->getUser()->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        // An empty form generates a CRSF token anyway :)
+        $form = $this
+           ->createFormBuilder()
+           ->add('submit', 'submit',
+              array(
+                   'label' => 'Confirm',
+                   'attr' => array(
+                           'class' => 'btn btn-danger',
+                   ),
+           ))
+           ->getForm()
+        ;
+
+        if ($request->isMethod('POST') && $form->handleRequest($request) && $form->isValid()) {
+            $repository->delete($project);
+
+            $this->success("Your project have been deleted.");
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return [
+            'project' => $project,
+            'form'    => $form->createView(),
+        ];
+    }
+
+    /**
      * @Route("/project/publish", name="projectPublish")
      * @Security("has_role('ROLE_USER')")
      * @Template()
      */
     public function publishAction(Request $request)
     {
-        $form    = $this->createForm(new ProjectType());
+        $project = new Project();
+        $project->setEndDate(new \DateTime('2015-12-24'));
+        $form    = $this->createForm(new ProjectType(), $project);
         $form->handleRequest($request);
-        $project = $form->getData();
         $user    = $this->getUser();
 
         if ($form->isValid()) {
@@ -157,6 +206,8 @@ class ProjectController extends BaseController
             $manager = $this->get("doctrine")->getManager();
             $manager->persist($project);
             $manager->flush();
+
+            $this->success("Your project have been published.");
 
             return $this->redirectToRoute('projectStepPublish', ['id' => $project->getId(), 'user' => $user]);
         }
@@ -193,6 +244,8 @@ class ProjectController extends BaseController
             $manager = $this->get("doctrine")->getManager();
             $manager->persist($step);
             $manager->flush();
+
+            $this->success("Your step updates have been saved.");
         }
 
         $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $project_id]);
@@ -232,6 +285,8 @@ class ProjectController extends BaseController
             $manager = $this->get("doctrine")->getManager();
             $manager->persist($step);
             $manager->flush();
+
+            $this->success("Your step have been published.");
         }
 
         $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $project_id]);
