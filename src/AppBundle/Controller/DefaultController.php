@@ -17,7 +17,7 @@ class DefaultController extends BaseController
         $user = $this->getUser();
 
         // First list with only project before end date
-        $dql = "SELECT p FROM AppBundle:Project p WHERE p.endDate <= :endDate ORDER BY p.endDate DESC";
+        $dql = "SELECT p FROM AppBundle:Project p WHERE p.endDate >= :endDate ORDER BY p.endDate DESC";
         $projects = $this
             ->get("doctrine")
             ->getEntityManager()
@@ -32,11 +32,11 @@ class DefaultController extends BaseController
         }
 
         // Old projects (date < now)
-        $dql_old = "SELECT p FROM AppBundle:Project p WHERE p.endDate > :endDate ORDER BY p.endDate ASC";
+        $dql_old = "SELECT p FROM AppBundle:Project p WHERE p.endDate < :endDate ORDER BY p.endDate ASC";
         $old_projects = $this
             ->get("doctrine")
             ->getEntityManager()
-            ->createQuery($dql)
+            ->createQuery($dql_old)
             ->setParameter("endDate", date("Y-m-d H:i:s", time()))
             ->getResult();
 

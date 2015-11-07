@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
+use AppBundle\Entity\Project;
 use AppBundle\Entity\CreditsHistory;
 use AppBundle\Entity\UserCredits;
 use AppBundle\Base\BaseController;
@@ -193,9 +194,10 @@ class ProjectController extends BaseController
      */
     public function publishAction(Request $request)
     {
-        $form    = $this->createForm(new ProjectType());
+        $project = new Project();
+        $project->setEndDate(new \DateTime('2015-12-24'));
+        $form    = $this->createForm(new ProjectType(), $project);
         $form->handleRequest($request);
-        $project = $form->getData();
         $user    = $this->getUser();
 
         if ($form->isValid()) {

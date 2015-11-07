@@ -15,15 +15,15 @@
 </div>
 
 {% for project in projects %}
-  {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
+  {% include 'AppBundle:Project:_oneProjectCard.html.twig' with { 'active' : '1'} %}
 {% endfor %}
 
 <span class="clearfix"></span>
 <hr />
-<h2>Oldest Projects...</h2>
+<h2>Oldest Projects</h2>
 
 {% for project in old_projects %}
-  {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
+  {% include 'AppBundle:Project:_oneProjectCard.html.twig' with { 'active' : '0'} %}
 {% endfor %}
 
 {% endblock %}
