@@ -3,8 +3,8 @@
 {% block title %}{{ subject }}{% endblock %}
 
 {% block user %}
-    <li><p class="navbar-text">{{ app.user.nickname }}</p></li>
-    <li><img src="{{ app.user.profilePicture }}" alt="{{ app.user.nickname }}" class="img-navbar"/></li>
+    <li><p class="navbar-text">{{ user.nickname }}</p></li>
+    <li><img src="{{ user.profilePicture }}" alt="{{ user.nickname }}" class="img-navbar"/></li>
 {% endblock %}
 
 {% block body %}
