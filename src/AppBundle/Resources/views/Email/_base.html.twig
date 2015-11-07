@@ -1,0 +1,31 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}{{ subject }}{% endblock %}
+
+{% block user %}
+    <li><p class="navbar-text">{{ app.user.nickname }}</p></li>
+    <li><img src="{{ app.user.profilePicture }}" alt="{{ app.user.nickname }}" class="img-navbar"/></li>
+{% endblock %}
+
+{% block body %}
+    <p>&nbsp;</p>
+    <div class="col-sm-12 projectCard">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title project_title_panel">{% block email_title %}{% endblock %}</h3>
+            </div>
+            <div class="panel-body">
+                {% block email_contents %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{# Emptying useless blocks for email templates #}
+{% block head_only_web %}{% endblock %}
+{% block menu %}{% endblock %}
+{% block search %}{% endblock %}
+{% block jumbotron %}{% endblock %}
+{% block flash %}{% endblock %}
+{% block javascripts %}{% endblock %}
+
