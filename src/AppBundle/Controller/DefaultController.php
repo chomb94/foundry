@@ -29,6 +29,7 @@ class DefaultController extends BaseController
             $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);    
             $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
             $oneProject->setStepsAndCredits($step_list, $all_credits);
+         //   var_dump($step_list);
         }
 
         // Old projects (date < now)
@@ -45,7 +46,6 @@ class DefaultController extends BaseController
             $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
             $oneProject->setStepsAndCredits($step_list, $all_credits);
         }
-
 
         return array(
             'menu_hp' => 'active',

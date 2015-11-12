@@ -99,6 +99,7 @@ class ProjectController extends BaseController
         }
 
         return [
+            'active'          => 1,
             'menu_myprojects' => 'active',
             'projects'        => $projects,
             'user'            => $user,
