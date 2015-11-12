@@ -1,4 +1,4 @@
-<div class="col-sm-4 projectCard" data-url="{{ path('projectView', {id: project.id}) }}">
+<div class="col-sm-4">
   <div class="panel panel-default {% if active %}{% else %}panel-inactive{% endif %}">
     <div class="panel-heading {% if active %}panel-active{% else %}panel-inactive{% endif %}">
       <h3 class="panel-title project_title_panel">{{ project.title|e }}</h3>
@@ -26,9 +26,14 @@
           <p><span class="{% if (project.getDaysToGo < 10) and active %}red text-bold{% endif %}">{% if active %}{{ project.getDaysToGo }}{% else %}{{ -project.getDaysToGo }}{% endif %}</span><span class="text-light"> {% if active %}days to go{% else %}days ago...{% endif %}</span></p>
         </div>
       </div>
-      <p>
-      	<a class="btn btn-default  {% if active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details »</a>
-      </p>
+      <div>
+        <div class="pull-left">
+          	<a class="btn btn-default  {% if active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details »</a>
+        </div>
+        <div class="pull-right">
+            {{ render(controller('AppBundle:Project:viewPledge', {id: project.id})) }}
+        </div>
+      </div>
     </div>
   </div>
 </div>

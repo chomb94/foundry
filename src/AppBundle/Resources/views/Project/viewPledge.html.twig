@@ -1,0 +1,17 @@
+<div style="padding-top: 5px;">
+    <div id="raty-{{ id }}"></div>
+</div>
+
+<script type="text/javascript">
+
+    $('#raty-{{ id }}').raty({
+        click: function(score, e) {
+            alert(score);
+        },
+        number: 5,
+        path: '{{ asset('assets/js/raty/images/') }}',
+        readonly: {{ readonly }}
+//        score: '', // initial rating
+    });
+
+</script>

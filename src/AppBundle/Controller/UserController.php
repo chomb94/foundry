@@ -9,7 +9,6 @@ use AppBundle\Base\BaseController;
 
 class UserController extends BaseController
 {
-
     /**
      * @Route("/user/profile", name="userIndex")
      * @Security("has_role('ROLE_USER')")
@@ -55,5 +54,4 @@ class UserController extends BaseController
             'credits' => $userCredits->getCredits(),
         ];
     }
-
 }

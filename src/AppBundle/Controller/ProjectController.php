@@ -50,6 +50,23 @@ class ProjectController extends BaseController
     }
 
     /**
+     * @Template()
+     */
+    public function viewPledgeAction(Request $request, $id)
+    {
+        $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
+        if (is_null($project)) {
+            throw $this->createAccessDeniedException();
+        }
+
+
+        return [
+            'readonly' => !is_null($this->getUser()),
+            'id' => $id
+        ];
+    }
+
+    /**
      * @Route("/project/{id}/pledge", name="projectPledge")
      * @Security("has_role('ROLE_USER')")
      */
