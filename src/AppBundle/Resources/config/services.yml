@@ -1,7 +1,19 @@
 parameters:
+    app.base.class: AppBundle\Base\BaseService
     app.user.provider.class: AppBundle\Security\UserProvider
+    app.mail.class: AppBundle\Services\Mail
 
 services:
+    app.base:
+        class: %app.base.class%
+        abstract: true
+        calls:
+          - [setContainer, [@service_container]]
+
     app.user.provider:
         class: %app.user.provider.class%
-        arguments: [@doctrine, 'AppBundle\Entity\UserGoogle', { google: googleId}, 'default']
+        arguments: [@doctrine, 'AppBundle\Entity\UserGoogle', { google: googleId }, 'default']
+
+    app.mail:
+        class: %app.mail.class%
+        parent: app.base
