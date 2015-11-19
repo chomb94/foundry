@@ -1,0 +1,14 @@
+
+{% extends 'AppBundle:Email:_base.html.twig' %}
+
+{% block email_title %}
+<p>Hello, {{ user.nickname }}!</p>
+{% endblock %}
+
+{% block email_contents %}
+
+<p>You have a New Pledge !</p>
+
+<p><a href="{{ app.request.getSchemeAndHttpHost() }}{{ path('projectView', {id: project.id}) }}" class="btn-success btn">Check Your Project</a></p>
+
+{% endblock %}

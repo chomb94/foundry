@@ -63,6 +63,7 @@ class ProjectController extends BaseController
         if ($user_credits->getCredits() - $request->get("price") < 0) {
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'error' => 1]);
         }
+/* TODO : À RETIRER, C EST POUR TESTER LES MAIL SANS DECREMENTER LES CREDITS
 
         $creditHistory = new CreditsHistory();
         $creditHistory->setUserId($user_id);
@@ -76,8 +77,22 @@ class ProjectController extends BaseController
         $em->persist($creditHistory);
         $em->persist($user_credits);
         $em->flush();
-
+*/
         $this->success("Your pledge has been taken into account.");
+
+        // Send mail to project owner
+        if ($this->getUser()) {
+           $this->get('app.mail')->send(
+           $this->getUser(),
+           'New Pledge !',
+           'AppBundle:Email:newPledge.html.twig',
+               [
+                   // context required by the template, except subject and user which are already available
+                   'time' => date("Y-m-d H:i:s"),
+                   'project' => $project,
+               ]
+            );
+        }
 
         return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
     }
@@ -99,6 +114,7 @@ class ProjectController extends BaseController
         }
 
         return [
+            'active'          => 1,
             'menu_myprojects' => 'active',
             'projects'        => $projects,
             'user'            => $user,
