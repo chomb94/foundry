@@ -18,28 +18,8 @@ class SearchController extends BaseController
     {
     	$user     = $this->getUser();
         $search   = $request->get("s");
-/*
-        $data = $this->_em->createQuery("
-            SELECT ur
-            FROM Blablacar\Entity\Main\Rating\Rating ur
-            WHERE (
-                ur.ratedUser = :rater_id
-                AND ur.ratingUser = :rated_id
-                OR ur.ratedUser = :rated_id
-                AND ur.ratingUser = :rater_id
-            )
-            AND ur.status != :deleted
-            AND (ur.ratingType = :two_way OR (ur.ratingType = :simple AND ur.moderationFlag <> :refused))
-        ")->setParameters(array(
-               'rater_id' => $rater->getId(),
-               'rated_id' => $rated->getId(),
-               'deleted'  => Rating::STATUS_DELETED,
-               'two_way'  => Rating::RATING_TWO_WAY,
-               'simple'   => Rating::RATING_SIMPLE,
-               'refused'  => Rating::MODERATION_FLAG_REFUSED,
-           ))->getResult();
-*/
-        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->findByUser($user);
+
+        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->search($search);
 
         foreach ($projects as $oneProject) {
             $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
