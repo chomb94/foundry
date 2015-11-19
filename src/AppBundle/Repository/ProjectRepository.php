@@ -32,7 +32,7 @@ class ProjectRepository extends EntityRepository
     }
 
     public function search($searchString) {
-        $data = $this->_em->createQuery("
+        return $this->_em->createQuery("
             SELECT p
             FROM AppBundle\Entity\Project p
             WHERE 
@@ -41,6 +41,5 @@ class ProjectRepository extends EntityRepository
          ")->setParameters(array(
              'search' => "%".$searchString."%",
          ))->getResult();
-         return $data;
     }
 }

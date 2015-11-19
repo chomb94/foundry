@@ -110,7 +110,6 @@ class ProjectController extends BaseController
         }
 
         return [
-            'active'          => 1,
             'menu_myprojects' => 'active',
             'projects'        => $projects,
             'user'            => $user,
@@ -293,7 +292,6 @@ class ProjectController extends BaseController
         $step->setEndDate(new \DateTime(date("Y-m-d",time() + 60 * 60 * 24 * project::MAX_DURATION)));
         $form = $this->createForm(new StepType(), $step);
         $form->handleRequest($request);
-        //$step = $form->getData();
 
         if ($form->isValid()) {
             $step->setCreationDate(new \DateTime());

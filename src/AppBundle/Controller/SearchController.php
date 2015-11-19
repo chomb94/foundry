@@ -17,14 +17,17 @@ class SearchController extends BaseController
     public function indexAction(Request $request)
     {
     	$user     = $this->getUser();
-        $search   = $request->get("s");
+        $search   = trim($request->get("s"));
 
-        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->search($search);
+        $projects = array();
+        if (strlen($search) > 0) {
+            $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->search($search);
 
-        foreach ($projects as $oneProject) {
-            $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
-            $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
-            $oneProject->setStepsAndCredits($step_list, $all_credits);
+            foreach ($projects as $oneProject) {
+                $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
+                $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
+                $oneProject->setStepsAndCredits($step_list, $all_credits);
+            }
         }
 
         return [
