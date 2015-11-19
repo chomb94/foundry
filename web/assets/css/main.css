@@ -406,5 +406,16 @@ h1 {
   cursor:pointer;
 }
 
+.opc-action-left {
+  text-align: left;
+  float: left;
+}
 
+.opc-action-right {
+  text-align: right;
+}
 
+.btn-heart {
+  top: 2px;
+  color: #dd2e44;
+}

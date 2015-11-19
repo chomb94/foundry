@@ -27,7 +27,12 @@
         </div>
       </div>
       <p>
-      	<a class="btn btn-default  {% if active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details »</a>
+       <div class="opc-action-left">
+        	<a class="btn btn-default {% if active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details »</a>
+        </div>
+       <div class="opc-action-right">
+          <a class="btn" href=""><span class="glyphicon glyphicon-heart btn-heart" aria-hidden="true"></span> Support (2)</a>
+        </div>
       </p>
     </div>
   </div>
