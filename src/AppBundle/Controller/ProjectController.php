@@ -86,6 +86,9 @@ class ProjectController extends BaseController
             $error = "You can't pledge {$score} credits, your balance is {$credits}.";
         }
 
+        // support button (with heart icon)
+        // - ability to unsupport for 24 hours
+        // 
 
         // if user already pledged, remove pledge
         // save pledge
