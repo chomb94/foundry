@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
 use AppBundle\Entity\Project;
@@ -24,7 +25,7 @@ class ProjectController extends BaseController
     {
         $project     = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
         $user        = $this->getUser();
-        $user_id     = ($user != null ? $user->getId() : 0);
+        $user_id     = $user->getId();
         $myproject   = ($user_id == $project->getUser()->getId());
         $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $id]);
         $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $project]);
@@ -64,6 +65,39 @@ class ProjectController extends BaseController
             'readonly' => !is_null($this->getUser()),
             'id' => $id
         ];
+    }
+
+    /**
+     * @Route("/project/{id}/one-click-pledge", name="projectOneClickPledge")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function oneClickPledgeAction(Request $request, $id)
+    {
+        $score   = $request->request->get('score');
+        $userId  = $this->getUser()->getId();
+        $credits = $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findOneBy(['user_id' => $userId])->getCredits();
+        $project      = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
+
+        $error = null;
+        $success = null;
+
+        if (($credits - $score) <= 0) {
+            $error = "You can't pledge {$score} credits, your balance is {$credits}.";
+        }
+
+
+        // if user already pledged, remove pledge
+        // save pledge
+        // decrement credits
+        // reload card percentage
+        // success message
+
+        return new JsonResponse([
+            'error' => $error,
+            'success' => $success,
+            'credits' => $credits,
+
+        ]);
     }
 
     /**

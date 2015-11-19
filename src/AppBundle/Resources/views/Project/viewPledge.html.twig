@@ -1,4 +1,10 @@
-<div style="padding-top: 5px;">
+<div
+    id="score-{{ id }}"
+    data-endpoint="{{ path('projectOneClickPledge', {id: id}) }}"
+    data-input-attr="score"
+    data-score="0"
+    style="padding-top: 5px;"
+>
     <div id="raty-{{ id }}"></div>
 </div>
 
@@ -6,7 +12,9 @@
 
     $('#raty-{{ id }}').raty({
         click: function(score, e) {
-            alert(score);
+            var elem = $('#score-{{ id }}');
+            elem.data('score', score);
+            elem.domAjax();
         },
         number: 5,
         path: '{{ asset('assets/js/raty/images/') }}',
