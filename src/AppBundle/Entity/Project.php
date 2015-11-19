@@ -517,4 +517,9 @@ class Project
             ;
         }
     }
+
+    public function isActive()
+    {
+        return ($this->getDaysToGo() >= 0);
+    }
 }

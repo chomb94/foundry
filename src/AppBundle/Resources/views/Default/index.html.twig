@@ -15,7 +15,7 @@
 </div>
 
 {% for project in projects %}
-  {% include 'AppBundle:Project:_oneProjectCard.html.twig' with { 'active' : '1'} %}
+  {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
 {% endfor %}
 
 <span class="clearfix"></span>
@@ -23,7 +23,7 @@
 <h2>Oldest Projects</h2>
 
 {% for project in old_projects %}
-  {% include 'AppBundle:Project:_oneProjectCard.html.twig' with { 'active' : '0'} %}
+  {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
 {% endfor %}
 
 {% endblock %}

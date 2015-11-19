@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
 use AppBundle\Entity\Project;
+use AppBundle\Entity\Step;
 use AppBundle\Entity\CreditsHistory;
 use AppBundle\Entity\UserCredits;
 use AppBundle\Base\BaseController;
@@ -114,8 +115,6 @@ class ProjectController extends BaseController
         if ($user_credits->getCredits() - $request->get("price") < 0) {
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'error' => 1]);
         }
-/* TODO : À RETIRER, C EST POUR TESTER LES MAIL SANS DECREMENTER LES CREDITS
-
         $creditHistory = new CreditsHistory();
         $creditHistory->setUserId($user_id);
         $creditHistory->setProject($project);
@@ -128,18 +127,15 @@ class ProjectController extends BaseController
         $em->persist($creditHistory);
         $em->persist($user_credits);
         $em->flush();
-*/
         $this->success("Your pledge has been taken into account.");
-
         // Send mail to project owner
         if ($this->getUser()) {
            $this->get('app.mail')->send(
-           $this->getUser(),
+           $project->getUser(),
            'New Pledge !',
            'AppBundle:Email:newPledge.html.twig',
                [
                    // context required by the template, except subject and user which are already available
-                   'time' => date("Y-m-d H:i:s"),
                    'project' => $project,
                ]
             );
@@ -165,7 +161,6 @@ class ProjectController extends BaseController
         }
 
         return [
-            'active'          => 1,
             'menu_myprojects' => 'active',
             'projects'        => $projects,
             'user'            => $user,
@@ -262,7 +257,8 @@ class ProjectController extends BaseController
     public function publishAction(Request $request)
     {
         $project = new Project();
-        $project->setEndDate(new \DateTime('2015-12-24'));
+        // Max 90 days - defaut 90 days
+        $project->setEndDate(new \DateTime(date("Y-m-d",time()+ 60 * 60 * 24 * project::MAX_DURATION)));
         $form    = $this->createForm(new ProjectType(), $project);
         $form->handleRequest($request);
         $user    = $this->getUser();
@@ -338,13 +334,16 @@ class ProjectController extends BaseController
         $user       = $this->getUser();
         $user_id    = $user->getId();
 
+
         if ($project->getUser()->getId() != $user_id) {
             throw $this->createAccessDeniedException();
         }
 
-        $form = $this->createForm(new StepType());
+        $step= new Step();
+        $step->setEndDate(new \DateTime(date("Y-m-d",time() + 60 * 60 * 24 * project::MAX_DURATION)));
+        $form = $this->createForm(new StepType(), $step);
         $form->handleRequest($request);
-        $step = $form->getData();
+        //$step = $form->getData();
 
         if ($form->isValid()) {
             $step->setCreationDate(new \DateTime());

@@ -44,3 +44,6 @@ web/uploads/projects
 .DS_Store
 nbproject
 notes
+
+# Small project, no need of composer.lock
+composer.lock

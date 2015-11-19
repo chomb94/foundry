@@ -1,0 +1,28 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+
+<div class="page-header">
+	<h1>Search</h1>
+	{% if projects | length == 0 %}
+		<div>No projects found</div>
+		<h2><a href="{{ path('projectPublish') }}" class="btn btn-lg btn-success">Start your new project</a></h2>
+	{% endif %}
+</div>
+
+
+{% for project in projects %}
+  {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
+{% endfor %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+	$('.projectCard').on('click', function(e) {
+		window.location.href=$(this).data('url');
+	});
+</script>
+
+{% endblock %}

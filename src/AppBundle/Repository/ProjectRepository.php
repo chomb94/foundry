@@ -30,4 +30,16 @@ class ProjectRepository extends EntityRepository
              'id' => $project->getId(),
          ))->execute();
     }
+
+    public function search($searchString) {
+        return $this->_em->createQuery("
+            SELECT p
+            FROM AppBundle\Entity\Project p
+            WHERE 
+                p.title LIKE :search
+                OR p.short_description LIKE :search   
+         ")->setParameters(array(
+             'search' => "%".$searchString."%",
+         ))->getResult();
+    }
 }
