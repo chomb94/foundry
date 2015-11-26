@@ -214,6 +214,11 @@ h1 {
     padding: 8px 0 16px;
 }
 
+.panel-steps {
+  float: left;
+  padding: 3px 8px 0 0;
+}
+
 .panel-default>.panel-inactive, .panel-inactive {
   background-color: #e1e1e4;
   border-color: #e1e1e4;
@@ -267,6 +272,33 @@ h1 {
 
 .step-sidebar-description {
   margin-top: 12px;
+}
+
+.step-isCompleted {
+  display: block;
+  float: left;
+  border: 1px solid #ddd;
+  color: #ddd;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  padding: 2px 0 0 6px;
+  margin: 0 6px 8px 0;
+  border-radius: 10px;
+}
+
+.step-isCompleted:hover{
+  text-decoration: none;
+}
+
+.step-completed-litle {
+  background-color: #a9e2a9;
+  border-color: #a9e2a9;
+  color: white;
+}
+
+.step-completed-litle:hover{
+  color: #4cae4c;
 }
 
 .summary {
