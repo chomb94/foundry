@@ -1,0 +1,12 @@
+<div class="{% if readonly == false %}domajax click{% else %}hide{% endif %}" data-alias="#score-{{ id }}">
+    <a
+        class="btn"
+        href="#"
+        id="score-{{ id }}"
+        data-endpoint="{{ path('projectVote', {id: id}) }}"
+        data-input-attr="score"
+        data-output="#vote-{{ id }}"
+    >
+        <span class="glyphicon glyphicon-heart btn-heart-{{ vote ? 'active' : 'inactive' }}" aria-hidden="true"></span>
+    </a>
+</div>

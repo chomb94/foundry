@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
 use AppBundle\Entity\Project;
+use AppBundle\Entity\Vote;
 use AppBundle\Entity\Step;
 use AppBundle\Entity\CreditsHistory;
 use AppBundle\Entity\UserCredits;
@@ -54,54 +55,61 @@ class ProjectController extends BaseController
     /**
      * @Template()
      */
-    public function viewPledgeAction(Request $request, $id)
+    public function viewVoteAction($id)
     {
+        $user  = $this->getUser();
         $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
+
         if (is_null($project)) {
-            throw $this->createAccessDeniedException();
+            throw $this->createNotFoundException();
         }
 
+        $vote = !$user ? null : $this
+           ->getDoctrine()
+           ->getRepository("AppBundle:Vote")
+           ->findByUserAndProject($user, $project)
+        ;
 
         return [
-            'readonly' => !is_null($this->getUser()),
-            'id' => $id
+            'readonly' => is_null($this->getUser()),
+            'id'       => $id,
+            'vote'     => $vote,
         ];
     }
 
     /**
-     * @Route("/project/{id}/one-click-pledge", name="projectOneClickPledge")
+     * @Route("/project/{id}/vote", name="projectVote")
      * @Security("has_role('ROLE_USER')")
      */
-    public function oneClickPledgeAction(Request $request, $id)
+    public function projectVoteAction($id)
     {
-        $score   = $request->request->get('score');
-        $userId  = $this->getUser()->getId();
-        $credits = $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findOneBy(['user_id' => $userId])->getCredits();
-        $project      = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
+        $user  = $this->getUser();
+        $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
 
-        $error = null;
-        $success = null;
-
-        if (($credits - $score) <= 0) {
-            $error = "You can't pledge {$score} credits, your balance is {$credits}.";
+        if (is_null($project)) {
+            throw $this->createNotFoundException();
         }
 
-        // support button (with heart icon)
-        // - ability to unsupport for 24 hours
-        // 
+        $vote = !$user ? null : $this
+           ->getDoctrine()
+           ->getRepository("AppBundle:Vote")
+           ->findByUserAndProject($user, $project)
+        ;
 
-        // if user already pledged, remove pledge
-        // save pledge
-        // decrement credits
-        // reload card percentage
-        // success message
+        if ($user) {
+            $em = $this->getDoctrine()->getManager();
+            if ($vote) {
+                $em->remove($vote);
+            } else {
+                $vote = new Vote();
+                $vote->setUser($user);
+                $vote->setProject($project);
+                $em->persist($vote);
+            }
+            $em->flush();
+        }
 
-        return new JsonResponse([
-            'error' => $error,
-            'success' => $success,
-            'credits' => $credits,
-
-        ]);
+        return $this->forward('AppBundle:Project:viewVote', ['id' => $id]);
     }
 
     /**
