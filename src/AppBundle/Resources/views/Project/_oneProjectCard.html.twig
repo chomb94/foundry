@@ -27,10 +27,10 @@
         </div>
       </div>
       <div>
-        <div class="pull-left">
+        <div class="opc-action-left">
           	<a class="btn btn-default {% if project.active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details »</a>
         </div>
-        <div class="pull-right">
+        <div class="opc-action-right">
             {{ render(controller('AppBundle:Project:viewPledge', {id: project.id})) }}
         </div>
       </div>

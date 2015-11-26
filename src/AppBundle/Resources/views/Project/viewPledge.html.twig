@@ -1,25 +1,11 @@
-<div
+<a
+    class="btn"
+    href="#"
     id="score-{{ id }}"
     data-endpoint="{{ path('projectOneClickPledge', {id: id}) }}"
     data-input-attr="score"
-    data-score="0"
-    style="padding-top: 5px;"
 >
-    <div id="raty-{{ id }}"></div>
-</div>
+    <span class="glyphicon glyphicon-heart btn-heart" aria-hidden="true"></span>
+    Like!
+</a>
 
-<script type="text/javascript">
-
-    $('#raty-{{ id }}').raty({
-        click: function(score, e) {
-            var elem = $('#score-{{ id }}');
-            elem.data('score', score);
-            elem.domAjax();
-        },
-        number: 5,
-        path: '{{ asset('assets/js/raty/images/') }}',
-        readonly: {{ readonly }}
-//        score: '', // initial rating
-    });
-
-</script>
