@@ -6,7 +6,9 @@
         data-endpoint="{{ path('projectVote', {id: id}) }}"
         data-input-attr="score"
         data-output="#vote-{{ id }}"
+        data-script-before="if ($('#vote-icon-{{ id }}').hasClass('btn-heart-active')) { $('#vote-icon-{{ id }}').removeClass('btn-heart-active').addClass('btn-heart-inactive'); } else { $('#vote-icon-{{ id }}').removeClass('btn-heart-inactive').addClass('btn-heart-active'); };"
     >
-        <span class="glyphicon glyphicon-heart btn-heart-{{ vote ? 'active' : 'inactive' }}" aria-hidden="true"></span>
+        <span id="vote-icon-{{ id }}" class="glyphicon glyphicon-heart btn-heart-{{ vote ? 'active' : 'inactive' }}" aria-hidden="true"></span>
     </a>
 </div>
+
