@@ -18,9 +18,9 @@ class UserController extends BaseController
     {
         $user        = $this->getUser();
         $userCredits = $this
-           ->get("doctrine")
-           ->getRepository("AppBundle:UserCredits")
-           ->findBy(array('user_id' => $user->getId()))[0]
+              ->get("doctrine")
+              ->getRepository("AppBundle:UserCredits")
+              ->findBy(array('user_id' => $user->getId()))[0]
         ;
 
         $projectsPledged = $this
@@ -34,6 +34,24 @@ class UserController extends BaseController
             'user'            => $user,
             'userCredits'     => $userCredits,
             'projectsPledged' => $projectsPledged,
+        ];
+    }
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Template()
+     */
+    public function myCreditsAction()
+    {
+        $user        = $this->getUser();
+        $userCredits = $this
+              ->get("doctrine")
+              ->getRepository("AppBundle:UserCredits")
+              ->findBy(array('user_id' => $user->getId()))[0]
+        ;
+
+        return [
+            'credits' => $userCredits->getCredits(),
         ];
     }
 }

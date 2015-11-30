@@ -6,9 +6,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
 use AppBundle\Entity\Project;
+use AppBundle\Entity\Vote;
 use AppBundle\Entity\Step;
 use AppBundle\Entity\CreditsHistory;
 use AppBundle\Entity\UserCredits;
@@ -25,7 +27,7 @@ class ProjectController extends BaseController
     {
         $project     = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
         $user        = $this->getUser();
-        $user_id     = ($user != null ? $user->getId() : 0);
+        $user_id     = $user->getId();
         $myproject   = ($user_id == $project->getUser()->getId());
         $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $id]);
         $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $project]);
@@ -48,6 +50,66 @@ class ProjectController extends BaseController
             'error'       => $request->get("error", 0),
             'user'        => $user,
         ];
+    }
+
+    /**
+     * @Template()
+     */
+    public function viewVoteAction($id)
+    {
+        $user  = $this->getUser();
+        $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
+
+        if (is_null($project)) {
+            throw $this->createNotFoundException();
+        }
+
+        $vote = !$user ? null : $this
+           ->getDoctrine()
+           ->getRepository("AppBundle:Vote")
+           ->findByUserAndProject($user, $project)
+        ;
+
+        return [
+            'readonly' => is_null($this->getUser()),
+            'id'       => $id,
+            'vote'     => $vote,
+        ];
+    }
+
+    /**
+     * @Route("/project/{id}/vote", name="projectVote")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function projectVoteAction($id)
+    {
+        $user  = $this->getUser();
+        $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
+
+        if (is_null($project)) {
+            throw $this->createNotFoundException();
+        }
+
+        $vote = !$user ? null : $this
+           ->getDoctrine()
+           ->getRepository("AppBundle:Vote")
+           ->findByUserAndProject($user, $project)
+        ;
+
+        if ($user) {
+            $em = $this->getDoctrine()->getManager();
+            if ($vote) {
+                $em->remove($vote);
+            } else {
+                $vote = new Vote();
+                $vote->setUser($user);
+                $vote->setProject($project);
+                $em->persist($vote);
+            }
+            $em->flush();
+        }
+
+        return $this->forward('AppBundle:Project:viewVote', ['id' => $id]);
     }
 
     /**
