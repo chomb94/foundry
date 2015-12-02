@@ -27,6 +27,10 @@ class Category
      * @ORM\Column(type="string", length=255)
      */
     protected $picto_url;
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $end_date;
 
 
     /**
