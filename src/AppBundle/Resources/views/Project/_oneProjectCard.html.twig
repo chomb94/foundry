@@ -5,7 +5,7 @@
     </div>
     <div class="panel-body">
       <div class="crop">
-          <img src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title }}"/>
+          <a href="{{ path('projectView', {id: project.id}) }}"><img src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title }}"/></a>
       </div>
       <div class="project-image-container">
         <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">
@@ -44,7 +44,7 @@
       </div>
       <div>
         <div class="opc-action-left">
-          	<a class="btn btn-default {% if project.active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details »</a>
+          	<a class="btn {% if project.active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details</a>
         </div>
         <div id="vote-{{ project.id }}" class="opc-action-right">
             {{
