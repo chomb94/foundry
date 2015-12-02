@@ -74,8 +74,15 @@
 			<p>
 				<span class="summary_days_label">Days to go: <span class="summary_days {% if project.getDaysToGo < 10 %}red{% endif %}">{{ project.getDaysToGo }}</span></span>
 			</p>
-
 		</div>
+
+    <div>
+        {{ project.family.name|e }}
+        {% if project.category.name is defined %}
+          > {{ project.category.name|e }}
+        {% endif %}
+    </div>
+
 		<div class="steps-sidebar">
 		<h2>Steps</h2>
 		{% for step in steps %}
