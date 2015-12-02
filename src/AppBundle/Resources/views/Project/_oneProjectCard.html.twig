@@ -11,9 +11,9 @@
         <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">
       </div>
       <div>
-          {{ project.family.name|default}}
+          {{ project.family.name|default }}
           {% if project.category.name is defined %}
-            > {{ project.category.name|e }}
+            &gt; {{ project.category.name|default }}
           {% endif %}
       </div>
       <div class="cropdescription {% if project.steps|length <= 1 %}without-progression{% endif %}">
@@ -52,10 +52,14 @@
         <div class="col-md-4 opc-action-left">
           	<a class="btn {% if project.active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details</a>
         </div>
-        <div class="col-md-4 opc-action-right">
-            <a class="btn btn-default">I participe!</a>
+        <div class="col-md-5 opc-action-right">
+            {{
+                render(controller('AppBundle:Project:viewParticipate', {
+                    id: project.id
+                }))
+            }}
         </div>
-        <div class="col-md-4 opc-action-right" id="vote-{{ project.id }}">
+        <div class="col-md-3 opc-action-right" id="vote-{{ project.id }}">
             {{
                 render(controller('AppBundle:Project:viewVote', {
                     id: project.id

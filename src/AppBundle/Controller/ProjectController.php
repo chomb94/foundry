@@ -390,4 +390,11 @@ class ProjectController extends BaseController
             'user'            => $user,
         ];
     }
+
+    /**
+     * @Template()
+     */
+    public function viewParticipateAction($id)
+    {
+    }
 }
