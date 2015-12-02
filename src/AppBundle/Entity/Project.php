@@ -68,11 +68,23 @@ class Project
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $imageName;
+
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserGoogle")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Family")
+     * @ORM\JoinColumn(name="family_id", referencedColumnName="id")
+     */
+    protected $family;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    protected $category;
+
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
@@ -119,6 +131,54 @@ class Project
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set Family.
+     *
+     * @param Family $family
+     *
+     * @return Project
+     */
+    public function setFamily($family)
+    {
+        $this->family = $family;
+
+        return $this;
+    }
+
+    /**
+     * Get family.
+     *
+     * @return Family
+     */
+    public function getFamily()
+    {
+        return $this->family;
+    }
+
+    /**
+     * Set Category.
+     *
+     * @param Category $category
+     *
+     * @return Project
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category.
+     *
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 
     /**
