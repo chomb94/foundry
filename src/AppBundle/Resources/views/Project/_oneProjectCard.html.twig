@@ -1,4 +1,4 @@
-<div class="col-sm-4 projectCard" data-url="{{ path('projectView', {id: project.id}) }}">
+<div class="col-sm-4">
   <div class="panel panel-default {% if project.active %}{% else %}panel-inactive{% endif %}">
     <div class="panel-heading {% if project.active %}panel-active{% else %}panel-inactive{% endif %}">
       <h3 class="panel-title project_title_panel">{{ project.title|e }}</h3>
@@ -13,6 +13,16 @@
       <div class="cropdescription">
           {{ project.shortDescription|e }}
       </div>
+      <div class="clearfix">
+        <div class="panel-footer panel-steps"><span class="text-light">Steps: </span></div>
+        <div class="progress_step">
+          {% set stepindex = 1 %}
+          {% for step in project.steps %}
+            <span><a href="{{ path('projectView', {id: project.id}) }}" alt="{{ step.title }}" class="step-isCompleted {% if step.isCompleted %}step-completed-litle{% endif %}">{{ stepindex }}</a></span>
+            {% set stepindex = stepindex+1 %}
+          {% endfor %}
+        </div>
+      </div>
       <div class="progress">
         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ project.percentageOfProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percentageOfProgress }}%">
           <span class="sr-only">{{ project.percentageOfProgress }}% Complete (success)</span>
@@ -26,14 +36,18 @@
           <p><span class="{% if (project.getDaysToGo < 10) and project.active %}red text-bold{% endif %}">{% if project.active %}{{ project.getDaysToGo }}{% else %}{{ -project.getDaysToGo }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span></p>
         </div>
       </div>
-      <p>
-       <div class="opc-action-left">
-        	<a class="btn btn-default {% if project.active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details »</a>
+      <div>
+        <div class="opc-action-left">
+          	<a class="btn btn-default {% if project.active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details »</a>
         </div>
-       <div class="opc-action-right">
-          <a class="btn" href=""><span class="glyphicon glyphicon-heart btn-heart" aria-hidden="true"></span> Support (2)</a>
+        <div id="vote-{{ project.id }}" class="opc-action-right">
+            {{
+                render(controller('AppBundle:Project:viewVote', {
+                    id: project.id
+                }))
+            }}
         </div>
-      </p>
+      </div>
     </div>
   </div>
 </div>

@@ -12,6 +12,7 @@
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
             <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <script src="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/js/jquery.domajax.js') }}"></script>
         {% endblock %}
     </head>
     <body role="document">
@@ -65,6 +66,9 @@
                             </li>
                             {% if app.user %}
                                 <li><a href="{{ path('userIndex') }}" class="img-link"><img src="{{ app.user.profilePicture }}" alt="{{ app.user.nickname }}" class="img-navbar"/></a></li>
+                                {% block available_credits %}
+                                    <li>{{ render(controller('AppBundle:User:myCredits')) }}</li>
+                                {% endblock %}
                             {% endif %}
                         {% endblock %}
                     </ul>
