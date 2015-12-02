@@ -11,7 +11,7 @@
         <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">
       </div>
       <div>
-          {{ project.family.name|e }}
+          {{ project.family.name|default}}
           {% if project.category.name is defined %}
             > {{ project.category.name|e }}
           {% endif %}
