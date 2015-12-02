@@ -200,7 +200,14 @@ h1 {
     text-align: right;
 }
 
+.panel-steps {
+  display: block;
+  float:left;
+  padding: 3px 8px 0 0;
+}
+
 .progress {
+    clear: left;
     height: 8px;
     margin-bottom: 2px;
 }
@@ -212,10 +219,6 @@ h1 {
     padding: 8px 0 16px;
 }
 
-.panel-steps {
-  float: left;
-  padding: 3px 8px 0 0;
-}
 
 .panel-default>.panel-inactive, .panel-inactive {
   background-color: #e1e1e4;

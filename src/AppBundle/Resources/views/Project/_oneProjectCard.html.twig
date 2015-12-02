@@ -13,15 +13,17 @@
       <div class="cropdescription">
           {{ project.shortDescription|e }}
       </div>
-      <div class="clearfix">
-        <div class="panel-footer panel-steps"><span class="text-light">Steps: </span></div>
-        <div class="progress_step">
-          {% set stepindex = 1 %}
-          {% for step in project.steps %}
-            <span><a href="{{ path('projectView', {id: project.id}) }}" alt="{{ step.title }}" class="step-isCompleted {% if step.isCompleted %}step-completed-litle{% endif %}">{{ stepindex }}</a></span>
-            {% set stepindex = stepindex+1 %}
-          {% endfor %}
-        </div>
+      <div class="panel-steps {% if project.active %}{% else %}panel-inactive{% endif %}">
+        {% if project.steps|length >1 %}
+        {% endif %}
+        <span class="text-light">Steps: </span>
+      </div>
+      <div class="progress_step">
+        {% set stepindex = 1 %}
+        {% for step in project.steps %}
+          <span><a href="{{ path('projectView', {id: project.id}) }}" alt="{{ step.title }}" class="step-isCompleted {% if step.isCompleted %}step-completed-litle{% endif %}">{{ stepindex }}</a></span>
+          {% set stepindex = stepindex+1 %}
+        {% endfor %}
       </div>
       <div class="progress">
         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ project.percentageOfProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percentageOfProgress }}%">
