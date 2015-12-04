@@ -91,7 +91,7 @@
                     <h3>{{ step.title }}</h3>
                 </div>
                 <div class="step-price">
-                    <span class="step-price-bg">{{ step.price }}</span> Credits
+                    <span class="step-price-bg">{{ step.price }}</span> Days Needed
                 </div>
                 <div class="clearfix"></div>
                 <p class="step-sidebar-description">{{ step.shortDescription|e }}</p>
@@ -101,9 +101,9 @@
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         Completed!
                     {% elseif step.isDisplayPledgeForm %}
-                        {{ step.priceToFinish }} credit(s) remaining to achieve this step!
+                        {{ step.priceToFinish }} "Day{% if step.priceToFinish > 1 %}s{% endif %} Needed" remaining to achieve this step!
                         {% if error == 1 %}
-                            <p><strong>Not enough credits available!</strong></p>
+                            <p><strong>Not enough Days available!</strong></p>
                         {% endif %}
                         <form action="{{ path('projectPledge', {id: project.id}) }}" method="post">
                             <input type="number" id="price" name="price" required="required" class="form-control input-price" min="0" max="{{ userCredits.credits }}">

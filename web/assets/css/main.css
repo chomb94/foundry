@@ -137,9 +137,9 @@ h1 {
     max-height: 200px;
     overflow: hidden;
     display: block;
-    height: 100px;
+    height: 86px;
     font-size: 12px;
-    margin: 32px 0 32px 0;
+    margin: 44px 0 8px 0;
     text-align: justify;
 }
 
@@ -201,9 +201,11 @@ h1 {
 }
 
 .panel-steps {
+  background-color: transparent;
   display: block;
-  float:left;
-  padding: 3px 8px 0 0;
+  text-align: center;
+  padding: 3px 8px 4px 0;
+  height: 44px;
 }
 
 .progress {
