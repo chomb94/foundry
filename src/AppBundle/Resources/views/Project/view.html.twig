@@ -1,4 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
+{% block title %}
+{{ project.title|e }}
+{% endblock %}
 
 {% block body %}
 <div class="page-header text-center">
@@ -83,6 +86,7 @@
         {% endif %}
     </div>
 
+    {% if steps|length > 1 %}
 		<div class="steps-sidebar">
 		<h2>Steps</h2>
 		{% for step in steps %}
@@ -116,6 +120,7 @@
 			</div>
 		{% endfor %}
 		</div>
+    {% endif %}
 		{% if myproject %}
 		<div class="sidebar-footer text-center">
 			<a href="{{ path('projectStepPublish', {id: project.id}) }}" class="btn btn-default btn-xs">Add a new step</a>
