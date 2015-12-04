@@ -34,7 +34,7 @@
 		<div class="project-container-text">
 			<div class="Project-shortdescription">
 				<p>
-				  {{ project.shortDescription }}
+				  {{ project.shortDescription|e|nl2br }}
 				</p>
 			</div>
 			<hr>
@@ -46,32 +46,33 @@
 			{% if project.fullDescription != '' %}
                 <h3>Full Description:</h3>
                 <p>
-                  {{ project.fullDescription }}
+                  {{ project.fullDescription|e|nl2br }}
                 </p>
 			{% endif %}
 
 			{% if project.team != '' %}
 			<h3>People needed:</h3>
 			<p>
-			  {{ project.team }}
+			  {{ project.team|e|nl2br }}
 			</p>
 			{% endif %}
 
 			{% if project.risksChallenges != '' %}
                 <h3>Risks and Challenges:</h3>
                 <p>
-                  {{ project.risksChallenges|e }}
+                  {{ project.risksChallenges|e|nl2br }}
                 </p>
 			{% endif %}
 
 			{% if project.deliveryPromise != '' %}
                 <h3>DeliveryPromise:</h3>
                 <p>
-                  {{ project.deliveryPromise|e }}
+                  {{ project.deliveryPromise|e|nl2br }}
                 </p>
 			{% endif %}
 
 			<p>
+      <hr>
     			Creation Date: {{ project.creationDate.date }}
 			</p>
 		</div>
