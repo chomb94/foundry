@@ -40,6 +40,21 @@ class ProjectController extends BaseController
             $user_credits->setCredits(10);
         }
 
+        // Rewrite video url if it not contain "embed" for youtube
+        $videoUrl = $project->getVideoUrl();
+        if ( !(strpos($videoUrl, 'embed')) ) {
+            
+            if ( strpos($videoUrl, 'watch') ) {
+                $posId = strrpos( $videoUrl, "=" );
+            } elseif ( strpos($videoUrl, 'youtu') ) {
+                $posId = strrpos( $videoUrl, "/" );
+            }
+
+            $videoId = substr($videoUrl, $posId+1, strlen($videoUrl));
+            $newVideoUrl = "https://www.youtube.com/embed/".$videoId;
+            $project->setVideoUrl($newVideoUrl);
+        }
+
         $project->setStepsAndCredits($step_list, $all_credits);
 
         return [

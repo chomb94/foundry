@@ -117,7 +117,7 @@
                         {% endif %}
                         <form action="{{ path('projectPledge', {id: project.id}) }}" method="post">
                             <input type="number" id="price" name="price" required="required" class="form-control input-price" min="0" max="{{ userCredits.credits }}">
-                            <button type="submit" id="project_save" name="step" class="btn-success btn"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Pledge</button>
+                            <button type="submit" id="project_save" name="step" class="btn-success btn"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Pledge</button>
                         </form>
                     {% else %}
                         Coming next...
