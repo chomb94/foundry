@@ -42,7 +42,7 @@ class ProjectController extends BaseController
 
         // Rewrite video url if it not contain "embed" for youtube
         $videoUrl = $project->getVideoUrl();
-        if ( !(strpos($videoUrl, 'embed')) ) {
+        if ( ($videoUrl != "" ) && !(strpos($videoUrl, 'embed')) ) {
             
             if ( strpos($videoUrl, 'watch') ) {
                 $posId = strrpos( $videoUrl, "=" );
