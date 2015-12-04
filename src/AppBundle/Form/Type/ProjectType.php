@@ -19,8 +19,8 @@ class ProjectType extends AbstractType
             ))
             ->add('shortDescription', 'textarea')
             ->add('endDate',  'date')
-            /*
             ->add('videoUrl', 'text', ['required'=>false])
+            /*
             ->add('team', 'textarea', ['required'=>false])
             ->add('fullDescription', 'textarea', ['required'=>false])
             ->add('risksChallenges',  'textarea', ['required'=>false])
