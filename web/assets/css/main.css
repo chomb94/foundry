@@ -139,7 +139,7 @@ h1 {
     display: block;
     height: 86px;
     font-size: 12px;
-    margin: 44px 0 8px 0;
+    margin: 44px 0 0px 0;
     text-align: justify;
 }
 
@@ -204,8 +204,11 @@ h1 {
   background-color: transparent;
   display: block;
   text-align: center;
-  padding: 3px 8px 4px 0;
   height: 44px;
+}
+
+.without-progression {
+  height: 150px;
 }
 
 .progress {
