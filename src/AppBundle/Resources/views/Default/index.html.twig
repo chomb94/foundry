@@ -1,39 +1,47 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block jumbotron %}
-<div class="jumbotron">
-  <p>Welcome {{ user.nickname | default("to you") }}</p>
-  <a class="btn btn-lg btn-success" href="{{ path('projectPublish') }}">Start your project</a>
-</div>
+    <div class="jumbotron">
+        <p>Welcome {{ user.nickname | default("to you") }}</p>
+        <a class="btn btn-lg btn-success" href="{{ path('projectPublish') }}">Start your project</a>
+    </div>
 
 {% endblock %}
 
 {% block body %}
 
-<div class="page-header">
-	<h1>Hot Projects</h1>
-</div>
+    {% if projects|length %}
+        <div class="page-header">
+            <h1>Hot Projects</h1>
+        </div>
 
-{% for project in projects %}
-  {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
-{% endfor %}
+        {% for project in projects %}
+            {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
+        {% endfor %}
 
-<span class="clearfix"></span>
-<hr />
-<h2>Oldest Projects</h2>
+        <span class="clearfix"></span>
+        <hr />
+    {% endif %}
 
-{% for project in old_projects %}
-  {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
-{% endfor %}
+
+    {% if old_projects|length %}
+
+        <h2>Oldest Projects</h2>
+
+        {% for project in old_projects %}
+            {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
+        {% endfor %}
+
+    {% endif %}
 
 {% endblock %}
 
 {% block javascripts %}
 
-<script>
-	$('.projectCard').on('click', function(e) {
-		document.location = $(this).data('url');
-	});
-</script>
+    <script>
+        $('.projectCard').on('click', function (e) {
+            document.location = $(this).data('url');
+        });
+    </script>
 
 {% endblock %}
