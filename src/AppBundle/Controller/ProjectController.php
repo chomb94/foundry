@@ -9,7 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
+use AppBundle\Form\Type\ParticipateType;
 use AppBundle\Entity\Project;
+use AppBundle\Entity\UserGoogle;
 use AppBundle\Entity\Vote;
 use AppBundle\Entity\Step;
 use AppBundle\Entity\CreditsHistory;
@@ -18,6 +20,7 @@ use AppBundle\Base\BaseController;
 
 class ProjectController extends BaseController
 {
+
     /**
      * @Route("/project/view/{id}", name="projectView")
      * @Security("has_role('ROLE_USER')")
@@ -42,15 +45,15 @@ class ProjectController extends BaseController
 
         // Rewrite video url if it not contain "embed" for youtube
         $videoUrl = $project->getVideoUrl();
-        if ( ($videoUrl != "" ) && !(strpos($videoUrl, 'embed')) ) {
-            
-            if ( strpos($videoUrl, 'watch') ) {
-                $posId = strrpos( $videoUrl, "=" );
-            } elseif ( strpos($videoUrl, 'youtu') ) {
-                $posId = strrpos( $videoUrl, "/" );
+        if (($videoUrl != "" ) && !(strpos($videoUrl, 'embed'))) {
+
+            if (strpos($videoUrl, 'watch')) {
+                $posId = strrpos($videoUrl, "=");
+            } elseif (strpos($videoUrl, 'youtu')) {
+                $posId = strrpos($videoUrl, "/");
             }
 
-            $videoId = substr($videoUrl, $posId+1, strlen($videoUrl));
+            $videoId     = substr($videoUrl, $posId + 1, strlen($videoUrl));
             $newVideoUrl = "https://www.youtube.com/embed/".$videoId;
             $project->setVideoUrl($newVideoUrl);
         }
@@ -72,7 +75,7 @@ class ProjectController extends BaseController
      */
     public function viewVoteAction($id)
     {
-        $user  = $this->getUser();
+        $user    = $this->getUser();
         $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
 
         if (is_null($project)) {
@@ -80,9 +83,9 @@ class ProjectController extends BaseController
         }
 
         $vote = !$user ? null : $this
-           ->getDoctrine()
-           ->getRepository("AppBundle:Vote")
-           ->findByUserAndProject($user, $project)
+              ->getDoctrine()
+              ->getRepository("AppBundle:Vote")
+              ->findByUserAndProject($user, $project)
         ;
 
         return [
@@ -98,7 +101,7 @@ class ProjectController extends BaseController
      */
     public function projectVoteAction($id)
     {
-        $user  = $this->getUser();
+        $user    = $this->getUser();
         $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
 
         if (is_null($project)) {
@@ -106,9 +109,9 @@ class ProjectController extends BaseController
         }
 
         $vote = !$user ? null : $this
-           ->getDoctrine()
-           ->getRepository("AppBundle:Vote")
-           ->findByUserAndProject($user, $project)
+              ->getDoctrine()
+              ->getRepository("AppBundle:Vote")
+              ->findByUserAndProject($user, $project)
         ;
 
         if ($user) {
@@ -141,28 +144,16 @@ class ProjectController extends BaseController
         if ($user_credits->getCredits() - $request->get("price") < 0) {
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'error' => 1]);
         }
-        $creditHistory = new CreditsHistory();
-        $creditHistory->setUserId($user_id);
-        $creditHistory->setProject($project);
-        $creditHistory->setNbCreditsSpent($request->get("price"));
-        $creditHistory->setPledgeDate(date_create("now"));
 
-        $user_credits->setCredits($user_credits->getCredits() - $request->get("price"));
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($creditHistory);
-        $em->persist($user_credits);
-        $em->flush();
+        $this->pledgeProject($user, $user_credits, $project, $request->get('price'));
         $this->success("Your pledge has been taken into account.");
+
         // Send mail to project owner
         if ($this->getUser()) {
-           $this->get('app.mail')->send(
-           $project->getUser(),
-           'New Pledge !',
-           'AppBundle:Email:newPledge.html.twig',
-               [
-                   // context required by the template, except subject and user which are already available
-                   'project' => $project,
+            $this->get('app.mail')->send(
+               $project->getUser(), 'New Pledge !', 'AppBundle:Email:newPledge.html.twig', [
+                // context required by the template, except subject and user which are already available
+                'project' => $project,
                ]
             );
         }
@@ -251,12 +242,11 @@ class ProjectController extends BaseController
         // An empty form generates a CRSF token anyway :)
         $form = $this
            ->createFormBuilder()
-           ->add('submit', 'submit',
-              array(
-                   'label' => 'Confirm',
-                   'attr' => array(
-                           'class' => 'btn btn-danger',
-                   ),
+           ->add('submit', 'submit', array(
+               'label' => 'Confirm',
+               'attr'  => array(
+                   'class' => 'btn btn-danger',
+               ),
            ))
            ->getForm()
         ;
@@ -284,7 +274,7 @@ class ProjectController extends BaseController
     {
         $project = new Project();
         // Max 90 days - defaut 90 days
-        $project->setEndDate(new \DateTime(date("Y-m-d",time()+ 60 * 60 * 24 * project::MAX_DURATION)));
+        $project->setEndDate(new \DateTime(date("Y-m-d", time() + 60 * 60 * 24 * project::MAX_DURATION)));
         $form    = $this->createForm(new ProjectType(), $project);
         $form->handleRequest($request);
         $user    = $this->getUser();
@@ -365,8 +355,8 @@ class ProjectController extends BaseController
             throw $this->createAccessDeniedException();
         }
 
-        $step= new Step();
-        $step->setEndDate(new \DateTime(date("Y-m-d",time() + 60 * 60 * 24 * project::MAX_DURATION)));
+        $step = new Step();
+        $step->setEndDate(new \DateTime(date("Y-m-d", time() + 60 * 60 * 24 * project::MAX_DURATION)));
         $form = $this->createForm(new StepType(), $step);
         $form->handleRequest($request);
 
@@ -389,5 +379,73 @@ class ProjectController extends BaseController
             'menu_myprojects' => 'active',
             'user'            => $user,
         ];
+    }
+
+    /**
+     * @Template()
+     * @Route("/project/participate/{id}", name="projectParticipate")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function viewParticipateAction(Request $request, $id)
+    {
+        $project    = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
+        $user       = $this->getUser();
+
+        if (is_null($project)) {
+            throw $this->createNotFoundException();
+        }
+
+        $isParticipant = $this
+           ->get("doctrine")
+           ->getRepository("AppBundle:CreditsHistory")
+           ->findBy([
+               'user_id' => $user->getId(),
+               'project' => $project
+           ]) ?: false;
+
+        $message = null;
+
+        $form = $this->createForm(ParticipateType::class);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $amount = $form->getData()['amount'];
+
+            $credits = $this
+               ->getDoctrine()
+               ->getRepository("AppBundle:UserCredits")
+               ->findOneBy(['user_id' => $user->getId()]);
+
+            if (!$credits || $credits->getCredits() - $amount < 0) {
+                $message = sprintf("You have %d!", $credits->getCredits());
+            } else {
+                $this->pledgeProject($user, $credits, $project, $amount);
+
+                return $this->redirectToRoute('projectParticipate', ['id' => $id]);
+            }
+        }
+
+        return [
+            'id'            => $id,
+            'form'          => $form->createView(),
+            'message'       => $message,
+            'isParticipant' => $isParticipant,
+        ];
+    }
+
+    protected function pledgeProject(UserGoogle $user, UserCredits $credits, Project $project, $amount)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $creditHistory = new CreditsHistory();
+        $creditHistory->setUserId($user->getId());
+        $creditHistory->setProject($project);
+        $creditHistory->setNbCreditsSpent($amount);
+        $creditHistory->setPledgeDate(date_create("now"));
+        $em->persist($creditHistory);
+
+        $credits->setCredits($credits->getCredits() - $amount);
+        $em->persist($credits);
+
+        $em->flush();
     }
 }
