@@ -12,7 +12,7 @@ class ParticipateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-           ->add('amount', Type\NumberType::class, [
+           ->add('amount', Type\HiddenType::class, [
                'constraints' => [
                    new Assert\Range(['min' => 0, 'max' => 10]),
                ],

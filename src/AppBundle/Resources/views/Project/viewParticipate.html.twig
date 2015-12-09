@@ -10,23 +10,21 @@
 
     {{ form_start(form) }}
 
-    <div class="input-group">
       {{
         form_widget(form.amount, {
             'attr': {
-                'class': 'form-control',
+                'class': 'form-control-participate',
             },
         })
       }}
 
       <a
-          class="input-group-addon btn btn-default domajax click"
+          class="btn btn-default domajax click"
           data-endpoint="{{ path('projectParticipate', {id: id}) }}"
           data-lock='#participate-{{ id }}'
           data-input='#participate-{{ id }}'
           data-output='#participate-{{ id }}'
-      >I'm in!</a>
-    </div>
+      >  <span id="participate-icon-{{ id }}" class="glyphicon glyphicon-sunglasses btn-onecard btn-sunglasses-{{ isParticipant ? 'isactive' : 'active' }}" aria-hidden="true"></span><span class="btn-onecard-text"> I'm in!</span></a>
 
     {% if message %}
         <p class="text-center alert-danger">{{ message }}</p>

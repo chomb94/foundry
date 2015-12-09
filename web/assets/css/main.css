@@ -460,23 +460,41 @@ h1 {
 }
 
 .opc-action-right {
-  text-align: right;
+  text-align: center;
 }
 
-.btn-heart-inactive {
-  top: -4px;
-  color: #fdaec4;
+.btn-onecard {
+  top: 3px;
   font-size: 24px;
 }
 
+.btn-onecard-text {
+  font-size: 12px;
+  float: right;
+  display: block;
+  padding: 8px 0 0 12px;
+}
+
+.btn-heart-inactive {
+  color: #fdaec4;
+}
+
 .btn-heart-inactive:hover {
-  top: -4px;
   color: #dd2e44;
 }
 
 .btn-heart-active {
-  top: -4px;
   color: #dd2e44;
-  font-size: 24px;
 }
 
+.btn-sunglasses-active {
+  color: black;
+}
+
+.btn-sunglasses-inactive {
+  color: #999;
+}
+
+.input-group-addon {
+  color:red;
+}
