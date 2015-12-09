@@ -16,11 +16,11 @@
                     &gt; {{ project.category.name|default }}
                 {% endif %}
             </div>
-            <div class="cropdescription {% if project.steps|length <= 1 %}without-progression{% endif %}">
+             <div class="cropdescription {% if project.steps|length <= 1 %}noprogress{% endif %}">
                 {{ project.shortDescription|e }}
             </div>
+            {% if project.steps|length >1 %}
             <div class="panel-steps">
-                {% if project.steps|length >1 %}
                     {% set lastStepCompleted = "" %}
                     {% set nextStep = "" %}
                     {% for step in project.steps %}
@@ -32,13 +32,13 @@
                     {% if lastStepCompleted != "" %}
                         {{ lastStepCompleted }}<span class="text-light"> step confirmed!</span>
                     {% endif %}
-                {% endif %}
             </div>
             <div class="progress">
                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ project.percentageOfProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percentageOfProgress }}%">
                     <span class="sr-only">{{ project.percentageOfProgress }}% Complete (success)</span>
                 </div>
             </div>
+
             <div class="panel-footer {% if project.active %}{% else %}panel-inactive{% endif %} panel-footer-credits-progression">
                 <div class="left">
                     <p>{{ project.nbCreditsDone }} <span class="text-light"> Day{% if project.nbCreditsDone > 1 %}s{% endif %} Given</span> / {{ project.nbCreditsTotal }} <span class="text-light"></span></p>
@@ -47,6 +47,7 @@
                     <p><span class="{% if (project.getDaysToGo < 10) and project.active %}red text-bold{% endif %}">{% if project.active %}{{ project.getDaysToGo }}{% else %}{{ -project.getDaysToGo }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span></p>
                 </div>
             </div>
+           {% endif %}
             <div class="row">
                 <div class="col-md-4 opc-action-left">
                     <a class="btn {% if project.active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details</a>
@@ -57,6 +58,7 @@
                             id: project.id
                         }))
                     }}
+
                 </div>
                 <div class="col-md-3 opc-action-right" id="vote-{{ project.id }}">
                     {{
