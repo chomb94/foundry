@@ -43,7 +43,7 @@
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
 	"preferred-install": "dist",
         "platform": {
             "php": "5.4.32"
