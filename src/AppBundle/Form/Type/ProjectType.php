@@ -18,6 +18,11 @@ class ProjectType extends AbstractType
                 'download_link' => true, // not mandatory, default is true
             ))
             ->add('shortDescription', 'textarea')
+            ->add('family', 'entity', array(
+                'label' => 'Family',
+                'class' => 'AppBundle\Entity\Family',
+                'property' => 'name'
+            ))
             ->add('endDate',  'date')
             ->add('videoUrl', 'text', ['required'=>false])
             ->add('fullDescription', 'textarea', ['required'=>false])
