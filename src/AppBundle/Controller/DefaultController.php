@@ -17,7 +17,7 @@ class DefaultController extends BaseController
         $user = $this->getUser();
 
         // First list with only project before end date
-        $dql = "SELECT p FROM AppBundle:Project p WHERE p.endDate >= :endDate ORDER BY p.endDate DESC";
+        $dql = "SELECT p FROM AppBundle:Project p WHERE p.endDate >= :endDate ORDER BY p.endDate ASC";
         $projects = $this
             ->get("doctrine")
             ->getEntityManager()
