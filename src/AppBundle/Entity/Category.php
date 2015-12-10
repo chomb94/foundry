@@ -16,10 +16,6 @@ class Category
      */
     protected $id;
     /**
-     * @ORM\Column(type="integer")
-     */
-    protected $family_id;
-    /**
      * @ORM\Column(type="string", length=100)
      */
     protected $name;
