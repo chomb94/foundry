@@ -1,0 +1,35 @@
+{% if isParticipant %}
+
+    <div class="text-center">
+        You are in!
+        <br/>
+        <a href="{{ path('projectView', {id: id}) }}">Open for details</a>
+    </div>
+
+{% else %}
+
+    {{ form_start(form) }}
+
+      {{
+        form_widget(form.amount, {
+            'attr': {
+                'class': 'form-control-participate',
+            },
+        })
+      }}
+
+      <a
+          class="btn btn-default domajax click"
+          data-endpoint="{{ path('projectParticipate', {id: id}) }}"
+          data-lock='#participate-{{ id }}'
+          data-input='#participate-{{ id }}'
+          data-output='#participate-{{ id }}'
+      >  <span id="participate-icon-{{ id }}" class="glyphicon glyphicon-sunglasses btn-onecard btn-sunglasses-{{ isParticipant ? 'isactive' : 'active' }}" aria-hidden="true"></span><span class="btn-onecard-text"> I'm in!</span></a>
+
+    {% if message %}
+        <p class="text-center alert-danger">{{ message }}</p>
+    {% endif %}
+
+    {{ form_end(form) }}
+
+{% endif %}

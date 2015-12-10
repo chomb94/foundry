@@ -137,9 +137,9 @@ h1 {
     max-height: 200px;
     overflow: hidden;
     display: block;
-    height: 100px;
+    height: 86px;
     font-size: 12px;
-    margin: 32px 0 32px 0;
+    margin: 44px 0 0px 0;
     text-align: justify;
 }
 
@@ -200,10 +200,27 @@ h1 {
     text-align: right;
 }
 
+.panel-steps {
+  background-color: transparent;
+  display: block;
+  text-align: center;
+  height: 44px;
+}
+
+.without-progression {
+  height: 150px;
+}
+
 .progress {
+    clear: left;
     height: 8px;
     margin-bottom: 2px;
 }
+
+.noprogress {
+    height: 194px;
+}
+
 
 .panel-footer {
     background-color: #fff;
@@ -212,10 +229,11 @@ h1 {
     padding: 8px 0 16px;
 }
 
-.panel-steps {
-  float: left;
-  padding: 3px 8px 0 0;
+.panel-footer-credits-progression {
+  display: block;
+  height: 54px;
 }
+
 
 .panel-default>.panel-inactive, .panel-inactive {
   background-color: #e1e1e4;
@@ -348,7 +366,7 @@ h1 {
 }
 
 .img-project-main {
-    margin: -6px 0 6px 6px;
+    margin: 0px 0 0px 6px;
 }
 
 .step-title {
@@ -442,23 +460,41 @@ h1 {
 }
 
 .opc-action-right {
-  text-align: right;
+  text-align: center;
 }
 
-.btn-heart-inactive {
-  top: -4px;
-  color: #fdaec4;
+.btn-onecard {
+  top: 3px;
   font-size: 24px;
 }
 
+.btn-onecard-text {
+  font-size: 12px;
+  float: right;
+  display: block;
+  padding: 8px 0 0 12px;
+}
+
+.btn-heart-inactive {
+  color: #fdaec4;
+}
+
 .btn-heart-inactive:hover {
-  top: -4px;
   color: #dd2e44;
 }
 
 .btn-heart-active {
-  top: -4px;
   color: #dd2e44;
-  font-size: 24px;
 }
 
+.btn-sunglasses-active {
+  color: black;
+}
+
+.btn-sunglasses-inactive {
+  color: #999;
+}
+
+.input-group-addon {
+  color:red;
+}

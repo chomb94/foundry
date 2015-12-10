@@ -1,4 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
+{% block title %}
+{{ project.title|e }}
+{% endblock %}
 
 {% block body %}
 <div class="page-header text-center">
@@ -20,50 +23,56 @@
 <div class="row">
 	<div class="col-md-8 project-container">
 		<div>
-			<img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/>
+
+    {% if project.videoUrl != "" %}
+        <iframe width="100%" height="438"  src="{{ project.videoUrl|e('html_attr') }}" frameborder="0" allowfullscreen></iframe>
+    {% else %}
+  			<img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/>
+    {% endif %}
+
 		</div>
 		<div class="project-container-text">
 			<div class="Project-shortdescription">
 				<p>
-				  {{ project.shortDescription }}
+				  {{ project.shortDescription|e|nl2br }}
 				</p>
 			</div>
 			<hr>
 
-			{% if project.videoUrl != '' %}
+      {% if project.videoUrl != "" %}
+          <img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/>
+      {% endif %}
+
+			{% if project.fullDescription != '' %}
                 <h3>Full Description:</h3>
                 <p>
-                  {{ project.fullDescription }}
+                  {{ project.fullDescription|e|nl2br }}
                 </p>
-			{% endif %}
-
-			{% if project.videoUrl != '' %}
-                <h3>Video:</h3>
-                <iframe width="560" height="315" src="{{ project.videoUrl|e('html_attr') }}" frameborder="0" allowfullscreen></iframe>
 			{% endif %}
 
 			{% if project.team != '' %}
 			<h3>People needed:</h3>
 			<p>
-			  {{ project.team }}
+			  {{ project.team|e|nl2br }}
 			</p>
 			{% endif %}
 
 			{% if project.risksChallenges != '' %}
                 <h3>Risks and Challenges:</h3>
                 <p>
-                  {{ project.risksChallenges|e }}
+                  {{ project.risksChallenges|e|nl2br }}
                 </p>
 			{% endif %}
 
 			{% if project.deliveryPromise != '' %}
                 <h3>DeliveryPromise:</h3>
                 <p>
-                  {{ project.deliveryPromise|e }}
+                  {{ project.deliveryPromise|e|nl2br }}
                 </p>
 			{% endif %}
 
 			<p>
+      <hr>
     			Creation Date: {{ project.creationDate.date }}
 			</p>
 		</div>
@@ -77,12 +86,13 @@
 		</div>
 
     <div>
-        {{ project.family.name|e }}
+        {{ project.family.name|default }}
         {% if project.category.name is defined %}
           > {{ project.category.name|e }}
         {% endif %}
     </div>
 
+    {% if steps|length > 1 %}
 		<div class="steps-sidebar">
 		<h2>Steps</h2>
 		{% for step in steps %}
@@ -91,7 +101,7 @@
                     <h3>{{ step.title }}</h3>
                 </div>
                 <div class="step-price">
-                    <span class="step-price-bg">{{ step.price }}</span> Credits
+                    <span class="step-price-bg">{{ step.price }}</span> Days Needed
                 </div>
                 <div class="clearfix"></div>
                 <p class="step-sidebar-description">{{ step.shortDescription|e }}</p>
@@ -101,13 +111,13 @@
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         Completed!
                     {% elseif step.isDisplayPledgeForm %}
-                        {{ step.priceToFinish }} credit(s) remaining to achieve this step!
+                        {{ step.priceToFinish }} "Day{% if step.priceToFinish > 1 %}s{% endif %} Needed" remaining to achieve this step!
                         {% if error == 1 %}
-                            <p><strong>Not enough credits available!</strong></p>
+                            <p><strong>Not enough Days available!</strong></p>
                         {% endif %}
                         <form action="{{ path('projectPledge', {id: project.id}) }}" method="post">
                             <input type="number" id="price" name="price" required="required" class="form-control input-price" min="0" max="{{ userCredits.credits }}">
-                            <button type="submit" id="project_save" name="step" class="btn-success btn"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Pledge</button>
+                            <button type="submit" id="project_save" name="step" class="btn-success btn"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Pledge</button>
                         </form>
                     {% else %}
                         Coming next...
@@ -116,6 +126,7 @@
 			</div>
 		{% endfor %}
 		</div>
+    {% endif %}
 		{% if myproject %}
 		<div class="sidebar-footer text-center">
 			<a href="{{ path('projectStepPublish', {id: project.id}) }}" class="btn btn-default btn-xs">Add a new step</a>

@@ -7,7 +7,7 @@ use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
 
 /**
  * @ORM\Table(name="app_users_google")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
 class UserGoogle extends OAuthUser
 {
@@ -38,7 +38,7 @@ class UserGoogle extends OAuthUser
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
-    protected $isActive;
+    protected $isActive = true;
 
     /**
      * @var string
@@ -53,13 +53,6 @@ class UserGoogle extends OAuthUser
      * @ORM\Column(name="nickname", type="string", length=255, nullable=true)
      */
     protected $nickname;
-
-    public function __construct()
-    {
-        $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
-    }
 
     public function getUsername()
     {

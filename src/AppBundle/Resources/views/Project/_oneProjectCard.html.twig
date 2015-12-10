@@ -1,59 +1,75 @@
 <div class="col-sm-4">
-  <div class="panel panel-default {% if project.active %}{% else %}panel-inactive{% endif %}">
-    <div class="panel-heading {% if project.active %}panel-active{% else %}panel-inactive{% endif %}">
-      <h3 class="panel-title project_title_panel">{{ project.title|e }}</h3>
+    <div class="panel panel-default {% if project.active %}{% else %}panel-inactive{% endif %}">
+        <div class="panel-heading {% if project.active %}panel-active{% else %}panel-inactive{% endif %}">
+            <h3 class="panel-title project_title_panel">{{ project.title|e }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="crop">
+                <a href="{{ path('projectView', {id: project.id}) }}"><img src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title }}"/></a>
+            </div>
+            <div class="project-image-container">
+                <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">
+            </div>
+            <div>
+                {{ project.family.name|default }}
+                {% if project.category.name is defined %}
+                    &gt; {{ project.category.name|default }}
+                {% endif %}
+            </div>
+             <div class="cropdescription {% if project.steps|length <= 1 %}noprogress{% endif %}">
+                {{ project.shortDescription|e }}
+            </div>
+            {% if project.steps|length >1 %}
+            <div class="panel-steps">
+                    {% set lastStepCompleted = "" %}
+                    {% set nextStep = "" %}
+                    {% for step in project.steps %}
+                        {% if step.isCompleted %}
+                            {% set lastStepCompleted = step.title %}
+                        {% endif %}
+                    {% endfor %}
+                    <br/>
+                    {% if lastStepCompleted != "" %}
+                        {{ lastStepCompleted }}<span class="text-light"> step confirmed!</span>
+                    {% endif %}
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ project.percentageOfProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percentageOfProgress }}%">
+                    <span class="sr-only">{{ project.percentageOfProgress }}% Complete (success)</span>
+                </div>
+            </div>
+
+            <div class="panel-footer {% if project.active %}{% else %}panel-inactive{% endif %} panel-footer-credits-progression">
+                <div class="left">
+                    <p>{{ project.nbCreditsDone }} <span class="text-light"> Day{% if project.nbCreditsDone > 1 %}s{% endif %} Given</span> / {{ project.nbCreditsTotal }} <span class="text-light"></span></p>
+                </div>
+                <div class="right">
+                    <p><span class="{% if (project.getDaysToGo < 10) and project.active %}red text-bold{% endif %}">{% if project.active %}{{ project.getDaysToGo }}{% else %}{{ -project.getDaysToGo }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span></p>
+                </div>
+            </div>
+           {% endif %}
+            <div class="row">
+            {#
+                <div class="col-md-4 opc-action-left">
+                    <a class="btn {% if project.active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details</a>
+                </div>
+                #}
+                <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
+                    {{
+                        render(controller('AppBundle:Project:viewParticipate', {
+                            id: project.id
+                        }))
+                    }}
+
+                </div>
+                <div class="col-md-6 opc-action-right" id="vote-{{ project.id }}">
+                    {{
+                        render(controller('AppBundle:Project:viewVote', {
+                            id: project.id
+                        }))
+                    }}
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="panel-body">
-      <div class="crop">
-          <a href="{{ path('projectView', {id: project.id}) }}"><img src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title }}"/></a>
-      </div>
-      <div class="project-image-container">
-        <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">
-      </div>
-      <div>
-          {{ project.family.name|e }}
-          {% if project.category.name is defined %}
-            > {{ project.category.name|e }}
-          {% endif %}
-      </div>
-      <div class="cropdescription">
-          {{ project.shortDescription|e }}
-      </div>
-      <div class="clearfix">
-        <div class="panel-footer panel-steps"><span class="text-light">Steps: </span></div>
-        <div class="progress_step">
-          {% set stepindex = 1 %}
-          {% for step in project.steps %}
-            <span><a href="{{ path('projectView', {id: project.id}) }}" alt="{{ step.title }}" class="step-isCompleted {% if step.isCompleted %}step-completed-litle{% endif %}">{{ stepindex }}</a></span>
-            {% set stepindex = stepindex+1 %}
-          {% endfor %}
-        </div>
-      </div>
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ project.percentageOfProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percentageOfProgress }}%">
-          <span class="sr-only">{{ project.percentageOfProgress }}% Complete (success)</span>
-        </div>
-      </div>
-      <div class="panel-footer {% if project.active %}{% else %}panel-inactive{% endif %}">
-        <div class="left"
-          <p>{{ project.nbCreditsDone }} <span class="text-light">credits</span> / {{ project.nbCreditsTotal }} <span class="text-light">total credits</span></p>
-        </div>
-        <div class="right">
-          <p><span class="{% if (project.getDaysToGo < 10) and project.active %}red text-bold{% endif %}">{% if project.active %}{{ project.getDaysToGo }}{% else %}{{ -project.getDaysToGo }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span></p>
-        </div>
-      </div>
-      <div>
-        <div class="opc-action-left">
-          	<a class="btn {% if project.active %}{% else %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details</a>
-        </div>
-        <div id="vote-{{ project.id }}" class="opc-action-right">
-            {{
-                render(controller('AppBundle:Project:viewVote', {
-                    id: project.id
-                }))
-            }}
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
