@@ -16,7 +16,7 @@ class UserProvider extends EntityUserProvider
             return parent::loadUserByOAuthUserResponse($response);
         } catch (UsernameNotFoundException $e) {
             // User not found, let's register them.
-            $user = new UserGoogle();
+            $user = new UserGoogle($response->getEmail());
             $user->setEmail($response->getEmail());
             $user->setGoogleId($response->getUsername());
             $user->setUsername($response->getEmail());
