@@ -12,6 +12,10 @@ class UserProvider extends EntityUserProvider
 {
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
+        if (!preg_match('#@blablacar\.com\Z#', $response->getEmail())) {
+            throw new UsernameNotFoundException("This area is restricted to BlaBlaCar teammates.");
+        }
+
         try {
             return parent::loadUserByOAuthUserResponse($response);
         } catch (UsernameNotFoundException $e) {
