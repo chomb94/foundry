@@ -35,11 +35,25 @@ class ProjectRepository extends EntityRepository
         return $this->_em->createQuery("
             SELECT p
             FROM AppBundle\Entity\Project p
+            LEFT JOIN AppBundle\Entity\Family f WITH p.family = f.id
             WHERE 
                 p.title LIKE :search
-                OR p.short_description LIKE :search   
+                OR p.short_description LIKE :search
+                OR f.name LIKE :search
          ")->setParameters(array(
              'search' => "%".$searchString."%",
+         ))->getResult();
+    }
+
+    public function familySearch($familyName) {
+        return $this->_em->createQuery("
+            SELECT p
+            FROM AppBundle\Entity\Project p
+            INNER JOIN AppBundle\Entity\Family f WITH p.family = f.id
+            WHERE 
+                f.name = :search
+         ")->setParameters(array(
+             'search' => $familyName,
          ))->getResult();
     }
 }

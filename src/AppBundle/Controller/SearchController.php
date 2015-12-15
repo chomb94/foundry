@@ -35,4 +35,31 @@ class SearchController extends BaseController
             'user'            => $user,
         ];
     }
+
+    /**
+     * @Route("/search/family/{familyName}", name="familySearch")
+     * @Template()
+     */
+    public function familyAction(Request $request, $familyName)
+    {
+        $user     = $this->getUser();
+        $familyName = trim($familyName);
+
+        $projects = array();
+        if (strlen($familyName) > 0) {
+            $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->familySearch($familyName);
+
+            foreach ($projects as $oneProject) {
+                $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
+                $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
+                $oneProject->setStepsAndCredits($step_list, $all_credits);
+            }
+        }
+
+        return [
+            'familyName'      => $familyName,
+            'projects'        => $projects,
+            'user'            => $user,
+        ];
+    }
 }
