@@ -11,12 +11,14 @@
             <div class="project-image-container">
                 <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">
             </div>
+            {% if project.family.name is defined %}
             <div>
                 <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
                 {% if project.category.name is defined %}
                     - {{ project.category.name|default }}
                 {% endif %}
             </div>
+            {% endif %}
              <div class="cropdescription {% if project.steps|length <= 1 %}noprogress{% endif %}">
                 {{ project.shortDescription|e }}
             </div>
