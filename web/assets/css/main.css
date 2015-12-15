@@ -499,3 +499,14 @@ h1 {
 .input-group-addon {
   color:red;
 }
+
+.family-label {
+  float:right;
+    font-size: 10px;
+    margin: 8px 0 0px;
+}
+
+.family-label a:hover {
+  text-decoration: none;
+}
+
