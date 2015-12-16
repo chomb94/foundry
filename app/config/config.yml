@@ -65,7 +65,9 @@ swiftmailer:
 
 hwi_oauth:
     firewall_name: secured_area
-
+    http_client:
+        proxy: %oauth.proxy%
+        timeout: %oauth.timeout%
     resource_owners:
         google:
             type:                google

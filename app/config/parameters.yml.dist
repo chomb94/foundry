@@ -23,3 +23,7 @@ parameters:
     # Google Sign-In
     google_client_id: put your google client id
     google_secret: put your google secret
+
+    # Proxy OAuth
+    oauth.proxy: ~
+    oauth.timeout: 5
