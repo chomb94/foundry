@@ -58,6 +58,8 @@ class ProjectController extends BaseController
             $project->setVideoUrl($newVideoUrl);
         }
 
+        // Show participants
+        $participants = $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($project);
         $project->setStepsAndCredits($step_list, $all_credits);
 
         return [
@@ -67,6 +69,7 @@ class ProjectController extends BaseController
             'steps'       => $project->getSteps(),
             'error'       => $request->get("error", 0),
             'user'        => $user,
+            'participants'  => $participants,
         ];
     }
 

@@ -5,6 +5,14 @@
                 <a href="{{ path('projectView', {id: project.id}) }}">{{ project.title|e }}</a></h3>
         </div>
         <div class="panel-body">
+            {% if project.family.name is defined %}
+            <div class="label label-success family-label">
+                <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
+                {% if project.category.name is defined %}
+                    - {{ project.category.name|default }}
+                {% endif %}
+            </div>
+            {% endif %}
             <div class="crop">
                 <a href="{{ path('projectView', {id: project.id}) }}"><img src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title }}"/></a>
             </div>
@@ -14,14 +22,6 @@
              <div class="cropdescription {% if project.steps|length <= 1 %}noprogress{% endif %}">
                 {{ project.shortDescription|e }}
             </div>
-            {% if project.family.name is defined %}
-            <div class="label label-info family-label">
-                <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
-                {% if project.category.name is defined %}
-                    - {{ project.category.name|default }}
-                {% endif %}
-            </div>
-            {% endif %}
             {% if project.steps|length >1 %}
             <div class="panel-steps">
                     {% set lastStepCompleted = "" %}
@@ -50,7 +50,7 @@
            {% endif %}
             <div class="panel-footer {% if project.active %}{% else %}panel-inactive{% endif %} panel-footer-credits-progression">
                 <div class="right">
-                    <p><span class="{% if (project.getDaysToGo < 10) and project.active %}red text-bold{% endif %}">{% if project.active %}{{ project.getDaysToGo }}{% else %}{{ -project.getDaysToGo }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span></p>
+                    <span class="{% if (project.getDaysToGo < 10) and project.active %}red text-bold{% endif %}">{% if project.active %}{{ project.getDaysToGo }}{% else %}{{ -project.getDaysToGo }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span>
                 </div>
             </div>
             <div class="row">

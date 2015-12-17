@@ -323,15 +323,21 @@ h1 {
   text-align: center;
 }
 
-.summary_days {
+.summary-days {
   position: relative;
   top: 5px;
   font-size: 30px;
   margin: 0px 8px;
 }
 
-.summary_days_label {
+.summary-days-label {
   vertical-align: middle;
+  display: block;
+  margin-bottom: 22px;
+}
+
+.view-be-in {
+  margin: 12px 0 0 0;
 }
 
 .project-edit {
@@ -370,6 +376,15 @@ h1 {
     margin: 0px 0 0px 6px;
 }
 
+.img-project-main-participant {
+    width: 42px;
+    height: 42px;
+    -webkit-border-radius: 21px;
+    -moz-border-radius: 21px;
+    border-radius: 21px;
+    margin: 6px 0 0 0;    
+}
+
 .step-title {
   float: left;
 }
@@ -400,7 +415,7 @@ h1 {
   margin-left: 12px;
 }
 
-.steps-sidebar form {
+.steps-sidebar-form {
   margin: 24px 0 24px 48px;
 }
 
@@ -502,11 +517,14 @@ h1 {
 
 .family-label {
   float:right;
-    font-size: 10px;
-    margin: 8px 0 0px;
+  font-size: 10px;
+  margin: -6px -2px 0px;
+  position: absolute;
 }
 
-.family-label a:hover {
+
+.family-label-view a, .family-label-view a:hover, .family-label a, .family-label a:hover {
   text-decoration: none;
+  color: white;
 }
 

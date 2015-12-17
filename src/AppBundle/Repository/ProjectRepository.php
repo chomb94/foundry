@@ -45,6 +45,20 @@ class ProjectRepository extends EntityRepository
          ))->getResult();
     }
 
+    public function participants($project) {
+        return $this->_em->createQuery("
+            SELECT ug
+            FROM AppBundle\Entity\CreditsHistory c
+            LEFT JOIN AppBundle\Entity\UserGoogle ug
+            WITH c.user_id = ug.id
+            WHERE c.project = :project
+            GROUP BY ug.id
+         ")->setParameters(array(
+             'project' => $project,
+         ))->getResult();
+ 
+    }
+
     public function familySearch($familyName) {
         return $this->_em->createQuery("
             SELECT p
