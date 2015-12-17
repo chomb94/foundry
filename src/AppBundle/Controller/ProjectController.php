@@ -102,7 +102,7 @@ class ProjectController extends BaseController
         $user    = $this->getUser();
         $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
 
-        if (is_null($project)) {
+        if (is_null($project) || !$project->isActive()) {
             throw $this->createNotFoundException();
         }
 
@@ -138,6 +138,10 @@ class ProjectController extends BaseController
         $user_id      = $user->getId();
         $project      = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
         $user_credits = $this->getDoctrine()->getRepository("AppBundle:UserCredits")->findBy(['user_id' => $user_id])[0];
+
+        if (is_null($project) || !$project->isActive()) {
+            throw $this->createNotFoundException();
+        }
 
         if ($user_credits->getCredits() - $request->get("price") < 0) {
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'error' => 1]);
@@ -405,7 +409,7 @@ class ProjectController extends BaseController
 
         $form = $this->createForm(ParticipateType::class);
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isValid() && $project->isActive()) {
             $amount = $form->getData()['amount'];
 
             $credits = $this
