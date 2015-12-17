@@ -5,13 +5,15 @@
                 <a href="{{ path('projectView', {id: project.id}) }}">{{ project.title|e }}</a></h3>
         </div>
         <div class="panel-body">
-            <div class="crop">
-                <a href="{{ path('projectView', {id: project.id}) }}"><img src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title }}"/></a>
-            </div>
+            <a href="{{ path('projectView', {id: project.id}) }}">
+                <div class="crop">
+                    <img src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title }}"/>
+                </div>
+            </a>
             <div class="project-image-container">
                 <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">
             </div>
-             <div class="cropdescription {% if project.steps|length <= 1 %}noprogress{% endif %}">
+            <div class="cropdescription {% if project.steps|length <= 1 %}noprogress{% endif %}">
                 {{ project.shortDescription|e }}
             </div>
             {% if project.family.name is defined %}
