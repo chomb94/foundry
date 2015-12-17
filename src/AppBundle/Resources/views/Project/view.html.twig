@@ -26,7 +26,7 @@
 
     {% if project.videoUrl != "" %}
         <iframe width="100%" height="438"  src="{{ project.videoUrl|e('html_attr') }}" frameborder="0" allowfullscreen></iframe>
-    {% else %}
+    {% elseif project.imageFile %}
   			<img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/>
     {% endif %}
 
@@ -71,13 +71,15 @@
 			{% endif %}
 
       <hr>
-    			Creation Date: {{ project.creationDate.date }}
+      <p>
+      Creation Date: {{ project.creationDate.date|date('Y-m-d H:i:s') }}
 			</p>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<div class="steps-sidebar summary">
 			<h2>Summary</h2>
+
       {% if project.family.name is defined %}
       <div class="label label-success family-label-view">
             <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
@@ -85,8 +87,28 @@
               > {{ project.category.name|e }}
             {% endif %}
       </div>
+
+
       {% endif %}
-			<span class="summary-days-label">Days to go: <span class="summary-days {% if project.getDaysToGo < 10 %}red{% endif %}">{{ project.getDaysToGo }}</span></span>
+
+            {% set daysToGo = project.getDaysToGo %}
+            {% if daysToGo < 0 %}
+                {% set daysToGo = 0 %}
+            {% endif %}
+
+            <p>
+        <span class="summary-days-label">Days to go: <span class="summary-days {% if daysToGo < 10 %}red{% endif %}">{{ daysToGo }}</span></span>
+
+      </p>
+
+            {% if myproject %}
+               <div class="text-center">
+                 {% if project.getDaysToGo > 0 %}
+                   <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-lg {% if project.isActive %}btn-danger">Stop{% else %}btn-success">Start{% endif %}</a>
+                 {% endif %}
+               </div>
+            {% endif %}
+
       <span class="">Participants :</span>
         <div class="">
         {% if participants|length > 0 %}
@@ -94,7 +116,7 @@
             <img src="{{participant.profilePicture}}" alt="{{participant.nickname}}" class="img-project-main-participant" />
           {% endfor %}
         {% else %}
-          <span class=""><i>Nobody today. Be the first!</i></span>
+          <em>Nobody today. Be the first!</em>
         {% endif %}
         <div class="view-be-in">
         {{
@@ -119,7 +141,6 @@
                 </div>
                 <div class="clearfix"></div>
                 <p class="step-sidebar-description">{{ step.shortDescription|e }}</p>
-                <p>
                 <div class="step-credits">
                     {% if step.isCompleted %}
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>

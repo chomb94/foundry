@@ -6,7 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
 use AppBundle\Form\Type\ParticipateType;
@@ -20,7 +19,6 @@ use AppBundle\Base\BaseController;
 
 class ProjectController extends BaseController
 {
-
     /**
      * @Route("/project/view/{id}", name="projectView")
      * @Security("has_role('ROLE_USER')")
@@ -107,7 +105,7 @@ class ProjectController extends BaseController
         $user    = $this->getUser();
         $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
 
-        if (is_null($project)) {
+        if (is_null($project) || !$project->isActive()) {
             throw $this->createNotFoundException();
         }
 
@@ -143,6 +141,10 @@ class ProjectController extends BaseController
         $user_id      = $user->getId();
         $project      = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
         $user_credits = $this->getDoctrine()->getRepository("AppBundle:UserCredits")->findBy(['user_id' => $user_id])[0];
+
+        if (is_null($project) || !$project->isActive()) {
+            throw $this->createNotFoundException();
+        }
 
         if ($user_credits->getCredits() - $request->get("price") < 0) {
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'error' => 1]);
@@ -410,7 +412,7 @@ class ProjectController extends BaseController
 
         $form = $this->createForm(ParticipateType::class);
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isValid() && $project->isActive()) {
             $amount = $form->getData()['amount'];
 
             $credits = $this
@@ -450,5 +452,34 @@ class ProjectController extends BaseController
         $em->persist($credits);
 
         $em->flush();
+    }
+
+    /**
+     * @Route("/enable-project-{id}-{enable}", name="enableProject")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function enableAction($id, $enable)
+    {
+        $user       = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository("AppBundle:Project");
+        $project    = $repository->find($id);
+
+        if (is_null($project)) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($project->getUser()->getId() !== $user->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $project->setActive($enable);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($project);
+        $em->flush();
+
+        return $this->redirectToRoute('projectView', array(
+               'id' => $id,
+        ));
     }
 }
