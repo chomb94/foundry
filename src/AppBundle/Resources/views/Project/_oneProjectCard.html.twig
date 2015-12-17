@@ -59,11 +59,6 @@
             </div>
             {% if project.active %}
             <div class="row">
-            {#
-                <div class="col-md-4 opc-action-left">
-                    <a class="btn {% if project.getDaysToGo < 1  %}panel-inactive{% endif %}" href="{{ path('projectView', {id: project.id}) }}" role="button">View details</a>
-                </div>
-                #}
                 <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
                     {{
                         render(controller('AppBundle:Project:viewParticipate', {
