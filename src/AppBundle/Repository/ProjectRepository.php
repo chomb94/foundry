@@ -36,10 +36,11 @@ class ProjectRepository extends EntityRepository
             SELECT p
             FROM AppBundle\Entity\Project p
             LEFT JOIN AppBundle\Entity\Family f WITH p.family = f.id
-            WHERE 
+            WHERE
                 p.title LIKE :search
                 OR p.short_description LIKE :search
                 OR f.name LIKE :search
+            ORDER BY p.active DESC, TIMESTAMPDIFF(SECOND, p.endDate, NOW()) ASC
          ")->setParameters(array(
              'search' => "%".$searchString."%",
          ))->getResult();
@@ -50,8 +51,9 @@ class ProjectRepository extends EntityRepository
             SELECT p
             FROM AppBundle\Entity\Project p
             INNER JOIN AppBundle\Entity\Family f WITH p.family = f.id
-            WHERE 
+            WHERE
                 f.name = :search
+            ORDER BY p.active DESC, TIMESTAMPDIFF(SECOND, p.endDate, NOW()) ASC
          ")->setParameters(array(
              'search' => $familyName,
          ))->getResult();

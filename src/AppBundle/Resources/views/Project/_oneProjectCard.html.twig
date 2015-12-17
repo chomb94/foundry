@@ -50,9 +50,10 @@
            {% endif %}
             <div class="panel-footer {% if project.active %}{% else %}panel-inactive{% endif %} panel-footer-credits-progression">
                 <div class="right">
-                    <p><span class="{% if (project.getDaysToGo < 10) and project.active %}red text-bold{% endif %}">{% if project.active %}{{ project.getDaysToGo }}{% else %}{{ -project.getDaysToGo }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span></p>
+                    <p><span class="{% if (project.getDaysToGo < 10) and project.active %}red text-bold{% endif %}">{% if project.getDaysToGo >= 0 %}{{ project.getDaysToGo }}{% else %}{{ 0 }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span></p>
                 </div>
             </div>
+            {% if project.active %}
             <div class="row">
             {#
                 <div class="col-md-4 opc-action-left">
@@ -75,6 +76,7 @@
                     }}
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>

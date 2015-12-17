@@ -85,6 +85,10 @@ class Project
      */
     protected $category;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $active = true;
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
@@ -578,8 +582,13 @@ class Project
         }
     }
 
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
     public function isActive()
     {
-        return ($this->getDaysToGo() >= 0);
+        return $this->getDaysToGo() >= 0 && $this->active;
     }
 }

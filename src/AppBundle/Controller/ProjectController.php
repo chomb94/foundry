@@ -6,7 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
 use AppBundle\Form\Type\ParticipateType;
@@ -20,7 +19,6 @@ use AppBundle\Base\BaseController;
 
 class ProjectController extends BaseController
 {
-
     /**
      * @Route("/project/view/{id}", name="projectView")
      * @Security("has_role('ROLE_USER')")
@@ -447,5 +445,34 @@ class ProjectController extends BaseController
         $em->persist($credits);
 
         $em->flush();
+    }
+
+    /**
+     * @Route("/enable-project-{id}-{enable}", name="enableProject")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function enableAction($id, $enable)
+    {
+        $user       = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository("AppBundle:Project");
+        $project    = $repository->find($id);
+
+        if (is_null($project)) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($project->getUser()->getId() !== $user->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $project->setActive($enable);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($project);
+        $em->flush();
+
+        return $this->redirectToRoute('projectView', array(
+               'id' => $id,
+        ));
     }
 }

@@ -26,7 +26,7 @@
 
     {% if project.videoUrl != "" %}
         <iframe width="100%" height="438"  src="{{ project.videoUrl|e('html_attr') }}" frameborder="0" allowfullscreen></iframe>
-    {% else %}
+    {% elseif project.imageFile %}
   			<img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/>
     {% endif %}
 
@@ -72,22 +72,36 @@
 
 			<p>
       <hr>
-    			Creation Date: {{ project.creationDate.date }}
+      Creation Date: {{ project.creationDate.date|date('Y-m-d H:i:s') }}
 			</p>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<div class="steps-sidebar summary">
 			<h2>Summary</h2>
-			<p>
-				<span class="summary_days_label">Days to go: <span class="summary_days {% if project.getDaysToGo < 10 %}red{% endif %}">{{ project.getDaysToGo }}</span></span>
+
+            {% set daysToGo = project.getDaysToGo %}
+            {% if daysToGo < 0 %}
+                {% set daysToGo = 0 %}
+            {% endif %}
+
+            <p>
+				<span class="summary_days_label">Days to go: <span class="summary_days {% if daysToGo < 10 %}red{% endif %}">{{ daysToGo }}</span></span>
 			</p>
+
+            {% if myproject %}
+               <div class="text-center">
+                 {% if project.getDaysToGo > 0 %}
+                   <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-lg {% if project.isActive %}btn-danger">Stop{% else %}btn-success">Start{% endif %}</a>
+                 {% endif %}
+               </div>
+            {% endif %}
 		</div>
 
     <div>
         {{ project.family.name|default }}
         {% if project.category.name is defined %}
-          > {{ project.category.name|e }}
+          &gt; {{ project.category.name|e }}
         {% endif %}
     </div>
 
