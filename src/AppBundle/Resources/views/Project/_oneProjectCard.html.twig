@@ -1,5 +1,5 @@
 <div class="col-sm-4">
-    <div class="panel panel-default {% if project.active %}{% else %}panel-inactive{% endif %}">
+    <div class="panel panel-default {% if not project.active %}panel-inactive{% endif %}">
         <div class="panel-heading {% if project.active %}panel-active{% else %}panel-inactive{% endif %}">
             <h3 class="panel-title project_title_panel">
                 <a href="{{ path('projectView', {id: project.id}) }}">{{ project.title|e }}</a></h3>
