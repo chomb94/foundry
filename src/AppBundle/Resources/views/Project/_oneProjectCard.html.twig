@@ -1,6 +1,6 @@
 <div class="col-sm-4">
-    <div class="panel panel-default {% if project.getDaysToGo < 1 %}panel-inactive{% endif %}">
-        <div class="panel-heading {% if project.getDaysToGo >= 0 %}panel-active{% else %}panel-inactive{% endif %}">
+    <div class="panel panel-default {% if not project.active %}panel-inactive{% endif %}">
+        <div class="panel-heading {% if project.active %}panel-active{% else %}panel-inactive{% endif %}">
             <h3 class="panel-title project_title_panel">
                 <a href="{{ path('projectView', {id: project.id}) }}">{{ project.title|e }}</a></h3>
         </div>
@@ -46,13 +46,13 @@
                 </div>
             </div>
 
-            <div class="panel-footer {% if project.getDaysToGo < 1  %}panel-inactive{% endif %} panel-footer-credits-progression">
+            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression">
                 <div class="left">
                     {{ project.nbCreditsDone }} <span class="text-light"> Day{% if project.nbCreditsDone > 1 %}s{% endif %} Given</span> / {{ project.nbCreditsTotal }} <span class="text-light"></span>
                 </div>
             </div>
            {% endif %}
-            <div class="panel-footer {% if project.getDaysToGo < 1  %}panel-inactive{% endif %} panel-footer-credits-progression">
+            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression">
                 <div class="right">
                     <p><span class="{% if (project.getDaysToGo < 10) and project.active %}red text-bold{% endif %}">{% if project.getDaysToGo >= 0 %}{{ project.getDaysToGo }}{% else %}{{ 0 }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span></p>
                 </div>
