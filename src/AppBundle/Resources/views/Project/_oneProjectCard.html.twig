@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-            <div class="panel-footer {% if project.active %}{% else %}panel-inactive{% endif %} panel-footer-credits-progression">
+            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression">
                 <div class="left">
                     {{ project.nbCreditsDone }} <span class="text-light"> Day{% if project.nbCreditsDone > 1 %}s{% endif %} Given</span> / {{ project.nbCreditsTotal }} <span class="text-light"></span>
                 </div>
