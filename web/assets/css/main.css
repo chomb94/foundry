@@ -142,6 +142,23 @@ h1 {
     font-size: 12px;
     margin: 44px 0 8px 0;
     text-align: justify;
+    position: relative;
+}
+
+.paragraph-end  {
+    background-image: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(255,255,255,0)),color-stop(100%,rgba(255,255,255,1)));
+    background-image: -webkit-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
+    background-image: -moz-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
+    background-image: -ms-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
+    background-image: -o-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
+    background: linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,1));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,StartColorStr='#00ffffff',EndColorStr='#ffffff');
+    bottom: 0;
+    height: 25px;
+    max-height: 100%;
+    position: absolute;
+    right: 0;
+    width: 120px;
 }
 
 .cropdescription>a {
@@ -252,6 +269,10 @@ h1 {
 .panel-default>.panel-inactive, .panel-inactive {
   background-color: #e1e1e4;
   border-color: #e1e1e4;
+}
+
+.panel-inactive .paragraph-end {
+background: none;
 }
 
 .text-light {

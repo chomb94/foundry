@@ -24,8 +24,12 @@
                 <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">
             </div>
             <div class="cropdescription">
-                {{ project.shortDescription|e }}
+                <a href="{{ path('projectView', {id: project.id}) }}">
+                    {{ project.shortDescription|e }}
+            <span class="paragraph-end"></span>
+                </a>
             </div>
+
             {% if project.steps|length >= 1 %}
 {#
             <div class="panel-steps">
