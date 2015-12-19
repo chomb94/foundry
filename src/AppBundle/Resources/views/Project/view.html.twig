@@ -112,6 +112,7 @@
         {% if participants|length > 0 %}
           {% for participant in participants %}
             <img src="{{participant.profilePicture}}" alt="{{participant.nickname}}" class="img-project-main-participant" />
+            <span class="label label-success label-badge-participant label-as-badge">2</span>
           {% endfor %}
         {% else %}
           <em>Nobody today. Be the first!</em>

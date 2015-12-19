@@ -135,11 +135,12 @@ h1 {
 
 .cropdescription {
     max-height: 200px;
+    height: 200px;
     overflow: hidden;
     display: block;
-    height: 86px;
+    max-height: 72px;
     font-size: 12px;
-    margin: 44px 0 0px 0;
+    margin: 44px 0 8px 0;
     text-align: justify;
 }
 
@@ -151,6 +152,14 @@ h1 {
 .cropdescription>a:hover {
     color: black;
     text-decoration: none;
+}
+
+.btn-footer-onecard {
+  padding-top: 12px;
+}
+
+.btn-footer-onecard-inactive {
+  height: 44px;
 }
 
 .ico-big {
@@ -200,6 +209,10 @@ h1 {
     text-align: right;
 }
 
+.panel {
+  margin-bottom: 42px;
+}
+
 .panel-steps {
   background-color: transparent;
   display: block;
@@ -218,7 +231,7 @@ h1 {
 }
 
 .noprogress {
-    height: 174px;
+    height: 11px;
 }
 
 
@@ -232,7 +245,7 @@ h1 {
 
 .panel-footer-credits-progression {
   display: block;
-  height: 34px;
+  height: 22px;
 }
 
 
@@ -383,6 +396,15 @@ h1 {
     -moz-border-radius: 21px;
     border-radius: 21px;
     margin: 6px 0 0 0;    
+}
+
+.label-as-badge {
+    border-radius: 1em;
+}
+
+.label-badge-participant {
+  position: absolute;
+  margin: 4px 0 0 -16px;
 }
 
 .step-title {

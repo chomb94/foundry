@@ -23,10 +23,11 @@
             <div class="project-image-container">
                 <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">
             </div>
-            <div class="cropdescription {% if project.steps|length <= 1 %}noprogress{% endif %}">
+            <div class="cropdescription">
                 {{ project.shortDescription|e }}
             </div>
-            {% if project.steps|length >1 %}
+            {% if project.steps|length >= 1 %}
+{#
             <div class="panel-steps">
                     {% set lastStepCompleted = "" %}
                     {% set nextStep = "" %}
@@ -37,28 +38,28 @@
                     {% endfor %}
                     <br/>
                     {% if lastStepCompleted != "" %}
-                        {{ lastStepCompleted }}<span class="text-light"> step confirmed!</span>
+                        "{{ lastStepCompleted }}"<span class="text-light">: step confirmed!</span>
                     {% endif %}
             </div>
+#}
             <div class="progress">
                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ project.percentageOfProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percentageOfProgress }}%">
                     <span class="sr-only">{{ project.percentageOfProgress }}% Complete (success)</span>
                 </div>
             </div>
-
-            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression">
-                <div class="left">
-                    {{ project.nbCreditsDone }} <span class="text-light"> Day{% if project.nbCreditsDone > 1 %}s{% endif %} Given</span> / {{ project.nbCreditsTotal }} <span class="text-light"></span>
-                </div>
+           {% else %}
+            <div class="noprogress">
             </div>
            {% endif %}
-            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression">
-                <div class="right">
-                    <p><span class="{% if (project.getDaysToGo < 10) and project.active %}red text-bold{% endif %}">{% if project.getDaysToGo >= 0 %}{{ project.getDaysToGo }}{% else %}{{ 0 }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span></p>
-                </div>
+            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression pull-left">
+                {{ project.nbCreditsDone }} <span class="text-light"></span> <span class="text-light">{% if project.nbCreditsTotal >0 %}/ {{ project.nbCreditsTotal }} {% endif %} Involvement day{% if project.nbCreditsDone > 1 %}s{% endif %} given</span>
             </div>
+            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression pull-right">
+                <span class="{% if (project.getDaysToGo < 10) %}red text-bold{% endif %}">{% if project.getDaysToGo >= 0 %}{{ project.getDaysToGo }}{% else %}{{ 0 }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row btn-footer-onecard">
             {% if project.active %}
-            <div class="row">
                 <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
                     {{
                         render(controller('AppBundle:Project:viewParticipate', {
@@ -74,8 +75,12 @@
                         }))
                     }}
                 </div>
-            </div>
+            {% else %}
+                <div class="col-md-12 text-center btn-footer-onecard-inactive ">
+                Project Inactive
+                </div>
             {% endif %}
+            </div>
         </div>
     </div>
 </div>
