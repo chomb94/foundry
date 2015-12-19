@@ -344,9 +344,11 @@ h1 {
 }
 
 .summary-days-label {
+  /*
   vertical-align: middle;
   display: block;
   margin-bottom: 22px;
+  */
 }
 
 .view-be-in {
@@ -387,6 +389,10 @@ h1 {
 
 .img-project-main {
     margin: 0px 0 0px 6px;
+}
+
+.participants-frame {
+  margin-top: 12px;
 }
 
 .img-project-main-participant {
@@ -431,7 +437,7 @@ h1 {
   float: left;
 }
 
-.steps-sidebar .btn {
+.steps-sidebar-pledge {
   font-size: 18px;
   height: 52px;
   margin-left: 12px;

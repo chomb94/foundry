@@ -24,7 +24,10 @@
 	<div class="col-md-8 project-container">
 		<div>
     {% if project.videoUrl != "" %}
-        <iframe width="100%" height="438"  src="{{ project.videoUrl|e('html_attr') }}" frameborder="0" allowfullscreen></iframe>
+        <!-- 16:9 aspect ratio -->
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="{{ project.videoUrl|e('html_attr') }}"></iframe>
+        </div>
     {% elseif project.imageName %}
   			<img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/>
     {% endif %}
@@ -38,20 +41,20 @@
 			<hr>
 
       {% if project.videoUrl != "" %}
-          <img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/>
+          <p><img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/></p>
       {% endif %}
 
 			{% if project.fullDescription != '' %}
-                <p>
-                  {{ project.fullDescription|e|nl2br }}
-                </p>
+          <p>
+            {{ project.fullDescription|e|nl2br }}
+          </p>
 			{% endif %}
 
 			{% if project.team != '' %}
-			<h3>People needed:</h3>
-			<p>
-			  {{ project.team|e|nl2br }}
-			</p>
+  			<h3>People needed:</h3>
+  			<p>
+  			  {{ project.team|e|nl2br }}
+  			</p>
 			{% endif %}
 
 			{% if project.risksChallenges != '' %}
@@ -78,6 +81,9 @@
 		<div class="steps-sidebar summary">
 			<h2>Summary</h2>
 
+      {% if not project.isActive %}
+        <span class="label label-warning">Project Stopped</span>
+      {% endif %}
       {% if project.family.name is defined %}
       <div class="label label-success family-label-view">
             <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
@@ -85,46 +91,52 @@
               > {{ project.category.name|e }}
             {% endif %}
       </div>
-
-
       {% endif %}
 
-            {% set daysToGo = project.getDaysToGo %}
-            {% if daysToGo < 0 %}
-                {% set daysToGo = 0 %}
-            {% endif %}
+      {% set daysToGo = project.getDaysToGo %}
+      {% if daysToGo < 0 %}
+          {% set daysToGo = 0 %}
+      {% endif %}
 
-            <p>
+      <p>
         <span class="summary-days-label">Days to go: <span class="summary-days {% if daysToGo < 10 %}red{% endif %}">{{ daysToGo }}</span></span>
-
       </p>
 
-            {% if myproject %}
-               <div class="text-center">
-                 {% if project.getDaysToGo > 0 %}
-                   <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-lg {% if project.isActive %}btn-danger">Stop{% else %}btn-success">Start{% endif %}</a>
-                 {% endif %}
-               </div>
-            {% endif %}
+      {% if myproject %}
+         <div class="text-center">
+           {% if project.getDaysToGo > 0 %}
+             <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-lg {% if project.isActive %}btn-success">Click to pause the project{% else %}btn-warning">Click to active the project{% endif %}</a>
+           {% endif %}
+         </div>
+      {% endif %}
 
-      <span class="">Participants :</span>
-        <div class="">
-        {% if participants|length > 0 %}
-          {% for participant in participants %}
-            <img src="{{participant.profilePicture}}" alt="{{participant.nickname}}" class="img-project-main-participant" />
-            <span class="label label-success label-badge-participant label-as-badge">2</span>
-          {% endfor %}
-        {% else %}
-          <em>Nobody today. Be the first!</em>
-        {% endif %}
-        <div class="view-be-in">
-        {{
-            render(controller('AppBundle:Project:viewParticipate', {
-                id: project.id
-            }))
-        }}
+      {% if project.isActive %}
+      <div class="participants-frame">
+        <span class="">Participants :</span>
+        <div>
+          {% if participants|length > 0 %}
+            {% for participant in participants %}
+              <img src="{{participant.profilePicture}}" alt="{{participant.nickname}}" class="img-project-main-participant" />
+              <span class="label label-success label-badge-participant label-as-badge">2</span>
+            {% endfor %}
+          {% else %}
+            <em>Nobody today. Be the first!</em>
+          {% endif %}
+
+          {% if steps|length == 0 %}
+          <div class="view-be-in">
+          {{
+              render(controller('AppBundle:Project:viewParticipate', {
+                  id: project.id
+              }))
+          }}
+          </div>
+          {% endif %}
+
         </div>
       </div>
+      {% endif %}
+
 		</div>
 
     {% if steps|length > 0 %}
@@ -136,27 +148,30 @@
                     <h3>{{ step.title }}</h3>
                 </div>
                 <div class="step-price">
-                    <span class="step-price-bg">{{ step.price }}</span> Days Needed
+                    Need <span class="step-price-bg">{{ step.priceToFinish }}</span>/ {{ step.price }} Involvement Days
                 </div>
                 <div class="clearfix"></div>
                 <p class="step-sidebar-description">{{ step.shortDescription|e }}</p>
+
+                {% if project.isActive %}
                 <div class="step-credits">
                     {% if step.isCompleted %}
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         Completed!
                     {% elseif step.isDisplayPledgeForm %}
-                        {{ step.priceToFinish }} "Day{% if step.priceToFinish > 1 %}s{% endif %} Needed" remaining to achieve this step!
+                        You want to participate, give your days :
                         {% if error == 1 %}
                             <p><strong>Not enough Days available!</strong></p>
                         {% endif %}
                         <form class="steps-sidebar-form" action="{{ path('projectPledge', {id: project.id}) }}" method="post">
                             <input type="number" id="price" name="price" required="required" class="form-control input-price" min="0" max="{{ userCredits.credits }}">
-                            <button type="submit" id="project_save" name="step" class="btn-success btn"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Pledge</button>
+                            <button type="submit" id="project_save" name="step" class="btn-success btn steps-sidebar-pledge"><span class="glyphicon glyphicon-sunglasses btn-sunglasses-active" aria-hidden="true"></span> I'm in!</button>
                         </form>
                     {% else %}
                         Coming next...
                     {% endif %}
                 </div>
+                {% endif %}
 			</div>
 		{% endfor %}
 		</div>

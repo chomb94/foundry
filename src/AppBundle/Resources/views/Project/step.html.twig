@@ -20,7 +20,7 @@
 
                     {{ step.shortDescription }}
 
-                    Price : <strong>{{ step.price }}</strong> Days Needed
+                    Price : <strong>{{ step.price }}</strong> Involvement Days
 
                     {% if app.user and app.user.id == project.user.id %}
                         <a href="{{ path('projectStepEdit', {id: step.id}) }}">Edit</a>
