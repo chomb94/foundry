@@ -6,12 +6,12 @@
         </div>
         <div class="panel-body">
             {% if project.family.name is defined %}
-            <div class="label label-success family-label">
+            <span class="label label-success family-label">
                 <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
                 {% if project.category.name is defined %}
                     - {{ project.category.name|default }}
                 {% endif %}
-            </div>
+            </span>
             {% endif %}
             <div class="crop">
             <a href="{{ path('projectView', {id: project.id}) }}">
