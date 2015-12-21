@@ -20,8 +20,17 @@
                 </div>
             </a>
             </div>
-            <div class="project-image-container">
-                <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-project">
+            <!-- div class="project-image-container">
+            </div -->
+            <div class="crew">
+                <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-crew">
+
+          {% if project.participants|length > 0 %}
+
+          {% endif %}
+
+
+
             </div>
             <div class="cropdescription">
                 <a href="{{ path('projectView', {id: project.id}) }}">

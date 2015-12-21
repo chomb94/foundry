@@ -57,7 +57,7 @@ class ProjectController extends BaseController
         }
 
         // Show participants
-        $participants = $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($project);
+        $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($project);
         $project->setStepsAndCredits($step_list, $all_credits);
 
         return [

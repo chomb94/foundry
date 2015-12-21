@@ -140,7 +140,7 @@ h1 {
     display: block;
     max-height: 72px;
     font-size: 12px;
-    margin: 44px 0 8px 0;
+    margin: 8px 0 8px 0;
     text-align: justify;
     position: relative;
 }
@@ -176,7 +176,7 @@ h1 {
 }
 
 .btn-footer-onecard-inactive {
-  height: 44px;
+  height: 42px;
 }
 
 .ico-big {
@@ -426,6 +426,18 @@ background: none;
     margin: 6px 0 0 0;    
 }
 
+.crew {
+  margin: 16px 0 0 0 ;
+}
+
+.img-crew {
+    width: 28px;
+    height: 28px;
+    -webkit-border-radius: 14px;
+    -moz-border-radius: 14px;
+    border-radius: 14px;
+    margin: -6px 0 0 0;    
+}
 .label-as-badge {
     border-radius: 1em;
 }

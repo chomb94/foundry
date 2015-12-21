@@ -483,6 +483,18 @@ class Project
         return $this->allCredits;
     }
 
+    public function setParticipants($Participants)
+    {
+        $this->participants = $Participants;
+    
+        return $this;
+    }
+
+    public function getParticipants()
+    {
+        return $this;
+    }
+
     public function setStepsAndCredits($allSteps, $allCredits)
     {
         $this->allSteps = $allSteps;

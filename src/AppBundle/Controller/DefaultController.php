@@ -16,6 +16,14 @@ class DefaultController extends BaseController
     {
         $user = $this->getUser();
 
+        // Familu list
+        $dql = "SELECT f FROM AppBundle:Family f ORDER BY f.name";
+        $families = $this
+            ->get("doctrine")
+            ->getEntityManager()
+            ->createQuery($dql)
+            ->getResult();
+
         // First list with only project before end date
         $dql = "SELECT p FROM AppBundle:Project p WHERE p.endDate >= :endDate ORDER BY p.endDate ASC";
         $projects = $this
@@ -50,6 +58,7 @@ class DefaultController extends BaseController
             'menu_hp' => 'active',
             'projects' => $projects,
             'old_projects' => $old_projects,
+            'families' => $families,
             'user' => $user,
         );
     }
