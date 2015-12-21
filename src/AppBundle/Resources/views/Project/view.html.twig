@@ -81,9 +81,6 @@
 		<div class="steps-sidebar summary">
 			<h2>Summary</h2>
 
-      {% if not project.isActive %}
-        <span class="label label-warning">Project Stopped</span>
-      {% endif %}
       {% if project.family.name is defined %}
       <div class="label label-success family-label-view">
             <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
@@ -102,10 +99,13 @@
         <span class="summary-days-label">Days to go: <span class="summary-days {% if daysToGo < 10 %}red{% endif %}">{{ daysToGo }}</span></span>
       </p>
 
+      {% if not project.isActive %}
+        <p><span class="label label-warning">Project Stopped</span></p>
+      {% endif %}
       {% if myproject %}
          <div class="text-center">
            {% if project.getDaysToGo > 0 %}
-             <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-lg {% if project.isActive %}btn-success">Click to pause the project{% else %}btn-warning">Click to active the project{% endif %}</a>
+             <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-lg btn-default">{% if project.isActive %}Click to pause the project{% else %}Click to active the project{% endif %}</a>
            {% endif %}
          </div>
       {% endif %}
