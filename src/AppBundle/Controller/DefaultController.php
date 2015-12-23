@@ -37,6 +37,9 @@ class DefaultController extends BaseController
             $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
             $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
             $oneProject->setStepsAndCredits($step_list, $all_credits);
+            // Show participants
+            $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject);
+            $oneProject->setParticipants($participants);
         }
 
         // Old projects (date < now)
@@ -53,6 +56,7 @@ class DefaultController extends BaseController
             $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
             $oneProject->setStepsAndCredits($step_list, $all_credits);
         }
+        $old_projects = ""; // TODO TO DELETE
 
         return array(
             'menu_hp' => 'active',

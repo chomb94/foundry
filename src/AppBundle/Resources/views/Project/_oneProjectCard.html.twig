@@ -26,7 +26,9 @@
                 <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-circle img-crew">
 
           {% if project.participants|length > 0 %}
-
+            {% for participant in project.participants %}
+              <img src="{{participant.profilePicture}}" alt="{{participant.username}}" class="img-circle img-crew" />
+            {% endfor %}
           {% endif %}
 
 
