@@ -27,6 +27,16 @@ class Family
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $end_date;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserGoogle")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $active = true;
+
 
 
     /**
@@ -64,26 +74,37 @@ class Family
     }
 
     /**
-     * Set picto URL.
+     * Set user.
      *
-     * @param string $picto_url
+     * @param UserGoogle $user
      *
-     * @return Family
+     * @return Project
      */
-    public function setPictoUrl($picto_url)
+    public function setUser($user)
     {
-        $this->picto_url = $picto_url;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get picto URL.
+     * Get user.
      *
-     * @return string
+     * @return UserGoogle
      */
-    public function getPictoUrl()
+    public function getUser()
     {
-        return $this->picto_url;
+        return $this->user;
     }
+
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
+    public function isActive()
+    {
+        return $this->getDaysToGo() >= 0 && $this->active;
+    }
+
 }

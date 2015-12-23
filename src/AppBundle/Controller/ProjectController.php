@@ -482,4 +482,31 @@ class ProjectController extends BaseController
                'id' => $id,
         ));
     }
+
+    /**
+     * @Route("/enable-family-{id}-{enable}", name="enableFamily")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function enableFamily($id, $enable)
+    {
+        $user       = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository("AppBundle:Family");
+        $family     = $repository->find($id);
+
+        if (is_null($family)) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($family->getUser()->getId() !== $user->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $family->setActive($enable);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($family);
+        $em->flush();
+
+        return $this->redirectToRoute('homepage');
+    }
 }

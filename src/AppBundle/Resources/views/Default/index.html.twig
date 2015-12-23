@@ -23,9 +23,14 @@
                     <tr>
                         <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
                         <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} Projects</a></td>
+                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">Owner : {{ family.username }}</a></td>
                         <td>
+                            {% if user.id == family.user_id %}
+                                 <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-xs btn-default">{% if family.active %}Click to inactive the family{% else %}Click to active the family{% endif %}</a>
+                            {% endif %}
+                            {% if not family.active %}
                             <span class="label label-warning">Project Stopped</span>
-                            <a href="#" class="btn btn-xs btn-default">Click to start</a> (TODO if owner)
+                            {% endif %}
                         </td>
                     </tr> 
                 {% endfor %}

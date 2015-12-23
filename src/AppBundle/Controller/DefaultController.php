@@ -17,10 +17,12 @@ class DefaultController extends BaseController
         $user = $this->getUser();
 
         // Family list
-        $dql = "SELECT f.name as name, count(p.id) as nbProjects
+        $dql = "SELECT f.id, f.name as name, f.active as active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
                     FROM AppBundle:Family f
                     LEFT JOIN AppBundle:Project p
                     WITH p.family = f.id
+                    LEFT JOIN AppBundle\Entity\UserGoogle ug
+                    WITH f.user = ug.id
                     GROUP BY f.name
                     ORDER BY f.name
                     ";
@@ -29,7 +31,7 @@ class DefaultController extends BaseController
             ->getEntityManager()
             ->createQuery($dql)
             ->getResult();
-
+//var_dump($families);
         // First list with only project before end date
         $dql = "SELECT p FROM AppBundle:Project p WHERE p.endDate >= :endDate ORDER BY p.endDate ASC";
         $projects = $this
@@ -62,7 +64,6 @@ class DefaultController extends BaseController
             $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
             $oneProject->setStepsAndCredits($step_list, $all_credits);
         }
-        $old_projects = ""; // TODO TO DELETE
 
         return array(
             'menu_hp' => 'active',
