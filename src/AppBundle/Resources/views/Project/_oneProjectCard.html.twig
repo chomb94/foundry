@@ -84,11 +84,14 @@
 
                 </div>
                 <div class="col-md-6 opc-action-right" id="vote-{{ project.id }}">
-                    {{
-                        render(controller('AppBundle:Project:viewVote', {
-                            id: project.id
-                        }))
-                    }}
+                    {% if project.family.isActive|default or project.family.isActive is not defined %}
+                        {{
+                            render(controller('AppBundle:Project:viewVote', {
+                                id: project.id
+                            }))
+                        }}
+                    {% endif %}
+
                 </div>
             {% else %}
                 <div class="col-md-12 text-center btn-footer-onecard-inactive ">

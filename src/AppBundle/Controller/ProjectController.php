@@ -104,8 +104,14 @@ class ProjectController extends BaseController
     {
         $user    = $this->getUser();
         $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
+        $family = $project->getFamily();
+        if ( !is_null($family) ) {
+           $family_isActive  = $family->isActive();
+        } else {
+            $family_isActive = true;
+        }
 
-        if (is_null($project) || !$project->isActive()) {
+        if (is_null($project) || !$project->isActive() || !$family_isActive) {
             throw $this->createNotFoundException();
         }
 

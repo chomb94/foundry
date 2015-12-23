@@ -253,6 +253,11 @@ h1 {
   background-color: white;
 }
 
+.table .inactive {
+  font-style: italic;
+  color: gray;
+}
+
 .panel-footer {
     background-color: #fff;
     border: none;

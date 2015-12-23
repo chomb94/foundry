@@ -104,7 +104,7 @@ class Family
 
     public function isActive()
     {
-        return $this->getDaysToGo() >= 0 && $this->active;
+        return $this->active;
     }
 
 }

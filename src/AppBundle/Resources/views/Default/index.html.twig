@@ -20,16 +20,24 @@
             <table class="table">
                 <tbody>
                 {% for family in families %}
-                    <tr>
-                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
+                    <tr {% if not family.active %}class="inactive"{% endif %}>
+                    {% if family.active %}
+                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a>
+                        </td>
                         <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} Projects</a></td>
                         <td><a href="{{ path('familySearch', {familyName: family.name}) }}">Owner : {{ family.username }}</a></td>
+                    {% else %}
+                        <td>{{ family.name }}
+                            {% if not family.active %}
+                            <span class="label label-warning">Project Stopped</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ family.nbProjects }} Projects</i></td>
+                        <td>Owner : {{ family.username }}</td>
+                    {% endif %}
                         <td>
                             {% if user.id == family.user_id %}
                                  <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-xs btn-default">{% if family.active %}Click to inactive the family{% else %}Click to active the family{% endif %}</a>
-                            {% endif %}
-                            {% if not family.active %}
-                            <span class="label label-warning">Project Stopped</span>
                             {% endif %}
                         </td>
                     </tr> 

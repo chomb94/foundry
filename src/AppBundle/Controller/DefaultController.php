@@ -18,22 +18,28 @@ class DefaultController extends BaseController
 
         // Family list
         $dql = "SELECT f.id, f.name as name, f.active as active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
-                    FROM AppBundle:Family f
-                    LEFT JOIN AppBundle:Project p
-                    WITH p.family = f.id
-                    LEFT JOIN AppBundle\Entity\UserGoogle ug
-                    WITH f.user = ug.id
-                    GROUP BY f.name
-                    ORDER BY f.name
-                    ";
+                FROM AppBundle:Family f
+                LEFT JOIN AppBundle:Project p
+                WITH p.family = f.id
+                LEFT JOIN AppBundle\Entity\UserGoogle ug
+                WITH f.user = ug.id
+                GROUP BY f.name
+                ORDER BY f.name
+                ";
         $families = $this
             ->get("doctrine")
             ->getEntityManager()
             ->createQuery($dql)
             ->getResult();
-//var_dump($families);
+
         // First list with only project before end date
-        $dql = "SELECT p FROM AppBundle:Project p WHERE p.endDate >= :endDate ORDER BY p.endDate ASC";
+        $dql = "SELECT p FROM AppBundle:Project p
+                LEFT JOIN AppBundle:Family f
+                WITH p.family = f.id
+                WHERE p.endDate >= :endDate
+                    AND (f.active = true or f.active is null)
+                ORDER BY p.endDate ASC
+                ";
         $projects = $this
             ->get("doctrine")
             ->getEntityManager()
