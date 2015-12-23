@@ -81,9 +81,6 @@ h1 {
 .img-navbar {
   width: 32px;
   height: 32px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
 }
 
 .nav>li>.img-link{
@@ -252,6 +249,9 @@ h1 {
     height: 10px;
 }
 
+.table {
+  background-color: white;
+}
 
 .panel-footer {
     background-color: #fff;
@@ -401,9 +401,6 @@ background: none;
 .img-project {
     width: 56px;
     height: 56px;
-    -webkit-border-radius: 28px;
-    -moz-border-radius: 28px;
-    border-radius: 28px;
     margin: 6px 0 0 0;
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
     border: 1px solid white;
@@ -420,9 +417,6 @@ background: none;
 .img-project-main-participant {
     width: 42px;
     height: 42px;
-    -webkit-border-radius: 21px;
-    -moz-border-radius: 21px;
-    border-radius: 21px;
     margin: 6px 0 0 0;    
 }
 
@@ -433,9 +427,6 @@ background: none;
 .img-crew {
     width: 28px;
     height: 28px;
-    -webkit-border-radius: 14px;
-    -moz-border-radius: 14px;
-    border-radius: 14px;
     margin: -6px 0 0 0;    
 }
 .label-as-badge {
@@ -489,11 +480,6 @@ background: none;
 .project-container {
     background-color: #fff;
     border-color: #fff;
-/*
-    border-radius: 5px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    overflow:hidden;
-    */
     padding: 0px;
     margin-bottom: 24px;
 
@@ -502,9 +488,6 @@ background: none;
 .img-profile-main {
     width: 128px;
     height: 128px;
-    -webkit-border-radius: 64px;
-    -moz-border-radius: 64px;
-    border-radius: 64px;
 }
 
 @-webkit-keyframes neon5 {
@@ -546,15 +529,19 @@ background: none;
 }
 
 .btn-onecard {
+  /*
   top: 3px;
   font-size: 24px;
+  */
 }
 
 .btn-onecard-text {
+  /*
   font-size: 12px;
   float: right;
   display: block;
   padding: 8px 0 0 12px;
+  */
 }
 
 .btn-heart-inactive {

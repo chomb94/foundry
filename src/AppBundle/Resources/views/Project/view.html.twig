@@ -7,7 +7,7 @@
 <div class="page-header text-center">
   <h1>{{ project.title|e }}</h1>
   <p>By {{ project.user.nickname }}
-  <img src="{{ project.user.profilePicture }}" class="img-project-main"/>
+  <img src="{{ project.user.profilePicture }}" class="img-project-main img-circle"/>
   </p>
 {% if myproject %}
   <p>It's my project :
@@ -116,28 +116,43 @@
         <div>
           {% if participants|length > 0 %}
             {% for participant in participants %}
-              <img src="{{participant.profilePicture}}" alt="{{participant.nickname}}" class="img-project-main-participant" />
-              <span class="label label-success label-badge-participant label-as-badge">2</span>
+              <img src="{{participant.profilePicture}}" alt="{{participant.username}}" class="img-project-main-participant img-circle" />
+              <span class="label label-success label-badge-participant label-as-badge">{{participant.credits}}</span>
             {% endfor %}
           {% else %}
             <em>Nobody today. Be the first!</em>
           {% endif %}
-
-          {% if steps|length == 0 %}
-          <div class="view-be-in">
-          {{
-              render(controller('AppBundle:Project:viewParticipate', {
-                  id: project.id
-              }))
-          }}
-          </div>
-          {% endif %}
-
         </div>
       </div>
       {% endif %}
 
-		</div>
+      <div class="view-be-in">
+            <div class="row btn-footer-onecard">
+            {% if project.active %}
+                <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
+                    {{
+                        render(controller('AppBundle:Project:viewParticipate', {
+                            id: project.id
+                        }))
+                    }}
+
+                </div>
+                <div class="col-md-6 opc-action-right" id="vote-{{ project.id }}">
+                    {{
+                        render(controller('AppBundle:Project:viewVote', {
+                            id: project.id
+                        }))
+                    }}
+                </div>
+            {% else %}
+                <div class="col-md-12 text-center btn-footer-onecard-inactive ">
+                Project Inactive
+                </div>
+            {% endif %}
+            </div>
+      </div>
+  </div>
+
 
     {% if steps|length > 0 %}
 		<div class="steps-sidebar">

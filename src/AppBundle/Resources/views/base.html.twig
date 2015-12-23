@@ -69,7 +69,7 @@
                                 {% endif %}
                             </li>
                             {% if app.user %}
-                                <li><a href="{{ path('userIndex') }}" class="img-link"><img src="{{ app.user.profilePicture }}" alt="{{ app.user.nickname }}" class="img-navbar"/></a></li>
+                                <li><a href="{{ path('userIndex') }}" class="img-link"><img src="{{ app.user.profilePicture }}" alt="{{ app.user.nickname }}" class="img-navbar img-circle"/></a></li>
                                 {% block available_credits %}
                                     <li><a href="{{ path('userIndex') }}">{{ render(controller('AppBundle:User:myCredits')) }}</a></li>
                                 {% endblock %}
