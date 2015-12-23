@@ -22,8 +22,7 @@
                 {% for family in families %}
                     <tr>
                         <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
-                        <td>X Projects / Y Votes
-                        </td>
+                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} Projects</a></td>
                         <td>
                             <span class="label label-warning">Project Stopped</span>
                             <a href="#" class="btn btn-xs btn-default">Click to start</a> (TODO if owner)

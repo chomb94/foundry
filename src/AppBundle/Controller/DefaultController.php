@@ -16,8 +16,14 @@ class DefaultController extends BaseController
     {
         $user = $this->getUser();
 
-        // Familu list
-        $dql = "SELECT f FROM AppBundle:Family f ORDER BY f.name";
+        // Family list
+        $dql = "SELECT f.name as name, count(p.id) as nbProjects
+                    FROM AppBundle:Family f
+                    LEFT JOIN AppBundle:Project p
+                    WITH p.family = f.id
+                    GROUP BY f.name
+                    ORDER BY f.name
+                    ";
         $families = $this
             ->get("doctrine")
             ->getEntityManager()
