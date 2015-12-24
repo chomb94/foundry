@@ -573,14 +573,16 @@ background: none;
   color:red;
 }
 
-.family-label {
-  position: absolute;
-  margin: -6px -2px 0px;
-  padding: 6px 8px;
+.family-label, .family-label-view {
   font-size: 14px;
   font-weight: lighter;
 }
 
+.family-label {
+  position: absolute;
+  margin: -6px -2px 0px;
+  padding: 6px 8px;
+}
 
 .family-label-view a, .family-label a {
   text-decoration: none;

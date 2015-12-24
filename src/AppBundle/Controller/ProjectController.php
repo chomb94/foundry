@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\ProjectType;
+use AppBundle\Form\Type\FamilyType;
 use AppBundle\Form\Type\StepType;
 use AppBundle\Form\Type\ParticipateType;
 use AppBundle\Entity\Project;
@@ -15,6 +16,7 @@ use AppBundle\Entity\Vote;
 use AppBundle\Entity\Step;
 use AppBundle\Entity\CreditsHistory;
 use AppBundle\Entity\UserCredits;
+use AppBundle\Entity\Family;
 use AppBundle\Base\BaseController;
 
 class ProjectController extends BaseController
@@ -278,6 +280,40 @@ class ProjectController extends BaseController
     }
 
     /**
+     * @Route("/family/publish", name="familyPublish")
+     * @Security("has_role('ROLE_USER')")
+     * @Template()
+     */
+    public function publishFamilyAction(Request $request)
+    {
+        $family = new Family();
+        // Max 90 days - defaut 90 days
+        $family->setEndDate(new \DateTime(date("Y-m-d", time() + 60 * 60 * 24 * project::MAX_DURATION)));
+        $form    = $this->createForm(new FamilyType(), $family);
+        $form->handleRequest($request);
+        $user    = $this->getUser();
+
+        if ($form->isValid()) {
+            $family->setUser($user);
+            $family->setActive(true);
+            $family->setPictoUrl('');
+            $manager = $this->get("doctrine")->getManager();
+            $manager->persist($family);
+            $manager->flush();
+
+            $this->success("Your family have been published.");
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return [
+            'form'       => $form->createView(),
+            'menu_start' => 'active',
+            'user'       => $user,
+        ];
+    }
+
+    /**
      * @Route("/project/publish", name="projectPublish")
      * @Security("has_role('ROLE_USER')")
      * @Template()
@@ -300,7 +336,8 @@ class ProjectController extends BaseController
 
             $this->success("Your project have been published.");
 
-            return $this->redirectToRoute('projectStepPublish', ['id' => $project->getId(), 'user' => $user]);
+            //return $this->redirectToRoute('projectStepPublish', ['id' => $project->getId(), 'user' => $user]);
+            return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
         }
 
         return [

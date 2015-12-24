@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -74,6 +75,54 @@ class Family
     }
 
     /**
+     * Set picto_url.
+     *
+     * @param string $picto_url
+     *
+     * @return Project
+     */
+    public function setPictoUrl($picto_url)
+    {
+        $this->picto_url = $picto_url;
+
+        return $this;
+    }
+
+    /**
+     * Get picto_url.
+     *
+     * @return string
+     */
+    public function getPictoUrl()
+    {
+        return $this->picto_url;
+    }
+
+    /**
+     * Set endDate.
+     *
+     * @param \DateTime $endDate
+     *
+     * @return Project
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate.
+     *
+     * @return \endDate
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+
+    /**
      * Set user.
      *
      * @param UserGoogle $user
@@ -97,14 +146,14 @@ class Family
         return $this->user;
     }
 
+    /**
+     * @Assert\Callback
+     */
     public function setActive($active)
     {
         $this->active = $active;
     }
 
-    /**
-     * @Assert\Callback
-     */
     public function isActive()
     {
         return $this->active;
