@@ -34,10 +34,7 @@ class DefaultController extends BaseController
 
         // First list with only project before end date
         $dql = "SELECT p FROM AppBundle:Project p
-                LEFT JOIN AppBundle:Family f
-                WITH p.family = f.id
                 WHERE p.endDate >= :endDate
-                    AND (f.active = true or f.active is null)
                 ORDER BY p.endDate ASC
                 ";
         $projects = $this
@@ -57,7 +54,10 @@ class DefaultController extends BaseController
         }
 
         // Old projects (date < now)
-        $dql_old = "SELECT p FROM AppBundle:Project p WHERE p.endDate < :endDate ORDER BY p.endDate ASC";
+        $dql_old = "SELECT p FROM AppBundle:Project p 
+                    WHERE p.endDate < :endDate
+                    ORDER BY p.endDate ASC
+                    ";
         $old_projects = $this
             ->get("doctrine")
             ->getEntityManager()

@@ -40,10 +40,11 @@ class ProjectRepository extends EntityRepository
                 p.title LIKE :search
                 OR p.short_description LIKE :search
                 OR f.name LIKE :search
-            ORDER BY p.active DESC, TIMESTAMPDIFF(SECOND, p.endDate, NOW()) ASC
+            ORDER BY p.active DESC, p.title ASC
          ")->setParameters(array(
              'search' => "%".$searchString."%",
          ))->getResult();
+//            ORDER BY p.active DESC, TIMESTAMPDIFF(SECOND, p.endDate, NOW()) ASC
     }
 
     public function participants($project) {
@@ -59,16 +60,29 @@ class ProjectRepository extends EntityRepository
          ))->getResult();
     }
 
-    public function familySearch($familyName) {
+    public function projectSearchFromFamily($familyName) {
         return $this->_em->createQuery("
             SELECT p
             FROM AppBundle\Entity\Project p
             INNER JOIN AppBundle\Entity\Family f WITH p.family = f.id
             WHERE
                 f.name = :search
-            ORDER BY p.active DESC, TIMESTAMPDIFF(SECOND, p.endDate, NOW()) ASC
+            ORDER BY p.active DESC, p.title ASC
          ")->setParameters(array(
              'search' => $familyName,
          ))->getResult();
     }
+//            ORDER BY p.active DESC, TIMESTAMPDIFF(SECOND, p.endDate, NOW()) ASC
+
+    public function familySearchFromName($familyName) {
+        return $this->_em->createQuery("
+            SELECT f
+            FROM AppBundle:Family f
+            WHERE
+                f.name = :search
+         ")->setParameters(array(
+             'search' => $familyName,
+         ))->getResult();
+    }
+//            ORDER BY p.active DESC, TIMESTAMPDIFF(SECOND, p.endDate, NOW()) ASC
 }

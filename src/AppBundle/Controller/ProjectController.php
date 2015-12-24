@@ -62,6 +62,7 @@ class ProjectController extends BaseController
 
         return [
             'project'     => $project,
+            'family'      => $project->getfamily(),
             'myproject'   => $myproject,
             'userCredits' => $user_credits,
             'steps'       => $project->getSteps(),

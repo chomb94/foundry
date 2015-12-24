@@ -81,9 +81,9 @@
 		<div class="steps-sidebar summary">
 			<h2>Summary</h2>
 
-      {% if project.family.name is defined %}
-      <div class="label label-success family-label-view">
-            <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
+      {% if family.name is defined %}
+      <div class="label label-{% if family.isActive %}success{% else %}warning{% endif %} family-label-view">
+            <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ family.name|default }}</a>
             {% if project.category.name is defined %}
               > {{ project.category.name|e }}
             {% endif %}
@@ -137,6 +137,7 @@
                     }}
 
                 </div>
+                {% if project.family.isActive|default or project.family.isActive is not defined %}
                 <div class="col-md-6 opc-action-right" id="vote-{{ project.id }}">
                     {{
                         render(controller('AppBundle:Project:viewVote', {
@@ -144,10 +145,7 @@
                         }))
                     }}
                 </div>
-            {% else %}
-                <div class="col-md-12 text-center btn-footer-onecard-inactive ">
-                Project Inactive
-                </div>
+                {% endif %}
             {% endif %}
             </div>
       </div>

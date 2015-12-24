@@ -3,7 +3,14 @@
 {% block body %}
 
 <div class="page-header">
-	<h1>Family: {{ familyName }}</h1>
+	<h1>Family: {{ family.name }}
+	{% if family.isActive and projects | length > 0 %}
+	<a href="{{ path('projectPublish') }}" class="btn btn-sm btn-success">Start your new project</a>
+	{% endif %}
+	</h1>
+	{% if not family.isActive %}
+	<span class="label label-warning">Family Stopped</span>
+	{% endif %}
 	{% if projects | length == 0 %}
 		<div>No projects found</div>
 		<h2><a href="{{ path('projectPublish') }}" class="btn btn-lg btn-success">Start your new project</a></h2>

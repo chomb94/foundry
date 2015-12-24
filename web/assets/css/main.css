@@ -39,7 +39,7 @@ body {
   color: #3399FF;
 }
 
-h1 {
+h1, h2 {
   font-family: HelveticaNeueUltraLight,HelveticaNeue-Ultra-Light,HelveticaNeue-UltraLight,"Helvetica Neue Ultra Light",HelveticaNeueLight,HelveticaNeue-Light,"Helvetica Neue Light",ArialLight,Arial-Light,"Arial Light","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -582,8 +582,12 @@ background: none;
 }
 
 
-.family-label-view a, .family-label-view a:hover, .family-label a, .family-label a:hover {
+.family-label-view a, .family-label a {
   text-decoration: none;
   color: white;
 }
 
+.family-label-view a:hover, .family-label a:hover {
+  text-decoration: underline;
+  color: white;
+}

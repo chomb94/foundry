@@ -44,10 +44,13 @@ class SearchController extends BaseController
     {
         $user     = $this->getUser();
         $familyName = trim($familyName);
+        $family_array = $this->get("doctrine")->getRepository("AppBundle:Project")->familySearchFromName($familyName);
+        $familyId = $family_array[0]->getId();
+        $family = $this->get("doctrine")->getRepository("AppBundle:Family")->find($familyId);
 
         $projects = array();
         if (strlen($familyName) > 0) {
-            $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->familySearch($familyName);
+            $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->projectSearchFromFamily($familyName);
 
             foreach ($projects as $oneProject) {
                 $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
@@ -57,7 +60,7 @@ class SearchController extends BaseController
         }
 
         return [
-            'familyName'      => $familyName,
+            'family'          => $family,
             'projects'        => $projects,
             'user'            => $user,
         ];

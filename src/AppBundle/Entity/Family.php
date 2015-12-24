@@ -102,6 +102,9 @@ class Family
         $this->active = $active;
     }
 
+    /**
+     * @Assert\Callback
+     */
     public function isActive()
     {
         return $this->active;

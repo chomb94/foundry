@@ -6,7 +6,7 @@
         </div>
         <div class="panel-body">
             {% if project.family.name is defined %}
-            <span class="label label-success family-label">
+            <span class="label label-{% if project.family.isActive %}success{% else %}warning{% endif %} family-label">
                 <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
                 {% if project.category.name is defined %}
                     - {{ project.category.name|default }}
