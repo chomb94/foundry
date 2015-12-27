@@ -27,7 +27,7 @@ class Family
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    protected $end_date;
+    protected $endDate;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserGoogle")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")

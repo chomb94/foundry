@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<h1>Step 1/2 - Your project's description</h1>
+<h1>Your project:</h1>
 
 <div class="row">
 	<div class="col-md-8 project-container">
@@ -12,6 +12,8 @@
 
 		{{ form_start(form) }}
 		{{ form_errors(form) }}
+
+		<h2>"{{ family.name}}" project</h2>
 
 		{{ form_label(form.title) }}
 		{{ form_widget(form.title, {help_text:"A powerful name for your idea!"}) }}

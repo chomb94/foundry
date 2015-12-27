@@ -5,15 +5,19 @@
 <div class="page-header">
 	<h1>Family: {{ family.name }}
 	{% if family.isActive and projects | length > 0 %}
-	<a href="{{ path('projectPublish') }}" class="btn btn-sm btn-success">Start your new project</a>
+	<a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-sm btn-success">Start your new project</a>
 	{% endif %}
 	</h1>
+	Create by: {{ family.user.nickname }}
 	{% if not family.isActive %}
 	<span class="label label-warning">Family Stopped</span>
 	{% endif %}
+    {% if user.id == family.user.id %}
+         <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-xs btn-default">{% if family.active %}Click to stop{% else %}Click to active{% endif %}</a>
+    {% endif %}
 	{% if projects | length == 0 %}
 		<div>No projects found</div>
-		<h2><a href="{{ path('projectPublish') }}" class="btn btn-lg btn-success">Start your new project</a></h2>
+		<h2><a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-lg btn-success">Start your new project</a></h2>
 	{% endif %}
 </div>
 

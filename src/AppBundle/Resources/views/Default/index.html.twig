@@ -1,11 +1,6 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block jumbotron %}
-    <!-- div class="jumbotron">
-        <p>Welcome {{ user.nickname | default("to you") }}</p>
-        <a class="btn btn-lg btn-success" href="{{ path('projectPublish') }}">Start your project</a>
-    </div -->
-
 {% endblock %}
 
 {% block body %}
@@ -36,8 +31,11 @@
                         <td>Owner : {{ family.username }}</td>
                     {% endif %}
                         <td>
+                             <a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-xs btn-success">Start your new project</a>
+                        </td>
+                        <td>
                             {% if user.id == family.user_id %}
-                                 <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-xs btn-default">{% if family.active %}Click to inactive the family{% else %}Click to active the family{% endif %}</a>
+                                 <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-xs btn-default">{% if family.active %}Click to stop{% else %}Click to active{% endif %}</a>
                             {% endif %}
                         </td>
                     </tr> 
@@ -47,7 +45,7 @@
         </div>
     </div>
     <div class="">
-        <a href="{{ path('familyPublish') }}" class="btn btn-success">Start a new family</a>
+        <a href="{{ path('familyPublish') }}" class="btn btn-success">Create a new family</a>
     </div>
 
     <span class="clearfix"></span>

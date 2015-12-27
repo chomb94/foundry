@@ -314,15 +314,25 @@ class ProjectController extends BaseController
     }
 
     /**
-     * @Route("/project/publish", name="projectPublish")
+     * @Route("/project/publish/{family_id}", name="projectPublish")
      * @Security("has_role('ROLE_USER')")
      * @Template()
      */
-    public function publishAction(Request $request)
+    public function publishAction(Request $request, $family_id)
     {
         $project = new Project();
-        // Max 90 days - defaut 90 days
-        $project->setEndDate(new \DateTime(date("Y-m-d", time() + 60 * 60 * 24 * project::MAX_DURATION)));
+        // Default family
+        if ($family_id == 0) {
+            $family_id = 1;
+        }
+        $family  = $this->getDoctrine()->getRepository("AppBundle:Family")->find($family_id);
+        $project->setFamily($family);
+        // Max 90 days - defaut 90 
+        if ($family->getEndDate() <> null) {
+            $project->setEndDate($family->getEndDate());
+        } else {
+            $project->setEndDate(new \DateTime(date("Y-m-d", time() + 60 * 60 * 24 * project::MAX_DURATION)));
+        }
         $form    = $this->createForm(new ProjectType(), $project);
         $form->handleRequest($request);
         $user    = $this->getUser();
@@ -341,6 +351,7 @@ class ProjectController extends BaseController
         }
 
         return [
+            'family'     => $family,
             'form'       => $form->createView(),
             'menu_start' => 'active',
             'user'       => $user,

@@ -47,7 +47,6 @@ class SearchController extends BaseController
         $family_array = $this->get("doctrine")->getRepository("AppBundle:Project")->familySearchFromName($familyName);
         $familyId = $family_array[0]->getId();
         $family = $this->get("doctrine")->getRepository("AppBundle:Family")->find($familyId);
-
         $projects = array();
         if (strlen($familyName) > 0) {
             $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->projectSearchFromFamily($familyName);
