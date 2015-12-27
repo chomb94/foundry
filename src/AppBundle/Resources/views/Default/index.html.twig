@@ -31,7 +31,7 @@
                         <td>Owner : {{ family.username }}</td>
                     {% endif %}
                         <td>
-                             <a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-xs btn-success">Start your new project</a>
+                             <a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-xs btn-success {% if not family.active %}disabled{% endif %}">Start your new project</a>
                         </td>
                         <td>
                             {% if user.id == family.user_id %}
