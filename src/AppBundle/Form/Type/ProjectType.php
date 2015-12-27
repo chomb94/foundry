@@ -18,15 +18,15 @@ class ProjectType extends AbstractType
                 'download_link' => true, // not mandatory, default is true
             ))
             ->add('shortDescription', 'textarea')
+            ->add('endDate',  'date')
+            ->add('videoUrl', 'text', ['required'=>false])
+            ->add('fullDescription', 'textarea', ['required'=>false])
+            /*
             ->add('family', 'entity', array(
                 'label' => 'Family',
                 'class' => 'AppBundle\Entity\Family',
                 'property' => 'name'
             ))
-            ->add('endDate',  'date')
-            ->add('videoUrl', 'text', ['required'=>false])
-            ->add('fullDescription', 'textarea', ['required'=>false])
-            /*
             ->add('team', 'textarea', ['required'=>false])
             ->add('risksChallenges',  'textarea', ['required'=>false])
             ->add('deliveryPromise',  'textarea', ['required'=>false])

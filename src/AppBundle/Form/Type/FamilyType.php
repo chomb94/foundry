@@ -12,6 +12,7 @@ class FamilyType extends AbstractType
     {
         $builder
             ->add('name', 'text')
+            ->add('endDate',  'date')
             ->add('save', 'submit')
         ;
     }
