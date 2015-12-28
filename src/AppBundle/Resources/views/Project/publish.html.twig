@@ -15,6 +15,10 @@
 
 		<h2>"{{ family.name}}" project</h2>
 
+		{{ form_label(form.family) }}
+		{{ form_widget(form.family, {help_text:"A powerful name for your idea!"}) }}
+		{{ form_errors(form.family) }}
+
 		{{ form_label(form.title) }}
 		{{ form_widget(form.title, {help_text:"A powerful name for your idea!"}) }}
 		{{ form_errors(form.title) }}

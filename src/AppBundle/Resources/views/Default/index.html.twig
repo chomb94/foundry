@@ -16,20 +16,13 @@
                 <tbody>
                 {% for family in families %}
                     <tr {% if not family.active %}class="inactive"{% endif %}>
-                    {% if family.active %}
                         <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a>
-                        </td>
-                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} Projects</a></td>
-                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">Owner : {{ family.username }}</a></td>
-                    {% else %}
-                        <td>{{ family.name }}
                             {% if not family.active %}
                             <span class="label label-warning">Family Stopped</span>
                             {% endif %}
                         </td>
-                        <td>{{ family.nbProjects }} Projects</i></td>
-                        <td>Owner : {{ family.username }}</td>
-                    {% endif %}
+                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} Projects</a></td>
+                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">Owner : {{ family.username }}</a></td>
                         <td>
                              <a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-xs btn-success {% if not family.active %}disabled{% endif %}">Start your new project</a>
                         </td>
@@ -45,7 +38,7 @@
         </div>
     </div>
     <div class="">
-        <a href="{{ path('familyPublish') }}" class="btn btn-success">Create a new family</a>
+        <a href="{{ path('familyPublish') }}" class="btn btn-xs btn-default">Create a new family</a>
     </div>
 
     <span class="clearfix"></span>

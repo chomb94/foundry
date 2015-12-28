@@ -24,11 +24,11 @@ class Project
      */
     protected $id;
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
     protected $title;
     /**
-     * @ORM\Column(type="string", length=500)
+     *  @ORM\Column(type="text")
      */
     protected $short_description;
     /**
