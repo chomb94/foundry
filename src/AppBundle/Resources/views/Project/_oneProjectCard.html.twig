@@ -68,7 +68,7 @@
            {% else %}
             <div class="noprogress">
             </div>
-           {% endif %}
+b           {% endif %}
             <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression pull-right">
                 <span class="{% if (project.getDaysToGo < 10) %}red text-bold{% endif %}">{% if project.getDaysToGo >= 0 %}{{ project.getDaysToGo }}{% else %}{{ 0 }}{% endif %}</span><span class="text-light"> {% if project.active %}days to go{% else %}days ago...{% endif %}</span>
             </div>

@@ -49,7 +49,6 @@ class UserController extends BaseController
               ->getRepository("AppBundle:UserCredits")
               ->findBy(array('user_id' => $user->getId()))[0]
         ;
-
         return [
             'credits' => $userCredits->getCredits(),
         ];
