@@ -3,24 +3,15 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            <div id="welcome">
                 <h1><span>I am {{ user.nickname }}</span></h1>
-                <h1><span>I have {{ userCredits.credits | default("0") }} available Involvement Day(s)</span></h1>
-                <img class="img-profile-main" src="{{ user.profilePicture }} " alt="{{ user.username }}"/>
-            </div>
-        </div>
-    </div>
-
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
+                <p><span class="glyphicon glyphicon-lamp"></span><span>I have {{ userCredits.credits | default("0") }} available Involvement Day(s)</span></p>
+                <p><img class="img-profile-main" src="{{ user.profilePicture }} " alt="{{ user.username }}"/></p>
                 <h1><span>Pledged projects</span></h1>
                 <ul>
             	{% for projectPledged in projectsPledged %}
-                	<li>{{ projectPledged.nbCreditsSpent }} Day(s) spent for project <a href="{{ path('projectView', {id: projectPledged.project.id}) }}"><strong>{{ projectPledged.project.title }}</strong></a> ({{ projectPledged.pledgeDate | date('d M Y, h:m:s') }})</li>
+                	<li><span class="glyphicon glyphicon-lamp" aria-hidden="true"></span> {{ projectPledged.nbCreditsSpent }} Day(s) spent for project <a href="{{ path('projectView', {id: projectPledged.project.id}) }}"><strong>{{ projectPledged.project.title }}</strong></a> ({{ projectPledged.pledgeDate | date('d M Y, h:m:s') }})</li>
                 {% endfor %}
                 </ul>
-            </div>
         </div>
     </div>
 {% endblock %}

@@ -5,7 +5,8 @@ body {
     /* font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif; */
     font-family: HelveticaNeueLight, HelveticaNeue-Light, 'Helvetica Neue Light', ArialLight, Arial-Light, 'Arial Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 13px;
-    background: #f4f4f6;
+    /* background: #f4f4f6; */
+    background-color: white;
 }
 
 @font-face {
@@ -24,7 +25,7 @@ body {
     background-color: #f4f4f6;
     text-align: center;
     color: #999;
-    text-shadow: rgba(0, 0, 0, 0.3) 0px 2px 3px;
+    text-shadow: rgba(0, 0, 0, 0.3) 0px 2px 2px;
     margin:0;
     padding-bottom: 12px;
 }
@@ -188,7 +189,7 @@ h1, h2 {
 .panel-default {
     border-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
     overflow:hidden;
 }
 
@@ -361,6 +362,7 @@ background: none;
 .summary {
   padding-bottom: 16px;
   text-align: center;
+  background-color: #f4f4f6;
 }
 
 .summary-days {
