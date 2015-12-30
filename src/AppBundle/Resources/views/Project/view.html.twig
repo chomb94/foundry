@@ -82,7 +82,7 @@
 			<h2>Summary</h2>
 
       {% if family.name is defined %}
-      <div class="label label-{% if family.isActive %}success{% else %}warning{% endif %} family-label-view">
+      <div class="label label-primary family-label-view">
             <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ family.name|default }}</a>
             {% if project.category.name is defined %}
               > {{ project.category.name|e }}
@@ -112,7 +112,7 @@
 
       {% if project.isActive %}
       <div class="participants-frame">
-        <span class="">Participants :</span>
+        <span class="">Crew:</span>
         <div>
           {% if participants|length > 0 %}
             {% for participant in participants %}
@@ -186,7 +186,7 @@
                         {% endif %}
                         <form class="steps-sidebar-form" action="{{ path('projectPledge', {id: project.id}) }}" method="post">
                             <input type="number" id="price" name="price" required="required" class="form-control input-price" min="0" max="{{ userCredits.credits }}">
-                            <button type="submit" id="project_save" name="step" class="btn-success btn steps-sidebar-pledge"><span class="glyphicon glyphicon-sunglasses btn-sunglasses-active" aria-hidden="true"></span> I'm in!</button>
+                            <button type="submit" id="project_save" name="step" class="btn-success btn steps-sidebar-pledge"><span class="glyphicon glyphicon-lamp btn-sunglasses-active" aria-hidden="true"></span> I'm in!</button>
                         </form>
                     {% else %}
                         Coming next...

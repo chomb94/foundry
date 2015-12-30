@@ -171,6 +171,7 @@ h1, h2 {
 
 .btn-footer-onecard {
   padding-top: 12px;
+  height: 46px;
 }
 
 .btn-footer-onecard-inactive {
@@ -262,9 +263,8 @@ h1, h2 {
 .panel-footer {
     background-color: #fff;
     border: none;
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px 0 16px;
-    #border: 1px solid red;
 }
 
 .panel-footer-credits-progression {
@@ -459,6 +459,7 @@ background: none;
 
 .step-credits {
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .input-price {
@@ -476,7 +477,7 @@ background: none;
 }
 
 .steps-sidebar-form {
-  margin: 24px 0 24px 48px;
+  margin: 12px 0 24px 48px;
 }
 
 .sidebar-footer {

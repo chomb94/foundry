@@ -6,7 +6,7 @@
         </div>
         <div class="panel-body">
             {% if project.family.name is defined %}
-            <span class="label label-{% if project.family.isActive %}success{% else %}warning{% endif %} family-label">
+            <span class="label label-primary family-label">
                 <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
                 {% if project.category.name is defined %}
                     - {{ project.category.name|default }}
@@ -62,8 +62,8 @@
                     <span class="sr-only">{{ project.percentageOfProgress }}% Complete (success)</span>
                 </div>
             </div>
-            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression pull-left">
-                {{ project.nbCreditsDone }} <span class="text-light"></span> <span class="text-light">{% if project.nbCreditsTotal >0 %}/ {{ project.nbCreditsTotal }} {% endif %} Involvement day{% if project.nbCreditsDone > 1 %}s{% endif %} given</span>
+            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression pull-left"><span class="glyphicon glyphicon-lamp" aria-hidden="true"></span>
+                {{ project.nbCreditsDone }} <span class="text-light">{% if project.nbCreditsTotal >0 %}/ {{ project.nbCreditsTotal }} {% endif %} Involvement day{% if project.nbCreditsDone > 1 %}s{% endif %} given</span>
             </div>
            {% else %}
             <div class="noprogress">
