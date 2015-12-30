@@ -42,6 +42,7 @@ class Step
 
     protected $isCompleted;
     protected $priceToFinish;
+    protected $pricePaid;
     protected $displayPledgeForm;
 
     /**
@@ -244,6 +245,30 @@ class Step
     public function getPriceToFinish()
     {
         return $this->priceToFinish;
+    }
+
+    /**
+     * Set price to finish the step.
+     *
+     * @param string $priceToFinish
+     *
+     * @return int
+     */
+    public function setPricePaid($pricePaid)
+    {
+        $this->pricePaid = $pricePaid;
+
+        return $this;
+    }
+
+    /**
+     * Get price to finish the step.
+     *
+     * @return int
+     */
+    public function getPricePaid()
+    {
+        return $this->pricePaid;
     }
 
     /**

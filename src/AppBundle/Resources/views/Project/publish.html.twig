@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<h1>Your project:</h1>
+<h1>Your "{{ family.name}}" project:</h1>
 
 <div class="row">
 	<div class="col-md-8 project-container">
@@ -12,8 +12,6 @@
 
 		{{ form_start(form) }}
 		{{ form_errors(form) }}
-
-		<h2>"{{ family.name}}" project</h2>
 
 		{{ form_label(form.family) }}
 		{{ form_widget(form.family, {help_text:"A powerful name for your idea!"}) }}

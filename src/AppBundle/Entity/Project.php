@@ -512,17 +512,20 @@ class Project
             if ($totalAlreadyPledged >= $oneStep->getPrice()) {
                 $oneStep->setIsCompleted(true);
                 $oneStep->setPriceToFinish(0);
+                $oneStep->setPricePaid($totalAlreadyPledged);
                 $oneStep->setIsDisplayPledgeForm(false);
                 $totalAlreadyPledged -= $oneStep->getPrice();
             } elseif ($totalAlreadyPledged > 0) {
                 $oneStep->setIsCompleted(false);
                 $oneStep->setPriceToFinish($oneStep->getPrice() - $totalAlreadyPledged);
+                $oneStep->setPricePaid($totalAlreadyPledged);
                 $oneStep->setIsDisplayPledgeForm(true);
                 $totalAlreadyPledged = 0;
                 $firstElementToDo = false;
             } else {
                 $oneStep->setIsCompleted(false);
                 $oneStep->setPriceToFinish($oneStep->getPrice());
+                $oneStep->setPricePaid(0);
                 $oneStep->setIsDisplayPledgeForm($firstElementToDo);
                 $firstElementToDo = false;
             }

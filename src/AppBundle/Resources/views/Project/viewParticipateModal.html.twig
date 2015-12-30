@@ -1,7 +1,8 @@
 {% set body %}
 
     <form id="participate-modal-form-{{ id }}" class="steps-sidebar-form" action="{{ path('projectPledge', {id: id}) }}" method="post">
-        <input type="amount" id="price" name="price" required="required" class="form-control input-price" min="0" max="{{ userCredits.credits }}" value="1">
+        <input type="amount" id="price" name="price" required="required" class="form-control input-price-modal" min="0" max="{{ userCredits.credits }}" value="1">
+
 
         <a
             href="#"
@@ -13,7 +14,7 @@
             data-script-success=" $('#participate-modal-{{ id }}').modal('hide'); "
             name="step"
             class="btn-success btn steps-sidebar-pledge domajax click">
-            <span class="glyphicon glyphicon-sunglasses btn-sunglasses-active" aria-hidden="true"></span> I'm in!</button>
+            <span class="glyphicon glyphicon-wrench btn-sunglasses-invert" aria-hidden="true"></span> I'm in!</button>
     </a>
 
 {% endset %}

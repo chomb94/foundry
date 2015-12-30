@@ -1,5 +1,4 @@
 {% if isParticipant %}
-
     {% if imInButton %}
         <div class="view-be-in text-center">
             You are in!
@@ -9,7 +8,7 @@
 {% else %}
 
     <a class="btn btn-default" data-toggle="modal" data-target="#participate-modal-{{ id }}">
-        <span id="participate-icon-{{ id }}" class="glyphicon glyphicon-lamp btn-onecard btn-sunglasses-{{ isParticipant ? 'isactive' : 'active' }}" aria-hidden="true"></span><span class="btn-onecard-text"> I'm in!</span>
+        <span id="participate-icon-{{ id }}" class="glyphicon glyphicon-wrench btn-onecard btn-sunglasses-{{ isParticipant ? 'isactive' : 'active' }}" aria-hidden="true"></span><span class="btn-onecard-text"> I'm in!</span>
     </a>
 
     {% if message %}

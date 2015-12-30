@@ -16,7 +16,9 @@
             <div class="crop">
             <a href="{{ path('projectView', {id: project.id}) }}">
                 <div class="crop">
+                {% if project.imageName  %}
                     <img src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title }}"/>
+                {% endif %}
                 </div>
             </a>
             </div>
@@ -62,7 +64,7 @@
                     <span class="sr-only">{{ project.percentageOfProgress }}% Complete (success)</span>
                 </div>
             </div>
-            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression pull-left"><span class="glyphicon glyphicon-lamp" aria-hidden="true"></span>
+            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression pull-left"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
                 {{ project.nbCreditsDone }} <span class="text-light">{% if project.nbCreditsTotal >0 %}/ {{ project.nbCreditsTotal }} {% endif %} Involvement day{% if project.nbCreditsDone > 1 %}s{% endif %} given</span>
             </div>
            {% else %}
