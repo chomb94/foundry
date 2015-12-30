@@ -178,7 +178,7 @@
                         {% endif %}
                         <form class="steps-sidebar-form" action="{{ path('projectPledge', {id: project.id}) }}" method="post">
                             <input type="number" id="price" name="price" required="required" class="form-control input-price" min="0" max="{{ userCredits.credits }}">
-                            <button type="submit" id="project_save" name="step" class="btn-success btn steps-sidebar-pledge"><span class="glyphicon glyphicon-sunglasses btn-sunglasses-active" aria-hidden="true"></span> I'm in!</button>
+                            <button type="submit" id="project_save" name="step" class="btn-success btn steps-sidebar-pledge"><span class="glyphicon glyphicon-lamp btn-sunglasses-active" aria-hidden="true"></span> I'm in!</button>
                         </form>
                     {% else %}
                         Coming next...
