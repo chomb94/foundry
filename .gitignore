@@ -23,8 +23,9 @@
 /vendor/
 
 # Assets and user uploads
-/web/bundles/
-/web/uploads/
+web/bundles/
+web/uploads/
+!web/uploads/.gitkeep
 
 # PHPUnit
 /app/phpunit.xml
@@ -35,10 +36,6 @@
 
 # Composer PHAR
 /composer.phar
-
-# Uploads
-web/uploads/projects
-!web/uploads/projects/.gitkeep
 
 # Because we love apple juice with ice cubes
 .DS_Store

@@ -1,0 +1,29 @@
+{% set body %}
+
+    <form id="participate-modal-form-{{ id }}" class="steps-sidebar-form" action="{{ path('projectPledge', {id: id}) }}" method="post">
+        <input type="amount" id="price" name="price" required="required" class="form-control input-price" min="0" max="{{ userCredits.credits }}" value="1">
+
+        <a
+            href="#"
+            id="project_save"
+            data-endpoint="{{ path('projectParticipate', {id: id}) }}"
+            data-input="#participate-modal-form-{{ id }}"
+            data-output="#participate-{{ id }}"
+            data-lock="#participate-modal-form-{{ id }}"
+            data-script-success=" $('#participate-modal-{{ id }}').modal('hide'); "
+            name="step"
+            class="btn-success btn steps-sidebar-pledge domajax click">
+            <span class="glyphicon glyphicon-sunglasses btn-sunglasses-active" aria-hidden="true"></span> I'm in!</button>
+    </a>
+
+{% endset %}
+
+{% import 'AppBundle::macros.html.twig' as macros %}
+
+{{
+    macros.modal(
+        'participate-modal-' ~ id,
+        'How many days would you like to spend?',
+        body
+    )
+}}
