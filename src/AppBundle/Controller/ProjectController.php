@@ -327,7 +327,7 @@ class ProjectController extends BaseController
         }
         $family  = $this->getDoctrine()->getRepository("AppBundle:Family")->find($family_id);
         $project->setFamily($family);
-        // Max 90 days - defaut 90 
+        // Max 90 days - defaut 90
         if ($family->getEndDate() <> null) {
             $project->setEndDate($family->getEndDate());
         } else {
@@ -443,6 +443,25 @@ class ProjectController extends BaseController
 
     /**
      * @Template()
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function viewParticipateModalAction(Request $request, $id)
+    {
+        $project    = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
+        $user       = $this->getUser();
+
+        if (is_null($project)) {
+            throw $this->createNotFoundException();
+        }
+
+        return [
+            'id'            => $id,
+            'userCredits'   => $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findBy(['user_id' => $user->getId()])[0],
+        ];
+    }
+
+    /**
+     * @Template()
      * @Route("/project/participate/{id}", name="projectParticipate")
      * @Security("has_role('ROLE_USER')")
      */
@@ -465,11 +484,8 @@ class ProjectController extends BaseController
 
         $message = null;
 
-        $form = $this->createForm(ParticipateType::class);
-        $form->handleRequest($request);
-        if ($form->isValid() && $project->isActive()) {
-            $amount = $form->getData()['amount'];
-
+        $amount = $request->request->get('price');
+        if ($amount > 0) {
             $credits = $this
                ->getDoctrine()
                ->getRepository("AppBundle:UserCredits")
@@ -486,9 +502,9 @@ class ProjectController extends BaseController
 
         return [
             'id'            => $id,
-            'form'          => $form->createView(),
             'message'       => $message,
             'isParticipant' => $isParticipant,
+            'userCredits'   => $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findBy(['user_id' => $user->getId()])[0],
         ];
     }
 

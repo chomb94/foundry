@@ -5,7 +5,6 @@
 
 {% block body %}
 
-
     <div class="page-header">
         <h1>BlaBlaFoundry Families</h1>
     </div>
@@ -31,7 +30,7 @@
                                  <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-xs btn-default">{% if family.active %}Click to stop{% else %}Click to active{% endif %}</a>
                             {% endif %}
                         </td>
-                    </tr> 
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

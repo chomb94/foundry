@@ -129,6 +129,13 @@
       <div class="view-be-in">
             <div class="row btn-footer-onecard">
             {% if project.active %}
+
+                {{
+                    render(controller('AppBundle:Project:viewParticipateModal', {
+                        id: project.id
+                    }))
+                }}
+
                 <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
                     {{
                         render(controller('AppBundle:Project:viewParticipate', {
