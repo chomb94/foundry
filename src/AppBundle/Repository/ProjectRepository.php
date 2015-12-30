@@ -54,9 +54,11 @@ class ProjectRepository extends EntityRepository
             LEFT JOIN AppBundle\Entity\UserGoogle ug
             WITH c.user_id = ug.id
             WHERE c.project = :project
+            AND ug.id != :user_id
             GROUP BY ug.id
          ")->setParameters(array(
              'project' => $project,
+             'user_id' => $project->getUser(),
          ))->getResult();
     }
 

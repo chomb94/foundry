@@ -127,7 +127,14 @@ h1, h2 {
     overflow: hidden;
 }
 
-.crop img {
+.view-crop {
+    width: 100%;
+    height: 277px;
+    overflow: hidden;
+}
+
+
+.crop img, .view-crop img{
     width: 100%;
 }
 
@@ -170,12 +177,16 @@ h1, h2 {
 }
 
 .btn-footer-onecard {
-  padding-top: 12px;
-  height: 46px;
+    padding-top: 22px;
+    /* height: 60px;  */
 }
 
 .btn-footer-onecard-inactive {
-  height: 30px;
+  /*height: 30px;*/
+}
+
+.btn-project-disabled {
+    background: none;
 }
 
 .ico-big {
@@ -253,11 +264,6 @@ h1, h2 {
 
 .table {
   background-color: white;
-}
-
-.table .inactive {
-  font-style: italic;
-  color: gray;
 }
 
 .panel-footer {
@@ -424,7 +430,14 @@ background: none;
 .img-project-main-participant {
     width: 42px;
     height: 42px;
-    margin: 6px 0 0 0;    
+    margin: 6px 0 0 0;
+}
+
+.img-crew-master-big {
+    width: 48px;
+    height: 48px;
+    margin: 6px 0 0 0;
+    border: 3px dotted LightSkyBlue;
 }
 
 .crew {
@@ -436,6 +449,14 @@ background: none;
     height: 28px;
     margin: -6px 0 0 0;    
 }
+
+.img-crew-master {
+    width: 34px;
+    height: 34px;
+    margin: -6px 0 0 0;
+    border: 3px dotted LightSkyBlue;
+}
+
 .label-as-badge {
     border-radius: 1em;
 }

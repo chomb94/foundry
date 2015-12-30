@@ -7,7 +7,6 @@
 <div class="page-header text-center">
   <h1>{{ project.title|e }}</h1>
   <p>By {{ project.user.nickname }}
-  <img src="{{ project.user.profilePicture }}" class="img-project-main img-circle"/>
   </p>
 {% if myproject %}
   <p>It's my project :
@@ -24,12 +23,14 @@
 	<div class="col-md-8 project-container">
 		<div>
     {% if project.videoUrl != "" %}
-        <!-- 16:9 aspect ratio -->
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="{{ project.videoUrl|e('html_attr') }}"></iframe>
-        </div>
+      <!-- 16:9 aspect ratio -->
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="{{ project.videoUrl|e('html_attr') }}"></iframe>
+      </div>
     {% elseif project.imageName %}
-  			<img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/>
+      <div class="view-crop">
+        <img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/>
+      </div>
     {% endif %}
 		</div>
 		<div class="project-container-text">
@@ -38,13 +39,13 @@
 				  {{ project.shortDescription|e|nl2br }}
 				</p>
 			</div>
-			<hr>
 
       {% if project.videoUrl != "" %}
           <p><img width="100%" src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title|e('html_attr') }}"/></p>
       {% endif %}
 
 			{% if project.fullDescription != '' %}
+      <hr>
           <p>
             {{ project.fullDescription|e|nl2br }}
           </p>
@@ -114,6 +115,7 @@
       <div class="participants-frame">
         <span class="">Crew:</span>
         <div>
+          <img src="{{ project.user.profilePicture }}" class="img-crew-master-big img-circle"/>
           {% if participants|length > 0 %}
             {% for participant in participants %}
               <img src="{{participant.profilePicture}}" alt="{{participant.username}}" class="img-project-main-participant img-circle" />

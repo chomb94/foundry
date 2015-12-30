@@ -23,10 +23,28 @@ class DefaultController extends BaseController
                 WITH p.family = f.id
                 LEFT JOIN AppBundle\Entity\UserGoogle ug
                 WITH f.user = ug.id
+                WHERE f.active = 1
                 GROUP BY f.name
                 ORDER BY f.name
                 ";
         $families = $this
+            ->get("doctrine")
+            ->getEntityManager()
+            ->createQuery($dql)
+            ->getResult();
+
+        // Inactive families
+        $dql = "SELECT f.id, f.name as name, f.active as active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
+                FROM AppBundle:Family f
+                LEFT JOIN AppBundle:Project p
+                WITH p.family = f.id
+                LEFT JOIN AppBundle\Entity\UserGoogle ug
+                WITH f.user = ug.id
+                WHERE f.active = 0
+                GROUP BY f.name
+                ORDER BY f.name
+                ";
+        $inactive_families = $this
             ->get("doctrine")
             ->getEntityManager()
             ->createQuery($dql)
@@ -76,6 +94,7 @@ class DefaultController extends BaseController
             'projects' => $projects,
             'old_projects' => $old_projects,
             'families' => $families,
+            'inactive_families' => $inactive_families,
             'user' => $user,
         );
     }

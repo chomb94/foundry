@@ -23,7 +23,7 @@
             <!-- div class="project-image-container">
             </div -->
             <div class="crew">
-                <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-circle img-crew">
+                <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-circle img-crew-master">
 
           {% if project.participants|length > 0 %}
             {% for participant in project.participants %}
@@ -102,7 +102,7 @@
                 </div>
             {% else %}
                 <div class="col-md-12 text-center btn-footer-onecard-inactive ">
-                Project Inactive
+                <button type="button" class="btn btn-project-disabled" disabled="disabled">Project Inactive</button>
                 </div>
             {% endif %}
             </div>
