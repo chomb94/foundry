@@ -1,8 +1,10 @@
 {% if isParticipant %}
 
-    <div class="view-be-in text-center">
-        You are in!
-    </div>
+    {% if imInButton %}
+        <div class="view-be-in text-center">
+            You are in!
+        </div>
+    {% endif %}
 
 {% else %}
 
