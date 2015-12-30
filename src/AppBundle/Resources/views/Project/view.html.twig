@@ -105,7 +105,7 @@
       {% if myproject %}
          <div class="text-center">
            {% if project.getDaysToGo > 0 %}
-             <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-lg btn-default">{% if project.isActive %}Click to pause the project{% else %}Click to active the project{% endif %}</a>
+             <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-lg btn-default">{% if project.isActive %}Click to pause the project{% else %}Click to activate the project{% endif %}</a>
            {% endif %}
          </div>
       {% endif %}
