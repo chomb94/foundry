@@ -82,7 +82,7 @@
 			<h2>Summary</h2>
 
       {% if family.name is defined %}
-      <div class="label label-{% if family.isActive %}success{% else %}warning{% endif %} family-label-view">
+      <div class="label label-primary family-label-view">
             <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ family.name|default }}</a>
             {% if project.category.name is defined %}
               > {{ project.category.name|e }}
@@ -112,7 +112,7 @@
 
       {% if project.isActive %}
       <div class="participants-frame">
-        <span class="">Participants :</span>
+        <span class="">Crew:</span>
         <div>
           {% if participants|length > 0 %}
             {% for participant in participants %}
