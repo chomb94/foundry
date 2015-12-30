@@ -465,7 +465,7 @@ class ProjectController extends BaseController
      * @Route("/project/participate/{id}", name="projectParticipate")
      * @Security("has_role('ROLE_USER')")
      */
-    public function viewParticipateAction(Request $request, $id)
+    public function viewParticipateAction(Request $request, $id, $imInButton = true)
     {
         $project    = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
         $user       = $this->getUser();
@@ -504,6 +504,7 @@ class ProjectController extends BaseController
             'id'            => $id,
             'message'       => $message,
             'isParticipant' => $isParticipant,
+            'imInButton'    => $imInButton,
             'userCredits'   => $this->get("doctrine")->getRepository("AppBundle:UserCredits")->findBy(['user_id' => $user->getId()])[0],
         ];
     }
