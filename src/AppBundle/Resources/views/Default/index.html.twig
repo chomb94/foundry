@@ -5,76 +5,8 @@
 
 {% block body %}
 
-    <h1>Active Spaces</h1>
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped">
-                <tbody>
-                    <thead>
-                        <tr>
-                            <td>Space</td>
-                            <td>Description</td>
-                            <td>Projects in the Space</td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                    </thead>
-                {% for family in families %}
-                {% if family.active %}
-                    <tr>
-                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
-                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 80 ? family.description|slice(0, 80) ~ '...' : family.description  }}</a></td>
-                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }}&nbsp;Projects</a></td>
-                        <td>
-                             <a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-success {% if not family.active %}disabled{% endif %}">Start your new project</a>
-                            {% if user.id == family.user_id %}
-                                 <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">Click to stop</a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endif %}
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% if inactive_families %}
-    <h3>Inactive Spaces</h3>
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped">
-                <tbody>
-                    <thead>
-                        <tr>
-                            <td>Space</td>
-                            <td>Description</td>
-                            <td>Projects in the Space</td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                    </thead>
-                {% for family in families %}
-                {% if not family.active %}
-                    <tr>
-                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
-                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 80 ? family.description|slice(0, 80) ~ '...' : family.description  }}</a></td>
-                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }}&nbsp;Projects</a></td>
-                        <td>
-                            {% if user.id == family.user_id %}
-                                 <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">Click to active</a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endif %}
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% endif %}
-    
-    <div class="">
-        <a href="{{ path('familyPublish') }}" class="btn btn-xs btn-default">Create a new Space</a>
+    <div id="families">
+        {{ render(controller('AppBundle:Family:displayTable')) }}
     </div>
 
     <span class="clearfix"></span>
