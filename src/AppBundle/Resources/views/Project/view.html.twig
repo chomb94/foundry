@@ -4,18 +4,22 @@
 {% endblock %}
 
 {% block body %}
-<div class="page-header text-center">
+<div class="page-header">
   <h1>{{ project.title|e }}</h1>
   <p>By {{ project.user.nickname }}
   </p>
 {% if myproject %}
   <p>It's my project :
-  <a class="" href="{{ path('projectStepPublish', {id: project.id}) }}">Add Steps</a>
-  -
-  <a class="" href="{{ path('projectEdit', {id: project.id}) }}">Edit Project</a>
-  -
-  <a class="" href="{{ path('projectDelete', {id: project.id}) }}">Delete Project</a>
+  <a class="btn btn-sm btn-default" href="{{ path('projectStepPublish', {id: project.id}) }}"><span class="glyphicon glyphicon-plus"></span> Add Steps</a>
+  <a class="btn btn-sm btn-default" href="{{ path('projectEdit', {id: project.id}) }}"><span class="glyphicon glyphicon-pencil"></span> Edit Project</a>
+  <a class="btn btn-sm btn-default" href="{{ path('projectDelete', {id: project.id}) }}"><span class="glyphicon glyphicon-trash"></span> Delete Project</a>
+  {% if myproject %}
+     {% if project.getDaysToGo > 0 %}
+       <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-{% if project.isActive %}pause{% else %}play{% endif %}"></span> {% if project.isActive %}Click to pause the project{% else %}Click to activate the project{% endif %}</a>
+     {% endif %}
+  {% endif %}
   </p>
+
 {% endif %}
 </div>
 
@@ -103,13 +107,6 @@
       {% if not project.isActive %}
         <p><span class="label label-warning">Project Stopped</span></p>
       {% endif %}
-      {% if myproject %}
-         <div class="text-center">
-           {% if project.getDaysToGo > 0 %}
-             <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-lg btn-default">{% if project.isActive %}Click to pause the project{% else %}Click to activate the project{% endif %}</a>
-           {% endif %}
-         </div>
-      {% endif %}
 
       {% if project.isActive %}
       <div class="participants-frame">
@@ -134,7 +131,7 @@
                     {{
                         render(controller('AppBundle:Project:viewParticipate', {
                             id: project.id,
-                            imInButton: false
+                            imInButton: true
                         }))
                     }}
 
@@ -193,19 +190,19 @@
     {% endif %}
 		{% if myproject %}
 		<div class="sidebar-footer text-center">
-			<a href="{{ path('projectStepPublish', {id: project.id}) }}" class="btn btn-default btn-xs">Add a new step</a>
+			<a href="{{ path('projectStepPublish', {id: project.id}) }}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add a new step</a>
 		</div>
 		{% endif %}
 	</div>
 </div>
 
-            {% if project.active %}
+{% if project.active %}
 
-                {{
-                    render(controller('AppBundle:Project:viewParticipateModal', {
-                        id: project.id
-                    }))
-                }}
-            {% endif %}
+    {{
+        render(controller('AppBundle:Project:viewParticipateModal', {
+            id: project.id
+        }))
+    }}
+{% endif %}
 
 {% endblock %}

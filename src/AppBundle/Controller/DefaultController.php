@@ -17,13 +17,12 @@ class DefaultController extends BaseController
         $user = $this->getUser();
 
         // Family list
-        $dql = "SELECT f.id, f.name as name, f.active as active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
+        $dql = "SELECT f.id, f.name, f.description, f.active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
                 FROM AppBundle:Family f
                 LEFT JOIN AppBundle:Project p
                 WITH p.family = f.id
                 LEFT JOIN AppBundle\Entity\UserGoogle ug
                 WITH f.user = ug.id
-                WHERE f.active = 1
                 GROUP BY f.name
                 ORDER BY f.name
                 ";
@@ -33,22 +32,17 @@ class DefaultController extends BaseController
             ->createQuery($dql)
             ->getResult();
 
-        // Inactive families
-        $dql = "SELECT f.id, f.name as name, f.active as active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
+        // Inactive families flag
+        $dql = "SELECT count(f)
                 FROM AppBundle:Family f
-                LEFT JOIN AppBundle:Project p
-                WITH p.family = f.id
-                LEFT JOIN AppBundle\Entity\UserGoogle ug
-                WITH f.user = ug.id
                 WHERE f.active = 0
-                GROUP BY f.name
-                ORDER BY f.name
                 ";
         $inactive_families = $this
             ->get("doctrine")
             ->getEntityManager()
             ->createQuery($dql)
             ->getResult();
+        $inactive_families = $inactive_families[0][1];
 
         // First list with only project before end date
         $dql = "SELECT p FROM AppBundle:Project p
@@ -60,6 +54,7 @@ class DefaultController extends BaseController
             ->getEntityManager()
             ->createQuery($dql)
             ->setParameter("endDate", date("Y-m-d H:i:s", time()))
+            ->setMaxResults(12)
             ->getResult();
 
         foreach ($projects as $oneProject) {
@@ -81,6 +76,7 @@ class DefaultController extends BaseController
             ->getEntityManager()
             ->createQuery($dql_old)
             ->setParameter("endDate", date("Y-m-d H:i:s", time()))
+            ->setMaxResults(12)
             ->getResult();
 
         foreach ($old_projects as $oneProject) {
