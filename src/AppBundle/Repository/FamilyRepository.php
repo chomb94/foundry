@@ -13,4 +13,39 @@ use AppBundle\Entity\Family;
  */
 class FamilyRepository extends EntityRepository
 {
+    public function listActiveFamilies()
+    {
+        $dql = "SELECT f.id, f.name as name, f.active as active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
+                FROM AppBundle:Family f
+                LEFT JOIN AppBundle:Project p
+                WITH p.family = f.id
+                LEFT JOIN AppBundle\Entity\UserGoogle ug
+                WITH f.user = ug.id
+                WHERE f.active = 1
+                GROUP BY f.name
+                ORDER BY f.name
+        ";
+
+        return $this->_em
+              ->createQuery($dql)
+              ->getResult();
+    }
+
+    public function listInactiveFamilies()
+    {
+        $dql = "SELECT f.id, f.name as name, f.active as active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
+                FROM AppBundle:Family f
+                LEFT JOIN AppBundle:Project p
+                WITH p.family = f.id
+                LEFT JOIN AppBundle\Entity\UserGoogle ug
+                WITH f.user = ug.id
+                WHERE f.active = 0
+                GROUP BY f.name
+                ORDER BY f.name
+        ";
+
+        return $this->_em
+              ->createQuery($dql)
+              ->getResult();
+    }
 }

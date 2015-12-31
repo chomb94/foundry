@@ -1,0 +1,9 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+<h1>Your {% if not id|default(false) %}new{% endif %} Space:</h1>
+
+{% block body %}
+
+    {{ include('AppBundle:Family:familyForm.html.twig', {form: form, id: id|default(false)}) }}
+
+{% endblock %}

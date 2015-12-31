@@ -1,0 +1,33 @@
+<div class="row">
+	<div class="col-md-8 project-container">
+		<div class="project-container-text">
+
+            {% form_theme form 'AppBundle::form_theme.html.twig' %}
+
+            {{
+                form_start(form, {
+                    'attr': {
+                        'action': path('familyPublish')
+                    }
+                })
+            }}
+
+            {{ form_errors(form) }}
+
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name, {help_text:"A powerful name for your family!"}) }}
+            {{ form_errors(form.name) }}
+
+            {{ form_label(form.endDate) }}
+            {{ form_widget(form.endDate, {help_text:"An indicative end date for projects into the family."}) }}
+            {{ form_errors(form.endDate) }}
+
+            {{ form_rest(form) }}
+
+            {{ form_end(form) }}
+
+		</div>
+	</div>
+</div>
+
+

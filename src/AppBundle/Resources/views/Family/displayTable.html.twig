@@ -1,0 +1,88 @@
+<div class="page-header">
+    <h1>Spaces</h1>
+</div>
+
+<h3>Active Spaces</h3>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <tbody>
+            <thead>
+                <tr>
+                    <td>Space</td>
+                    <td>Projects in the Space</td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+            </thead>
+            {% for family in families %}
+                <tr>
+                    <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
+                    <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} Projects</a></td>
+                    <td>
+                        <a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-success {% if not family.active %}disabled{% endif %}">Start your new project</a>
+                        {% if user.id == family.user_id %}
+                            <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}Click to stop{% else %}Click to active{% endif %}</a>
+                        {% endif %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if inactive_families|length %}
+
+    <h3>Inactive Spaces</h3>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <tbody>
+                <thead>
+                    <tr>
+                        <td>Space</td>
+                        <td>Projects in the Space</td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                </thead>
+                {% for family in inactive_families %}
+                    <tr>
+                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
+                        <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} Projects</a></td>
+                        <td>
+                            {% if user.id == family.user_id %}
+                                <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}Click to stop{% else %}Click to activate{% endif %}</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}
+
+
+{% set body %}
+    {{ include('AppBundle:Family:familyForm.html.twig', {form: form}) }}
+{% endset %}
+
+{% import 'AppBundle::macros.html.twig' as macros %}
+
+{{
+    macros.modal(
+        'new-family',
+        'Create a new Space',
+        body
+    )
+}}
+
+<button class="btn btn-default" data-toggle="modal" data-target="#new-family">
+    <span class="glyphicon glyphicon-plus"></span> Create a new Space
+</button>
+
