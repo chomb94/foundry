@@ -21,12 +21,13 @@ class Family
      */
     protected $name;
     /**
-     * @ORM\Column(type="string", length=255)
+     *  @ORM\Column(type="text", nullable=true)
      */
-    protected $picto_url;
+    protected $description;
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
+
     protected $endDate;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserGoogle")
@@ -73,6 +74,31 @@ class Family
     {
         return $this->name;
     }
+
+    /**
+     * Set description.
+     *
+     * @param string $description
+     *
+     * @return Project
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description.
+     *
+     * @return string
+     */
+    public function getdescription()
+    {
+        return $this->description;
+    }
+
 
     /**
      * Set picto_url.
