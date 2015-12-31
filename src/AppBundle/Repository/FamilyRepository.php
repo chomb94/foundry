@@ -15,7 +15,7 @@ class FamilyRepository extends EntityRepository
 {
     public function listActiveFamilies()
     {
-        $dql = "SELECT f.id, f.name as name, f.active as active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
+        $dql = "SELECT f as entity, f.id, f.name as name, f.active as active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
                 FROM AppBundle:Family f
                 LEFT JOIN AppBundle:Project p
                 WITH p.family = f.id

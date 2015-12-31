@@ -15,39 +15,64 @@ class FamilyController extends BaseController
 {
     /**
      * @Template()
+     * @Security("has_role('ROLE_USER')")
      */
     public function displayTableAction()
     {
         $user = $this->getUser();
 
-        $families =  $this->getDoctrine()->getRepository("AppBundle:Family")->listActiveFamilies();
-        $inactive_families =  $this->getDoctrine()->getRepository("AppBundle:Family")->listInactiveFamilies();
+        $families          = $this->getDoctrine()->getRepository("AppBundle:Family")->listActiveFamilies();
+        $inactive_families = $this->getDoctrine()->getRepository("AppBundle:Family")->listInactiveFamilies();
 
         $family = new Family();
         $family->setEndDate(new \DateTime(date("Y-m-d", time() + 60 * 60 * 24 * project::MAX_DURATION)));
         $form   = $this->createForm(new FamilyType(), $family);
+
+        $forms = [];
+        foreach (array($families, $inactive_families) as $family_group) {
+            foreach ($family_group as $family) {
+                $forms[$family['entity']->getId()] = $this
+                   ->get('form.factory')
+                   ->createNamedBuilder("family_form_".$family['entity']->getId(), FamilyType::class, $family['entity'], [])
+                   ->getForm()
+                   ->createView();
+            }
+        }
 
         return array(
             'families'          => $families,
             'inactive_families' => $inactive_families,
             'user'              => $user,
             'form'              => $form->createView(),
+            'forms'             => $forms,
         );
     }
 
     /**
-     * @Route("/family/publish", name="familyPublish")
+     * @Route("/family/publish/{id}", name="familyPublish", defaults={"id" = null})
      * @Security("has_role('ROLE_USER')")
      * @Template()
      */
-    public function publishFamilyAction(Request $request)
+    public function publishFamilyAction(Request $request, $id)
     {
-        $family = new Family();
-        // Max 90 days - defaut 90 days
-        $family->setEndDate(new \DateTime(date("Y-m-d", time() + 60 * 60 * 24 * Project::MAX_DURATION)));
-        $form   = $this->createForm(new FamilyType(), $family);
+        $repository = $this->getDoctrine()->getRepository("AppBundle:Family");
+        if (is_null($id)) {
+            $family = new Family();
+            $family->setEndDate(new \DateTime(date("Y-m-d", time() + 60 * 60 * 24 * Project::MAX_DURATION)));
+            $form   = $this->createForm(new FamilyType(), $family);
+        } else {
+            if (is_null($family = $repository->find($id))) {
+                throw $this->createNotFoundException();
+            }
+            $form = $this
+               ->get('form.factory')
+               ->createNamedBuilder("family_form_".$family->getId(), FamilyType::class, $family, [])
+               ->getForm()
+            ;
+        }
+
         $form->handleRequest($request);
-        $user   = $this->getUser();
+        $user = $this->getUser();
 
         if ($form->isValid()) {
             $family->setUser($user);
@@ -63,9 +88,37 @@ class FamilyController extends BaseController
         }
 
         return [
+            'id'         => $id,
             'form'       => $form->createView(),
             'menu_start' => 'active',
             'user'       => $user,
         ];
+    }
+
+    /**
+     * @Route("/enable-family-{id}-{enable}", name="enableFamily")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function enableFamily($id, $enable)
+    {
+        $user       = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository("AppBundle:Family");
+        $family     = $repository->find($id);
+
+        if (is_null($family)) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($family->getUser()->getId() !== $user->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $family->setActive($enable);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($family);
+        $em->flush();
+
+        return $this->redirectToRoute('homepage');
     }
 }

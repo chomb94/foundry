@@ -7,7 +7,7 @@
             {{
                 form_start(form, {
                     'attr': {
-                        'action': path('familyPublish')
+                        'action': path('familyPublish', {id: id|default(null)})
                     }
                 })
             }}

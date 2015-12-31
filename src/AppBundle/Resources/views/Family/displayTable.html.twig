@@ -1,3 +1,6 @@
+
+{% import 'AppBundle::macros.html.twig' as macros %}
+
 <div class="page-header">
     <h1>Spaces</h1>
 </div>
@@ -16,6 +19,7 @@
                     <td> </td>
                 </tr>
             </thead>
+            <tbody>
             {% for family in families %}
                 <tr>
                     <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
@@ -25,7 +29,27 @@
                         {% if user.id == family.user_id %}
                             <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}Click to stop{% else %}Click to active{% endif %}</a>
                         {% endif %}
+                    </td>
+                    <td>
+                        {% if user.id == family.user_id %}
 
+                            {% set body %}
+                                {{ include('AppBundle:Family:familyForm.html.twig', {form: forms[family.id], id: family.id}) }}
+                            {% endset %}
+
+                            {{
+                                macros.modal(
+                                    'edit-family-' ~ family.id,
+                                    'Edit Space ' ~ family.name,
+                                    body
+                                )
+                            }}
+
+                            <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
+                                <span class="glyphicon glyphicon-edit"></span> Edit
+                            </button>
+
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
@@ -50,6 +74,7 @@
                         <td> </td>
                     </tr>
                 </thead>
+                <tbody>
                 {% for family in inactive_families %}
                     <tr>
                         <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
@@ -59,6 +84,27 @@
                                 <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}Click to stop{% else %}Click to activate{% endif %}</a>
                             {% endif %}
                         </td>
+                        <td>
+                            {% if user.id == family.user_id %}
+
+                                {% set body %}
+                                    {{ include('AppBundle:Family:familyForm.html.twig', {form: forms[family.id]}) }}
+                                {% endset %}
+
+                                {{
+                                    macros.modal(
+                                        'edit-family-' ~ family.id,
+                                        'Edit Space ' ~ family.name,
+                                        body
+                                    )
+                                }}
+
+                                <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
+                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                </button>
+
+                                {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -67,12 +113,9 @@
     </div>
 {% endif %}
 
-
 {% set body %}
     {{ include('AppBundle:Family:familyForm.html.twig', {form: form}) }}
 {% endset %}
-
-{% import 'AppBundle::macros.html.twig' as macros %}
 
 {{
     macros.modal(
