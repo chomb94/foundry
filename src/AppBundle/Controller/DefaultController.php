@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Base\BaseController;
 
+
 class DefaultController extends BaseController
 {
     /**
@@ -67,7 +68,7 @@ class DefaultController extends BaseController
         }
 
         // Old projects (date < now)
-        $dql_old = "SELECT p FROM AppBundle:Project p 
+        $dql_old = "SELECT p FROM AppBundle:Project p
                     WHERE p.endDate < :endDate
                     ORDER BY p.endDate ASC
                     ";
