@@ -55,6 +55,7 @@ class FamilyController extends BaseController
      */
     public function publishFamilyAction(Request $request, $id)
     {
+        $user       = $this->getUser();
         $repository = $this->getDoctrine()->getRepository("AppBundle:Family");
         if (is_null($id)) {
             $family = new Family();
@@ -64,6 +65,9 @@ class FamilyController extends BaseController
             if (is_null($family = $repository->find($id))) {
                 throw $this->createNotFoundException();
             }
+            if ($family->getUser()->getId() !== $user->getId()) {
+                throw $this->createAccessDeniedException();
+            }
             $form = $this
                ->get('form.factory')
                ->createNamedBuilder("family_form_".$family->getId(), FamilyType::class, $family, [])
@@ -72,7 +76,6 @@ class FamilyController extends BaseController
         }
 
         $form->handleRequest($request);
-        $user = $this->getUser();
 
         if ($form->isValid()) {
             $family->setUser($user);
@@ -118,6 +121,29 @@ class FamilyController extends BaseController
         $em = $this->getDoctrine()->getManager();
         $em->persist($family);
         $em->flush();
+
+        return $this->redirectToRoute('homepage');
+    }
+
+    /**
+     * @Route("/delete-family-{id}", name="familyDelete")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function deleteFamily($id)
+    {
+        $user       = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository("AppBundle:Family");
+        $family     = $repository->find($id);
+
+        if (is_null($family)) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($family->getUser()->getId() !== $user->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $repository->deleteFamily($family);
 
         return $this->redirectToRoute('homepage');
     }

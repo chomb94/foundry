@@ -33,7 +33,7 @@ class FamilyRepository extends EntityRepository
 
     public function listInactiveFamilies()
     {
-        $dql = "SELECT f.id, f.name as name, f.active as active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
+        $dql = "SELECT f as entity, f.id, f.name as name, f.active as active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
                 FROM AppBundle:Family f
                 LEFT JOIN AppBundle:Project p
                 WITH p.family = f.id
@@ -47,5 +47,20 @@ class FamilyRepository extends EntityRepository
         return $this->_em
               ->createQuery($dql)
               ->getResult();
+    }
+
+    public function deleteFamily(Family $family)
+    {
+        $this->_em
+           ->createQuery("
+            UPDATE AppBundle\Entity\Project p
+            SET p.family = NULL
+            WHERE p.family = :family
+        ")->setParameters([
+            'family' => $family,
+        ])->execute();
+
+        $this->_em->remove($family);
+        $this->_em->flush();
     }
 }

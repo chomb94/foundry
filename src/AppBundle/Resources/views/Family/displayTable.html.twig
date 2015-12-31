@@ -30,7 +30,7 @@
                             <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}Click to stop{% else %}Click to active{% endif %}</a>
                         {% endif %}
                     </td>
-                    <td>
+                    <td class="text-right">
                         {% if user.id == family.user_id %}
 
                             {% set body %}
@@ -48,6 +48,13 @@
                             <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
                                 <span class="glyphicon glyphicon-edit"></span> Edit
                             </button>
+
+                            <a
+                                href="{{ path('familyDelete', {id: family.id}) }}"
+                                class="btn btn-danger"
+                                onclick="return confirm('Do you really want to DELETE the {{ family.name|e('html_attr') }} family?');">
+                                <span class="glyphicon glyphicon-trash"></span> Delete
+                            </a>
 
                         {% endif %}
                     </td>
@@ -102,6 +109,13 @@
                                 <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
                                     <span class="glyphicon glyphicon-edit"></span> Edit
                                 </button>
+
+                                <a
+                                    href="{{ path('familyDelete', {id: family.id}) }}"
+                                    class="btn btn-danger"
+                                    onclick="return confirm('Do you really want to DELETE the {{ family.name|e('html_attr') }} family?');">
+                                    <span class="glyphicon glyphicon-trash"></span> Delete
+                                </a>
 
                                 {% endif %}
                         </td>
