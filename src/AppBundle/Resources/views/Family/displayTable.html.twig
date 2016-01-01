@@ -3,118 +3,111 @@
 
 <h1>Active Spaces</h1>
 
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-striped">
-            <tbody>
-            <thead>
-                <tr>
-                    <td>Space</td>
-                    <td>Description</td>
-                    <td>Projects in the Space</td>
-                    <td> </td>
-                </tr>
-            </thead>
-            <tbody>
-            {% for family in families %}
-                <tr>
-                    <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
-                    <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 80 ? family.description|slice(0, 80) ~ '...' : family.description  }}</a></td>
-                    <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} Projects</a></td>
-                    <td class="text-left text-nowrap">
-                        <a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-success {% if not family.active %}disabled{% endif %}">Start your new project</a>
-                        {% if user.id == family.user_id %}
-                            <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}<span class="glyphicon glyphicon-pause"></span>  Click to stop{% else %}Click to active{% endif %}</a>
+<div class="jumbotron">
+    <table class="table table-striped">
+        <tbody>
+        <thead>
+            <tr>
+                <td>Space</td>
+                <td>Description</td>
+                <td>Projects</td>
+                <td> </td>
+            </tr>
+        </thead>
+        </tbody>
+        {% for family in families %}
+            <tr>
+                <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
+                <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
+                <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }}</a></td>
+                <td class="text-left">
+                    <a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-success {% if not family.active %}disabled{% endif %}">Start your new project</a>
+                    {% if user.id == family.user_id %}
+                        <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}<span class="glyphicon glyphicon-pause"></span>  to stop{% else %}Click to active{% endif %}</a>
 
-                            {% set body %}
-                                {{ include('AppBundle:Family:familyForm.html.twig', {form: forms[family.id], id: family.id}) }}
-                            {% endset %}
+                        {% set body %}
+                            {{ include('AppBundle:Family:familyForm.html.twig', {form: forms[family.id], id: family.id}) }}
+                        {% endset %}
 
-                            {{
-                                macros.modal(
-                                    'edit-family-' ~ family.id,
-                                    'Edit Space ' ~ family.name,
-                                    body
-                                )
-                            }}
+                        {{
+                            macros.modal(
+                                'edit-family-' ~ family.id,
+                                'Edit Space ' ~ family.name,
+                                body
+                            )
+                        }}
 
-                            <a
-                                href="{{ path('familyVotes', {id: family.id}) }}"
-                                class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> 
-                                View votes
-                            </a>
+                        <a
+                            href="{{ path('familyVotes', {id: family.id}) }}"
+                            class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> 
+                            Votes
+                        </a>
 
-                            <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
+                        <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
 
-                            <a
-                                href="{{ path('familyDelete', {id: family.id}) }}"
-                                class="btn btn-danger"
-                                onclick="return confirm('Do you really want to DELETE the {{ family.name|e('html_attr') }} family?');">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </a>
+                        <a
+                            href="{{ path('familyDelete', {id: family.id}) }}"
+                            class="btn btn-danger"
+                            onclick="return confirm('Do you really want to DELETE the {{ family.name|e('html_attr') }} family?');">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
 
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% if inactive_families|length %}
 
     <h3>Inactive Spaces</h3>
 
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped">
-                <tbody>
-                <thead>
-                    <tr>
-                        <td>Space</td>
-                        <td>Projects in the Space</td>
-                        <td> </td>
-                        <td> </td>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for family in inactive_families %}
-                    <tr>
-                         <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
-                         <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 80 ? family.description|slice(0, 80) ~ '...' : family.description  }}</a></td>
-                         <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }}&nbsp;Projects</a></td>
-                         <td class="text-left text-nowrap">
-                            {% if user.id == family.user_id %}
+    <table class="table table-striped">
+        <tbody>
+        <thead>
+            <tr>
+                <td>Space</td>
+                <td>Descriptions</td>
+                <td>Projects</td>
+                <td> </td>
+            </tr>
+        </thead>
+        </tbody>
+        {% for family in inactive_families %}
+            <tr>
+                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
+                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
+                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }}</a></td>
+                 <td class="text-left">
+                    {% if user.id == family.user_id %}
 
-                                <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if not family.active %}<span class="glyphicon glyphicon-play"></span> Click to activate{% endif %}</a>
+                        <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if not family.active %}<span class="glyphicon glyphicon-play"></span> to activate{% endif %}</a>
 
-                                <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
-                                    <span class="glyphicon glyphicon-edit"></span> Edit
-                                </button>
+                        <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
 
-                                <a
-                                    href="{{ path('familyDelete', {id: family.id}) }}"
-                                    class="btn btn-danger"
-                                    onclick="return confirm('Do you really want to DELETE the {{ family.name|e('html_attr') }} family?');">
-                                    <span class="glyphicon glyphicon-trash"></span> Delete
-                                </a>
-                                <a
-                                    href="{{ path('familyVotes', {id: family.id}) }}"
-                                    class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> 
-                                    View votes
-                                </a>
+                        <a
+                            href="{{ path('familyDelete', {id: family.id}) }}"
+                            class="btn btn-danger"
+                            onclick="return confirm('Do you really want to DELETE the {{ family.name|e('html_attr') }} family?');">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        <a
+                            href="{{ path('familyVotes', {id: family.id}) }}"
+                            class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> 
+                            Votes
+                        </a>
 
-                                {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+                        {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endif %}
 
 {% set body %}
@@ -133,3 +126,4 @@
     <span class="glyphicon glyphicon-plus"></span> Create a new Space
 </button>
 
+</div>
