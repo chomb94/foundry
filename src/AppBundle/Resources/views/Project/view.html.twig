@@ -11,7 +11,7 @@
 {% if myproject %}
   <p>It's my project :
   <a class="btn btn-sm btn-default" href="{{ path('projectStepPublish', {id: project.id}) }}"><span class="glyphicon glyphicon-plus"></span> Add Steps</a>
-  <a class="btn btn-sm btn-default" href="{{ path('projectEdit', {id: project.id}) }}"><span class="glyphicon glyphicon-pencil"></span> Edit Project</a>
+  <a class="btn btn-sm btn-default" href="{{ path('projectEdit', {id: project.id}) }}"><span class="glyphicon glyphicon-edit"></span> Edit Project</a>
   <a class="btn btn-sm btn-default" href="{{ path('projectDelete', {id: project.id}) }}"><span class="glyphicon glyphicon-trash"></span> Delete Project</a>
   {% if myproject %}
      {% if project.getDaysToGo > 0 %}

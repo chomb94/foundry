@@ -8,34 +8,38 @@
             {% if project.family.name is defined %}
             <span class="label label-primary family-label">
                 <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
-                {% if project.category.name is defined %}
-                    - {{ project.category.name|default }}
-                {% endif %}
             </span>
             {% endif %}
             <div class="crop">
-            <a href="{{ path('projectView', {id: project.id}) }}">
-                <div class="crop">
-                {% if project.imageName  %}
-                    <img src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title }}"/>
-                {% endif %}
-                </div>
-            </a>
+                <a href="{{ path('projectView', {id: project.id}) }}">
+                    <div class="crop">
+                    {% if project.imageName  %}
+                        <img src="{{ asset(vich_uploader_asset(project, 'imageFile')) }}" alt="{{ project.title }}"/>
+                    {% endif %}
+                    </div>
+                </a>
             </div>
             <!-- div class="project-image-container">
             </div -->
             <div class="crew">
                 <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-circle img-crew-master">
 
-          {% if project.participants|length > 0 %}
-            {% for participant in project.participants %}
-              <img src="{{participant.profilePicture}}" alt="{{participant.username}}" class="img-circle img-crew" />
-            {% endfor %}
-          {% endif %}
-
-
-
+            {% set youarein = 0 %}
+            {% if project.participants|length > 0 %}
+                {% for participant in project.participants %}
+                    <img src="{{participant.profilePicture}}" alt="{{participant.username}}" class="img-circle img-crew" />
+                    {% if participant.user_id == user.id %}
+                        {% set youarein = 1 %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
             </div>
+
+            {% if youarein == 1 %}
+                <span class="label label-gold yourein-label">
+                        <span class="glyphicon glyphicon-wrench btn-sunglasses-invert" aria-hidden="true"></span> You are in!
+                </span>
+            {% endif %}
             <div class="cropdescription">
                 <a href="{{ path('projectView', {id: project.id}) }}">
                     {{ project.shortDescription|e }}
@@ -77,6 +81,16 @@
             <div class="clearfix"></div>
             <div class="row btn-footer-onecard">
             {% if project.active %}
+
+{% if project.active %}
+    {{
+        render(controller('AppBundle:Project:viewParticipateModal', {
+            id: project.id
+        }))
+    }}
+{% endif %}
+
+
                 <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
                     {{
                         render(controller('AppBundle:Project:viewParticipate', {
@@ -105,12 +119,3 @@
         </div>
     </div>
 </div>
-
-{% if project.active %}
-    {{
-        render(controller('AppBundle:Project:viewParticipateModal', {
-            id: project.id
-        }))
-    }}
-{% endif %}
-

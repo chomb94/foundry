@@ -147,4 +147,22 @@ class FamilyController extends BaseController
 
         return $this->redirectToRoute('homepage');
     }
+
+    /**
+     * @Route("/family/view-votes/{id}", name="familyVotes", defaults={"id" = 1})
+     * @Security("has_role('ROLE_USER')")
+     * @Template()
+     */
+    public function viewVotesAction(Request $request, $id)
+    {
+        $user       = $this->getUser();
+        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->projectSearchFromFamily($id);
+        $family = $this->get("doctrine")->getRepository("AppBundle:Family")->find($id);
+
+        return [
+            'family'          => $family,
+            'projects'        => $projects,
+            'user'        => $user,
+        ];
+    }
 }

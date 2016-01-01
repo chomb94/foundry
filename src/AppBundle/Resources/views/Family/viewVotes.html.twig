@@ -7,9 +7,6 @@
 
 	{% if projects | length == 0 %}
 		<div>No projects found</div>
-		{% if family.isActive %}
-		<h2><a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-lg btn-success">Start your new project</a></h2>
-		{% endif %}
 	{% endif %}
 {% for project in projects %}
   {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}

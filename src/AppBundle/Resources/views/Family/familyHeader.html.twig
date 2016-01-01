@@ -1,0 +1,19 @@
+
+<div class="page-header">
+	<h1>Space: {{ family.name }}
+	{% if family.isActive and projects | length > 0 %}
+		<a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-sm btn-success">Start your new project</a>
+	{% endif %}
+	</h1>
+	{% if family.description %}
+	<div class="well">{{ family.description }}</div>
+	{% endif %}
+	<p>Create by: {{ family.user.nickname }}
+	{% if not family.isActive %}
+		<span class="label label-warning">Space Stopped</span>
+	{% endif %}
+    {% if user.id == family.user.id %}
+	         <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-xs btn-default">{% if family.active %}Click to stop{% else %}Click to active{% endif %}</a>
+    {% endif %}
+    </p>
+</div>

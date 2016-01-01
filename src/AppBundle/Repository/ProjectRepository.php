@@ -49,7 +49,7 @@ class ProjectRepository extends EntityRepository
 
     public function participants($project) {
         return $this->_em->createQuery("
-            SELECT sum(c.nbCreditsSpent) as credits, ug.profilePicture as profilePicture, ug.username
+            SELECT sum(c.nbCreditsSpent) as credits, ug.profilePicture as profilePicture, ug.username, ug.id as user_id
             FROM AppBundle\Entity\CreditsHistory c
             LEFT JOIN AppBundle\Entity\UserGoogle ug
             WITH c.user_id = ug.id

@@ -1,12 +1,8 @@
 {% set body %}
-
     <form id="participate-modal-form-{{ id }}" action="{{ path('projectPledge', {id: id}) }}" method="post">
+        <div class="">
+
         <input type="number" id="price" name="price" required="required" class="form-control input-price-modal" min="0" max="{{ userCredits.credits }}" value="1">
-
-        <br/>
-
-        <div class="text-center">
-
         <a
             href="#"
             id="project_save"
@@ -21,7 +17,7 @@
         </a>
 
         </div>
-
+    </form>
 {% endset %}
 
 {% import 'AppBundle::macros.html.twig' as macros %}
