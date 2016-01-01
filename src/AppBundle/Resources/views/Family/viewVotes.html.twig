@@ -18,6 +18,7 @@
 					<td>Project</td>
 					<td>Owner</td>
 					<td>Votes</td>
+					<td></td>
 				</tr>
 			</thead>
 			</tbody>
@@ -26,7 +27,8 @@
 			<tr class="lovelyrow"  onclick="location.href='{{ path('projectView', {id: project.id}) }}'">
 				<td>{{ project.title }}</td>
 				<td>{{ project.nickname }}</td>
-				<td>{{ project.votes}}</td>
+				<td>{{ project.votes}} <span class="glyphicon glyphicon-heart btn-heart-active"></span></td>
+				<td><button class="btn btn-default"><span class="glyphicon glyphicon-open"></span> View project</button></td>
 			</tr>
 		{% endfor %}
 		</table>

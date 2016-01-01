@@ -159,7 +159,6 @@ class ProjectController extends BaseController
 
         $this->pledgeProject($user, $user_credits, $project, $request->get('price'));
         $this->success("Your pledge has been taken into account.");
-
         // Send mail to project owner
         if ($this->getUser()) {
             $this->get('app.mail')->send(
@@ -309,6 +308,17 @@ class ProjectController extends BaseController
             $manager->flush();
 
             $this->success("Your project have been published.");
+
+            // Send an email to family owner
+            if ($this->getUser()) {
+                $this->get('app.mail')->send(
+                   $family->getUser(), 'New Project in "'.$family->getName().'"!', 'AppBundle:Email:newProject.html.twig', [
+                    // context required by the template, except subject and user which are already available
+                    'project' => $project,
+                    'family' => $family,
+                   ]
+                );
+            }
 
             //return $this->redirectToRoute('projectStepPublish', ['id' => $project->getId(), 'user' => $user]);
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
@@ -488,6 +498,16 @@ class ProjectController extends BaseController
         $em->persist($credits);
 
         $em->flush();
+
+        // Send mail to project owner
+        if ($this->getUser()) {
+            $this->get('app.mail')->send(
+               $project->getUser(), 'New Pledge!', 'AppBundle:Email:newPledge.html.twig', [
+                // context required by the template, except subject and user which are already available
+                'project' => $project,
+               ]
+            );
+        }
     }
 
     /**
