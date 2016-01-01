@@ -652,3 +652,14 @@ background: none;
 .label-gold {
   background-color: gold;
 }
+
+tr.lovelyrow{
+}
+
+tr.lovelyrow:hover{
+  cursor: pointer;
+}
+
+table.nogap{
+  border-collapse: collapse;
+}

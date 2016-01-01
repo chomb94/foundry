@@ -74,6 +74,21 @@ class ProjectRepository extends EntityRepository
              'search' => $familyName,
          ))->getResult();
     }
+
+    public function projectByVotesFromFamily($familyId) {
+        return $this->_em->createQuery("
+            SELECT p.id, p.title, ug.nickname, count(v) as votes
+            FROM AppBundle\Entity\Project p
+            LEFT JOIN AppBundle\Entity\Vote v WITH v.project = p
+            LEFT JOIN AppBundle\Entity\UserGoogle ug WITH p.user = ug.id
+            WHERE p.family = :familyId
+            GROUP BY p.id
+            ORDER BY votes DESC
+         ")->setParameters(array(
+            'familyId' => $familyId,
+         ))->getResult();
+    }
+
 //            ORDER BY p.active DESC, TIMESTAMPDIFF(SECOND, p.endDate, NOW()) ASC
 
     public function familySearchFromName($familyName) {

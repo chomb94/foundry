@@ -88,9 +88,7 @@
                          <td class="text-left text-nowrap">
                             {% if user.id == family.user_id %}
 
-                                {% if user.id == family.user_id %}
-                                    <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if not family.active %}<span class="glyphicon glyphicon-play"></span> Click to activate{% endif %}</a>
-                                {% endif %}
+                                <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if not family.active %}<span class="glyphicon glyphicon-play"></span> Click to activate{% endif %}</a>
 
                                 <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
                                     <span class="glyphicon glyphicon-edit"></span> Edit

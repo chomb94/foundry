@@ -575,6 +575,16 @@ class Project
         return $diff;
     }
 
+    public function setVotes($votes)
+    {
+        $this->votes = $votes;
+    }
+
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
     /**
      * @Assert\Callback
      */
@@ -606,4 +616,5 @@ class Project
     {
         return $this->getDaysToGo() >= 0 && $this->active;
     }
+
 }

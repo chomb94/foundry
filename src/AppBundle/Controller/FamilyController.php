@@ -149,15 +149,24 @@ class FamilyController extends BaseController
     }
 
     /**
-     * @Route("/family/view-votes/{id}", name="familyVotes", defaults={"id" = 1})
+     * @Route("/family/view-votes/{id}", name="familyVotes")
      * @Security("has_role('ROLE_USER')")
      * @Template()
      */
     public function viewVotesAction(Request $request, $id)
     {
         $user       = $this->getUser();
-        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->projectSearchFromFamily($id);
+
         $family = $this->get("doctrine")->getRepository("AppBundle:Family")->find($id);
+        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->projectByVotesFromFamily($id);
+
+        if (!$family) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($family->getUser()->getId() !== $this->getUser()->getId()) {
+            throw $this->createAccessDeniedException();
+        }
 
         return [
             'family'          => $family,

@@ -1,25 +1,36 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body %}
-
 {% include 'AppBundle:Family:familyHeader.html.twig' %}
 
+<h2>Votes</h2>
 
-	{% if projects | length == 0 %}
-		<div>No projects found</div>
-	{% endif %}
-{% for project in projects %}
-  {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
-{% endfor %}
+{% if projects | length == 0 %}
+	<div>No projects found</div>
+{% endif %}
 
-{% endblock %}
-
-{% block javascripts %}
-
-<script>
-	$('.projectCard').on('click', function(e) {
-		window.location.href=$(this).data('url');
-	});
-</script>
+<div class="row">
+    <div class="col-md-8">
+        <table class="nogap table table-striped table-hover">
+			<tbody>
+			<thead>
+				<tr>
+					<td>Project</td>
+					<td>Owner</td>
+					<td>Votes</td>
+				</tr>
+			</thead>
+			</tbody>
+		</thead>
+		{% for project in projects %}
+			<tr class="lovelyrow"  onclick="location.href='{{ path('projectView', {id: project.id}) }}'">
+				<td>{{ project.title }}</td>
+				<td>{{ project.nickname }}</td>
+				<td>{{ project.votes}}</td>
+			</tr>
+		{% endfor %}
+		</table>
+	</div>
+</div>
 
 {% endblock %}

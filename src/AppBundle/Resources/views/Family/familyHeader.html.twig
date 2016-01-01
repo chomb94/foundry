@@ -13,7 +13,9 @@
 		<span class="label label-warning">Space Stopped</span>
 	{% endif %}
     {% if user.id == family.user.id %}
-	         <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-xs btn-default">{% if family.active %}Click to stop{% else %}Click to active{% endif %}</a>
+	     <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}<span class="glyphicon glyphicon-pause"></span> Click to stop{% else %}<span class="glyphicon glyphicon-play"></span> Click to active{% endif %}</a>
+         <a href="{{ path('familyVotes', {id: family.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> View votes</a>
+         <a href="{{ path('familySearch', {familyName: family.name}) }}" class="btn btn-default"><span class="glyphicon glyphicon-th-large"></span> Projects</a>
     {% endif %}
     </p>
 </div>
