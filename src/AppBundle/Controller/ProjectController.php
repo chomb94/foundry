@@ -132,8 +132,9 @@ class ProjectController extends BaseController
                 $user_nb_votes = $this
                       ->getDoctrine()
                       ->getRepository("AppBundle:Vote")
-                      ->findByUserAndFamily($user, $family);
-                if( $user_nb_votes < $max_votes ) {  
+                      ->countByUserAndFamily($user, $family);
+                if( ($user_nb_votes < $max_votes) || ($max_votes == null) || ($max_votes < 1) )
+                {  
                     // If < max_votes : save vote
                     $vote = new Vote();
                     $vote->setUser($user);

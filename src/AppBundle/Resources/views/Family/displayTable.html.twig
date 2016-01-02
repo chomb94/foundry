@@ -24,19 +24,6 @@
                     <a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-success {% if not family.active %}disabled{% endif %}">Start your new project</a>
                     {% if user.id == family.user_id %}
                         <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}<span class="glyphicon glyphicon-pause"></span>  to stop{% else %}Click to active{% endif %}</a>
-
-                        {% set body %}
-                            {{ include('AppBundle:Family:familyForm.html.twig', {form: forms[family.id], id: family.id}) }}
-                        {% endset %}
-
-                        {{
-                            macros.modal(
-                                'edit-family-' ~ family.id,
-                                'Edit Space ' ~ family.name,
-                                body
-                            )
-                        }}
-
                         <a
                             href="{{ path('familyVotes', {id: family.id}) }}"
                             class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> 
@@ -86,10 +73,6 @@
 
                         <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if not family.active %}<span class="glyphicon glyphicon-play"></span> to activate{% endif %}</a>
 
-                        <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </button>
-
                         <a
                             href="{{ path('familyDelete', {id: family.id}) }}"
                             class="btn btn-danger"
@@ -116,6 +99,8 @@
 </button>
 
 </div>
+
+
 {% set body %}
     {{ include('AppBundle:Family:familyForm.html.twig', {form: form}) }}
 {% endset %}
@@ -127,3 +112,21 @@
         body
     )
 }}
+
+
+
+{% for family in families %}
+    {% if user.id == family.user_id %}
+        {% set body %}
+            {{ include('AppBundle:Family:familyForm.html.twig', {form: forms[family.id], id: family.id}) }}
+        {% endset %}
+
+        {{
+            macros.modal(
+                'edit-family-' ~ family.id,
+                'Edit Space ' ~ family.name,
+                body
+            )
+        }}
+    {% endif %}
+{% endfor %}

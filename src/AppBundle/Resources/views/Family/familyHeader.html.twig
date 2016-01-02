@@ -8,11 +8,15 @@
 	{% if family.description %}
 	<div class="well">{{ family.description }}</div>
 	{% endif %}
-	<p>Create by: {{ family.user.nickname }} - Max Votes: {{ family.maxVotes }}</p>
+	<p>Create by: {{ family.user.nickname }} - Max Votes: {{ family.maxVotes }}
 	{% if not family.isActive %}
 		<span class="label label-warning">Space Stopped</span>
 	{% endif %}
-    {% if user.id == family.user.id %}
+	</p>
+    {% if family.description %}
+	<div class="well">{{ family.description }}</div>
+	{% endif %}
+	{% if user.id == family.user.id %}
     <p>
 	     <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}<span class="glyphicon glyphicon-pause"></span> Click to stop{% else %}<span class="glyphicon glyphicon-play"></span> Click to active{% endif %}</a>
          <a href="{{ path('familyVotes', {id: family.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> View votes</a>

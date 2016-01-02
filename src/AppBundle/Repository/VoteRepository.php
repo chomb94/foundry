@@ -23,7 +23,7 @@ class VoteRepository extends EntityRepository
         return $data ? reset($data) : $data;
     }
 
-    public function findByUserAndFamily(UserGoogle $user, $family)
+    public function countByUserAndFamily(UserGoogle $user, $family)
     {
         $data = $this->_em->createQuery("
             SELECT count(v)
