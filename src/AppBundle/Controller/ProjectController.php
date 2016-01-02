@@ -220,6 +220,18 @@ class ProjectController extends BaseController
         }
 
         $form    = $this->createForm(new ProjectType(), $project_init);
+
+        $context = [
+            'form'       => $form->createView(),
+            'menu_start' => 'active',
+            'user'       => $user,
+            'project'    => $project_init,
+        ];
+
+        if ($this->isFragment($request)) {
+            return $this->render('AppBundle:Project:editForm.html.twig', $context);
+        }
+
         $form->handleRequest($request);
         $project = $form->getData();
 
@@ -235,11 +247,7 @@ class ProjectController extends BaseController
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
         }
 
-        return [
-            'form'       => $form->createView(),
-            'menu_start' => 'active',
-            'user'       => $user,
-        ];
+        return $context;
     }
 
     /**
@@ -318,7 +326,7 @@ class ProjectController extends BaseController
         ];
 
         if ($this->isFragment($request)) {
-            return $this->render('AppBundle:Project:projectForm.html.twig', $context);
+            return $this->render('AppBundle:Project:publishForm.html.twig', $context);
         }
 
         if ($form->isValid()) {
