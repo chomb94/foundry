@@ -134,7 +134,7 @@ class ProjectController extends BaseController
                       ->getRepository("AppBundle:Vote")
                       ->countByUserAndFamily($user, $family);
                 if( ($user_nb_votes < $max_votes) || ($max_votes == null) || ($max_votes < 1) )
-                {  
+                {
                     // If < max_votes : save vote
                     $vote = new Vote();
                     $vote->setUser($user);
@@ -310,6 +310,17 @@ class ProjectController extends BaseController
         $form->handleRequest($request);
         $user    = $this->getUser();
 
+        $context = [
+            'family'     => $family,
+            'form'       => $form->createView(),
+            'menu_start' => 'active',
+            'user'       => $user,
+        ];
+
+        if ($this->isFragment($request)) {
+            return $this->render('AppBundle:Project:projectForm.html.twig', $context);
+        }
+
         if ($form->isValid()) {
             $project->setCreationDate(new \DateTime());
             $project->setUser($user);
@@ -334,12 +345,7 @@ class ProjectController extends BaseController
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
         }
 
-        return [
-            'family'     => $family,
-            'form'       => $form->createView(),
-            'menu_start' => 'active',
-            'user'       => $user,
-        ];
+        return $context;
     }
 
     /**

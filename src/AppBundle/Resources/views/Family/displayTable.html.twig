@@ -21,12 +21,17 @@
                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }}</a></td>
                 <td class="text-left">
-                    <a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-success {% if not family.active %}disabled{% endif %}">Start your new project</a>
+
+                    <a
+                        data-toggle="modal"
+                        data-target="#new-project-{{ family.id }}"
+                        class="btn btn-success {% if not family.active %}disabled{% endif %}">Start your new project</a>
+
                     {% if user.id == family.user_id %}
                         <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}<span class="glyphicon glyphicon-pause"></span>  to stop{% else %}Click to active{% endif %}</a>
                         <a
                             href="{{ path('familyVotes', {id: family.id}) }}"
-                            class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> 
+                            class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span>
                             Votes
                         </a>
 
@@ -81,7 +86,7 @@
                         </a>
                         <a
                             href="{{ path('familyVotes', {id: family.id}) }}"
-                            class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> 
+                            class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span>
                             Votes
                         </a>
 
@@ -117,6 +122,7 @@
 
 {% for family in families %}
     {% if user.id == family.user_id %}
+
         {% set body %}
             {{ include('AppBundle:Family:familyForm.html.twig', {form: forms[family.id], id: family.id}) }}
         {% endset %}
@@ -129,4 +135,17 @@
             )
         }}
     {% endif %}
+
+    {% set body %}
+        {{ render(controller('AppBundle:Project:publish', {family_id: family.id})) }}
+    {% endset %}
+
+    {{
+        macros.modal(
+            'new-project-' ~ family.id,
+            'Your "' ~ family.name ~ '" project',
+            body
+        )
+    }}
+
 {% endfor %}

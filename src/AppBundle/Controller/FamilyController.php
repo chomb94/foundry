@@ -31,11 +31,13 @@ class FamilyController extends BaseController
         $forms = [];
         foreach (array($families, $inactive_families) as $family_group) {
             foreach ($family_group as $family) {
-                $forms[$family['entity']->getId()] = $this
-                   ->get('form.factory')
-                   ->createNamedBuilder("family_form_".$family['entity']->getId(), FamilyType::class, $family['entity'], [])
-                   ->getForm()
-                   ->createView();
+                if ($family['entity']->getUser()->getId() == $user->getId()) {
+                    $forms[$family['entity']->getId()] = $this
+                       ->get('form.factory')
+                       ->createNamedBuilder("family_form_".$family['entity']->getId(), FamilyType::class, $family['entity'], [])
+                       ->getForm()
+                       ->createView();
+                }
             }
         }
 
