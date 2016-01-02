@@ -127,10 +127,19 @@ class ProjectController extends BaseController
             if ($vote) {
                 $em->remove($vote);
             } else {
-                $vote = new Vote();
-                $vote->setUser($user);
-                $vote->setProject($project);
-                $em->persist($vote);
+                // Check with max_votes
+                $max_votes = $family->getMaxVotes();
+                $user_nb_votes = $this
+                      ->getDoctrine()
+                      ->getRepository("AppBundle:Vote")
+                      ->findByUserAndFamily($user, $family);
+                if( $user_nb_votes < $max_votes ) {  
+                    // If < max_votes : save vote
+                    $vote = new Vote();
+                    $vote->setUser($user);
+                    $vote->setProject($project);
+                    $em->persist($vote);
+                }
             }
             $em->flush();
         }

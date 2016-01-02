@@ -38,7 +38,10 @@ class Family
      * @ORM\Column(type="boolean")
      */
     protected $active = true;
-
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $max_votes;
 
 
     /**
@@ -170,6 +173,30 @@ class Family
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set max_votes.
+     *
+     * @param string $max_votes
+     *
+     * @return int
+     */
+    public function setMaxVotes($max_votes)
+    {
+        $this->max_votes = $max_votes;
+
+        return $this;
+    }
+
+    /**
+     * Get max_votes.
+     *
+     * @return int
+     */
+    public function getMaxVotes()
+    {
+        return $this->max_votes;
     }
 
     /**

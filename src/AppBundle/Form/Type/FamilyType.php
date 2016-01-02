@@ -14,6 +14,7 @@ class FamilyType extends AbstractType
             ->add('name', 'text')
             ->add('endDate',  'date')
             ->add('description',  'textarea', ['label'=>'Description'])
+            ->add('maxVotes',  'integer', ['required'=>false])
             ->add('save', 'submit')
         ;
     }

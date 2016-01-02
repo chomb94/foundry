@@ -22,4 +22,20 @@ class VoteRepository extends EntityRepository
 
         return $data ? reset($data) : $data;
     }
+
+    public function findByUserAndFamily(UserGoogle $user, $family)
+    {
+        $data = $this->_em->createQuery("
+            SELECT count(v)
+            FROM AppBundle\Entity\Vote v
+            LEFT JOIN AppBundle\Entity\Project p
+            WITH v.project = p
+            WHERE v.user = :user
+            AND p.family = :family
+        ")->setParameters(array(
+            'user'    => $user,
+            'family'  => $family,
+        ))->execute();
+        return $data ? reset($data[0]) : $data;
+    }
 }

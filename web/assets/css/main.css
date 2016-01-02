@@ -6,7 +6,7 @@ body {
     font-family: HelveticaNeueLight, HelveticaNeue-Light, 'Helvetica Neue Light', ArialLight, Arial-Light, 'Arial Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 13px;
     /* background: #f4f4f6; */
-    background-color: white;
+    background-color: #f8f8f8;
 }
 
 @font-face {
@@ -17,25 +17,6 @@ body {
   /* src: local('Audiowide'), local('Audiowide-Regular'), url(http://themes.googleusercontent.com/static/fonts/audiowide/v2/8XtYtNKEyyZh481XVWfVOj8E0i7KZn-EPnyo3HZu7kw.woff) format('woff'); */
 }
 
-.jumbotron {
-    /* background-image:url(/assets/images/jumbotronbck1-dark.jpg); */
-    background-position: 50% 50%;
-    background-size:100%;
-    /* background-attachment:fixed; */
-    background-color: #f4f4f6;
-    text-align: center;
-    color: #999;
-    text-shadow: rgba(0, 0, 0, 0.3) 0px 2px 2px;
-    margin:0;
-    padding-bottom: 12px;
-}
-
-.jumbotron .btn  {
-    font-size: 24px;
-    box-shadow: 0px 3px 54px rgba(0, 0, 0, 0.3);
-    text-shadow: none;
-}
-
 .glyphicon-lamp {
   /* color: #3399FF; */
 }
@@ -43,24 +24,6 @@ body {
 h1, h2 {
   font-family: HelveticaNeueUltraLight,HelveticaNeue-Ultra-Light,HelveticaNeue-UltraLight,"Helvetica Neue Ultra Light",HelveticaNeueLight,HelveticaNeue-Light,"Helvetica Neue Light",ArialLight,Arial-Light,"Arial Light","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-
-/*
-.jumbotron .btn:hover  {
-    color: #fff;
-    -webkit-animation: neon5 1.5s ease-in-out infinite alternate;
-    -moz-animation: neon5 1.5s ease-in-out infinite alternate;
-    animation: neon5 1.5s ease-in-out infinite alternate;
-}
-
-
-.jumbotron .btn {
-    font-size: 32px;
-    font-family: Audiowide;
-    color: #FF9900;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    transition: all 0.5s;}
-*/
 
 .red {
   color: #FF0000;
@@ -70,13 +33,11 @@ h1, h2 {
   font-weight: bold;
 }
 
-.ico-big-jumbotron {
-    /* font-size: 36px; */
-}
-
-.jumbotron-footer>a {
-    padding: 20px 0 0 0;
-    color: #fff;
+.jumbotron {
+    background-color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 .img-navbar {
@@ -126,11 +87,11 @@ h1, h2 {
     height: 150px;
     overflow: hidden;
     background: #DEDEDE; /* For browsers that do not support gradients */
-    background: -webkit-radial-gradient(circle, rgba(0,0,0,0.05),rgba(0,0,0,0)); /* Safari */
-    background: -o-radial-gradient(circle, rgba(0,0,0,0.05),rgba(0,0,0,0)); /* Opera 11.6 to 12.0 */
-    background: -moz-radial-gradient(circle, rgba(0,0,0,0.01),rgba(0,0,0,0)); /* Firefox 3.6 to 15 */
-    background: radial-gradient(circle, rgba(0,0,0,0.05),rgba(0,0,0,0)); /* Standard syntax */
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05) inset;
+    background: -webkit-radial-gradient(circle, rgba(0,0,0,0.03),rgba(0,0,0,0)); /* Safari */
+    background: -o-radial-gradient(circle, rgba(0,0,0,0.03),rgba(0,0,0,0)); /* Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(circle, rgba(0,0,0,0.03),rgba(0,0,0,0)); /* Firefox 3.6 to 15 */
+    background: radial-gradient(circle, rgba(0,0,0,0.03),rgba(0,0,0,0)); /* Standard syntax */
+    box-shadow: 0 2px 9px rgba(0, 0, 0, 0.03) inset;
 }
 
 .view-crop {
@@ -215,7 +176,7 @@ h1, h2 {
 .panel-default {
     border-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
     overflow:hidden;
 }
 
@@ -380,9 +341,10 @@ background: none;
 }
 
 .summary {
-  padding-bottom: 16px;
   text-align: center;
-  background-color: #f4f4f6;
+  margin: 0px 0px 32px 0px;
+  padding: 4px 4px 16px 4px;
+  /* background-color: #f4f4f6; */
 }
 
 .summary-days {
