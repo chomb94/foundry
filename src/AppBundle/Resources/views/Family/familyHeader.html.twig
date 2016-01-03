@@ -5,10 +5,7 @@
 		<a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-sm btn-success">Start your new project</a>
 	{% endif %}
 	</h1>
-	{% if family.description %}
-	<div class="well">{{ family.description }}</div>
-	{% endif %}
-	<p>Create by: {{ family.user.nickname }} - Max Votes: {{ family.maxVotes }}
+	<p>Create by: {{ family.user.nickname }}{% if family.maxVotes %} - Max Votes: {{ family.maxVotes }}{% endif %}
 	{% if not family.isActive %}
 		<span class="label label-warning">Space Stopped</span>
 	{% endif %}
