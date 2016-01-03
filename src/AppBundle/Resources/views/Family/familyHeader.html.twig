@@ -2,7 +2,10 @@
 <div class="page-header">
 	<h1>Space: {{ family.name }}
 	{% if family.isActive and projects | length > 0 %}
-		<a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-sm btn-success">Start your new project</a>
+		<a
+            data-toggle="modal"
+            data-target="#new-project-{{ family.id }}"
+            class="btn btn-sm btn-success">Start your new project</a>
 	{% endif %}
 	</h1>
 	<p>Create by: {{ family.user.nickname }}{% if family.maxVotes %} - Max Votes: {{ family.maxVotes }}{% endif %}

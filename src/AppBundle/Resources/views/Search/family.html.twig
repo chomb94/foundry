@@ -1,19 +1,40 @@
 {% extends 'AppBundle::base.html.twig' %}
+{% import 'AppBundle::macros.html.twig' as macros %}
 
 {% block body %}
 
 {% include 'AppBundle:Family:familyHeader.html.twig' %}
 
-
-	{% if projects | length == 0 %}
-		<div>No projects found</div>
-		{% if family.isActive %}
-		<h2><a href="{{ path('projectPublish', {family_id: family.id}) }}" class="btn btn-lg btn-success">Start your new project</a></h2>
-		{% endif %}
+{% if projects | length == 0 %}
+	<div>No projects found</div>
+	{% if family.isActive %}
+	<h2>
+        <a
+            data-toggle="modal"
+            data-target="#new-project-{{ family.id }}"
+            class="btn btn-lg btn-success">Start your new project</a>
+    </h2>
 	{% endif %}
-{% for project in projects %}
-  {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
-{% endfor %}
+
+{% else %}
+
+    {% for project in projects %}
+      {% include 'AppBundle:Project:_oneProjectCard.html.twig' %}
+    {% endfor %}
+
+{% endif %}
+
+{% set body %}
+    {{ render(controller('AppBundle:Project:publish', {family_id: family.id})) }}
+{% endset %}
+
+{{
+    macros.modal(
+        'new-project-' ~ family.id,
+        'Your "' ~ family.name ~ '" project',
+        body
+    )
+}}
 
 {% endblock %}
 

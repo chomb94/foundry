@@ -1,4 +1,6 @@
 {% extends 'AppBundle::base.html.twig' %}
+{% import 'AppBundle::macros.html.twig' as macros %}
+
 {% block title %}
 {{ project.title|e }}
 {% endblock %}
@@ -11,7 +13,12 @@
 {% if myproject %}
   <p>It's my project :
   <a class="btn btn-sm btn-default" href="{{ path('projectStepPublish', {id: project.id}) }}"><span class="glyphicon glyphicon-plus"></span> Add Steps</a>
-  <a class="btn btn-sm btn-default" href="{{ path('projectEdit', {id: project.id}) }}"><span class="glyphicon glyphicon-edit"></span> Edit Project</a>
+
+  <a
+      data-toggle="modal"
+      data-target="#edit-project-{{ project.id }}"
+      class="btn btn-sm btn-default"><span class="glyphicon glyphicon-edit"></span> Edit Project</a>
+
   <a class="btn btn-sm btn-default" href="{{ path('projectDelete', {id: project.id}) }}"><span class="glyphicon glyphicon-trash"></span> Delete Project</a>
   {% if myproject %}
      {% if project.getDaysToGo > 0 %}
@@ -19,6 +26,18 @@
      {% endif %}
   {% endif %}
   </p>
+
+    {% set body %}
+        {{ render(controller('AppBundle:Project:edit', {id: project.id})) }}
+    {% endset %}
+
+    {{
+        macros.modal(
+            'edit-project-' ~ project.id,
+            'Edit project "' ~ project.title ~ '"',
+            body
+        )
+    }}
 
 {% endif %}
 </div>

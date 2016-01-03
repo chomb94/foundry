@@ -4,6 +4,7 @@ namespace AppBundle\Base;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\VarDumper\VarDumper;
+use Symfony\Component\HttpFoundation\Request;
 
 class BaseController extends Controller
 {
@@ -35,5 +36,10 @@ class BaseController extends Controller
     public function trans($property, array $parameters = array())
     {
         return $this->container->get('translator')->trans($property, $parameters);
+    }
+
+    public function isFragment(Request $request)
+    {
+        return '/_fragment' === $request->getPathInfo();
     }
 }
