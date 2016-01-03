@@ -26,16 +26,18 @@ class FamilyController extends BaseController
 
         $family = new Family();
         $family->setEndDate(new \DateTime(date("Y-m-d", time() + 60 * 60 * 24 * project::MAX_DURATION)));
-        $form   = $this->createForm(new FamilyType(), $family);
+        $form   = $this->createForm(FamilyType::class, $family);
 
         $forms = [];
         foreach (array($families, $inactive_families) as $family_group) {
             foreach ($family_group as $family) {
-                $forms[$family['entity']->getId()] = $this
-                   ->get('form.factory')
-                   ->createNamedBuilder("family_form_".$family['entity']->getId(), FamilyType::class, $family['entity'], [])
-                   ->getForm()
-                   ->createView();
+                if ($family['entity']->getUser()->getId() == $user->getId()) {
+                    $forms[$family['entity']->getId()] = $this
+                       ->get('form.factory')
+                       ->createNamedBuilder("family_form_".$family['entity']->getId(), FamilyType::class, $family['entity'], [])
+                       ->getForm()
+                       ->createView();
+                }
             }
         }
 
