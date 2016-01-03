@@ -5,7 +5,6 @@
 
 <div class="jumbotron">
     <table class="table table-striped">
-        <tbody>
         <thead>
             <tr>
                 <td>Space</td>
@@ -14,7 +13,7 @@
                 <td> </td>
             </tr>
         </thead>
-        </tbody>
+        <tbody>
         {% for family in families %}
             <tr>
                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
@@ -58,7 +57,6 @@
     <h3>Inactive Spaces</h3>
 
     <table class="table table-striped">
-        <tbody>
         <thead>
             <tr>
                 <td>Space</td>
@@ -67,7 +65,7 @@
                 <td> </td>
             </tr>
         </thead>
-        </tbody>
+        <tbody>
         {% for family in inactive_families %}
             <tr>
                  <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>

@@ -3,7 +3,10 @@
 {% block body %}
 
     <h1>Your {% if not id|default(false) %}new{% endif %} Space:</h1>
-
-    {{ include('AppBundle:Family:familyForm.html.twig', {form: form, id: id|default(false)}) }}
+	<div class="row">
+		<div class="col-md-8 project-container">
+	    {{ include('AppBundle:Family:familyForm.html.twig', {form: form, id: id|default(false)}) }}
+	    </div>
+	</div>
 
 {% endblock %}

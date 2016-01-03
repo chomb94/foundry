@@ -3,7 +3,9 @@
 {% block body %}
 
 <h1>Your "{{ family.name}}" project:</h1>
-
+<div class="row">
+	<div class="col-md-8">
 {{ include('AppBundle:Project:publishForm.html.twig') }}
-
+	</div>
+</div>
 {% endblock %}
