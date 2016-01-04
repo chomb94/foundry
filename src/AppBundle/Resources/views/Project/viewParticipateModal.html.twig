@@ -1,9 +1,12 @@
 {% set body %}
 
+
     <form id="participate-modal-form-{{ id }}" action="{{ path('projectPledge', {id: id}) }}" method="post">
         <div class="">
 
-        <input type="number" id="price" name="price" required="required" class="form-control input-price-modal" min="0" max="{{ userCredits.credits }}" value="1">
+        <input type="hidden" id="price" name="price" required="required" class="form-control input-price-modal" min="0" max="{{ userCredits.credits }}" value="1">
+        <p>Do you really want to contribute to this project and to be a part of this crew ?</p>
+
         <a
             href="#"
             id="project_save"
@@ -26,7 +29,7 @@
 {{
     macros.modal(
         'participate-modal-' ~ id,
-        'How many days would you like to spend?',
+        'You want to contribute?',
         body
     )
 }}

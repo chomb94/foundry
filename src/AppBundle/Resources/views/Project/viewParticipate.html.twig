@@ -1,20 +1,21 @@
-{# {% if isParticipant %}
+
+{% if isParticipant %}
     {% if imInButton %}
         <div class="view-be-in text-center">
-            You are in!
+            <span class="label label-gold yourein-label">
+                <span class="glyphicon glyphicon-wrench btn-sunglasses-invert" aria-hidden="true"></span> You are in!
+            </span>
         </div>
     {% endif %}
 
-{% else %} #}
+{% else %}
 
     <a class="btn btn-default" data-toggle="modal" data-target="#participate-modal-{{ id }}">
-        <span id="participate-icon-{{ id }}" class="glyphicon glyphicon-wrench btn-onecard btn-glyphicon-{{ isParticipant ? 'inactive' : 'active' }}" aria-hidden="true"></span><span class="btn-onecard-text"> {% if isParticipant %}Add days{% else %}I'm in!{% endif %}</span>
+        <span id="participate-icon-{{ id }}" class="glyphicon glyphicon-wrench btn-onecard btn-glyphicon-{{ isParticipant ? 'inactive' : 'active' }}" aria-hidden="true"></span><span class="btn-onecard-text"> Contribute</span>
     </a>
 
     {% if message %}
         <p class="text-center alert-danger">{{ message }}</p>
     {% endif %}
 
-{#
 {% endif %}
-#}

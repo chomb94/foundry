@@ -4,13 +4,13 @@
     <div id="wrapper">
         <div id="container">
                 <h1>I am {{ user.nickname }}</h1>
-                <p><span class="glyphicon glyphicon-wrench"></span> I have {{ userCredits.credits | default("0") }} available Involvement Day(s)</p>
+                <p><span class="glyphicon glyphicon-wrench"></span> I have {{ userCredits.credits | default("0") }} available Contribution Day(s)</p>
                 <p><img class="img-profile-main" src="{{ user.profilePicture }} " alt="{{ user.username }}"/></p>
 
                 <h1>Supported projects</h1>
                 <ul>
             	{% for projectPledged in projectsPledged %}
-                	<li><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> {{ projectPledged.nbCreditsSpent }} Day(s) spent for project <a href="{{ path('projectView', {id: projectPledged.project.id}) }}"><strong>{{ projectPledged.project.title }}</strong></a> ({{ projectPledged.pledgeDate | date('d M Y, h:m:s') }})</li>
+                	<li><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> {{ projectPledged.nbCreditsSpent }} Contribution(s) spent for project <a href="{{ path('projectView', {id: projectPledged.project.id}) }}"><strong>{{ projectPledged.project.title }}</strong></a> ({{ projectPledged.pledgeDate | date('d M Y, h:m:s') }})</li>
                 {% endfor %}
                 </ul>
         </div>

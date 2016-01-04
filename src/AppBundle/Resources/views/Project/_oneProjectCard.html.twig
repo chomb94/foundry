@@ -24,22 +24,13 @@
             <div class="crew">
                 <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-circle img-crew-master">
 
-            {% set youarein = 0 %}
             {% if project.participants|length > 0 %}
                 {% for participant in project.participants %}
                     <img src="{{participant.profilePicture}}" alt="{{participant.username}}" class="img-circle img-crew" />
-                    {% if participant.user_id == user.id %}
-                        {% set youarein = 1 %}
-                    {% endif %}
                 {% endfor %}
             {% endif %}
             </div>
 
-            {% if youarein == 1 %}
-                <span class="label label-gold yourein-label">
-                        <span class="glyphicon glyphicon-wrench btn-sunglasses-invert" aria-hidden="true"></span> You are in!
-                </span>
-            {% endif %}
             <div class="cropdescription">
                 <a href="{{ path('projectView', {id: project.id}) }}">
                     {{ project.shortDescription|e }}
@@ -47,8 +38,9 @@
                 </a>
             </div>
 
-            {% if project.steps|length >= 1 %}
+            {% if false %}
 {#
+            {% if project.steps|length >= 1 %}
             <div class="panel-steps">
                     {% set lastStepCompleted = "" %}
                     {% set nextStep = "" %}
@@ -111,7 +103,7 @@
 
                 </div>
             {% else %}
-                <div class="col-md-12 text-center btn-footer-onecard-inactive ">
+                <div class="col-md-12 text-center btn-footer-onecard-inactive">
                 <button type="button" class="btn btn-project-disabled" disabled="disabled">Project Inactive</button>
                 </div>
             {% endif %}

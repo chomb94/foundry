@@ -142,31 +142,29 @@
       </div>
       {% endif %}
 
-      <div class="view-be-in">
-            <div class="row btn-footer-onecard">
-            {% if project.active %}
+    <div class="row btn-footer-onecard">
+    {% if project.active %}
 
-                <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
-                    {{
-                        render(controller('AppBundle:Project:viewParticipate', {
-                            id: project.id,
-                            imInButton: true
-                        }))
-                    }}
+        <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
+            {{
+                render(controller('AppBundle:Project:viewParticipate', {
+                    id: project.id,
+                    imInButton: true
+                }))
+            }}
 
-                </div>
-                {% if project.family.isActive|default or project.family.isActive is not defined %}
-                <div class="col-md-6 opc-action-right" id="vote-{{ project.id }}">
-                    {{
-                        render(controller('AppBundle:Project:viewVote', {
-                            id: project.id
-                        }))
-                    }}
-                </div>
-                {% endif %}
-            {% endif %}
-            </div>
-      </div>
+        </div>
+        {% if project.family.isActive|default or project.family.isActive is not defined %}
+        <div class="col-md-6 opc-action-right" id="vote-{{ project.id }}">
+            {{
+                render(controller('AppBundle:Project:viewVote', {
+                    id: project.id
+                }))
+            }}
+        </div>
+        {% endif %}
+    {% endif %}
+    </div>
   </div>
 
 

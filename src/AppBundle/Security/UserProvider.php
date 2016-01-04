@@ -32,7 +32,7 @@ class UserProvider extends EntityUserProvider
 
             $userCredits = new UserCredits();
             $userCredits->setUserId($user->getId());
-            $userCredits->setCredits(5);
+            $userCredits->setCredits(500);
 
             $this->em->persist($userCredits);
             $this->em->flush();
