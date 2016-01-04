@@ -24,6 +24,13 @@ class ProjectRepository extends EntityRepository
          ))->execute();
 
         $this->_em->createQuery("
+            DELETE AppBundle\Entity\Vote v
+            WHERE v.project = :project
+         ")->setParameters(array(
+             'project' => $project,
+         ))->execute();
+
+        $this->_em->createQuery("
             DELETE AppBundle\Entity\Project p
             WHERE p.id = :id
          ")->setParameters(array(
