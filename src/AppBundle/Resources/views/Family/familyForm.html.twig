@@ -12,7 +12,7 @@
             {{ form_errors(form) }}
 
             {{ form_label(form.name) }}
-            {{ form_widget(form.name, {help_text:"A powerful name for your family!"}) }}
+            {{ form_widget(form.name, {help_text:"A powerful name for your space!"}) }}
             {{ form_errors(form.name) }}
 
             {{ form_label(form.description) }}
@@ -20,11 +20,11 @@
             {{ form_errors(form.description) }}
 
             {{ form_label(form.endDate) }}
-            {{ form_widget(form.endDate, {help_text:"An indicative end date for projects into the family."}) }}
+            {{ form_widget(form.endDate, {help_text:"Deadline of your space event."}) }}
             {{ form_errors(form.endDate) }}
 
             {{ form_label(form.maxVotes) }}
-            {{ form_widget(form.maxVotes, {help_text:"Number max of votes for this family. Leave empty for no limit."}) }}
+            {{ form_widget(form.maxVotes, {help_text:"Max number of votes per user for this space. Leave empty for no limit."}) }}
             {{ form_errors(form.maxVotes) }}
 
             {{ form_rest(form) }}
