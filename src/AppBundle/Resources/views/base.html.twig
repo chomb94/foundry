@@ -29,7 +29,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="{{ path('homepage') }}">
-                    <span class="glyphicon glyphicon-lamp" aria-hidden="true"></span> BlaBlaFoundry</a>
+                    <img src="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/images/BlaBlaFoundry_transparent.png') }}" class="img-logo" alt="BlaBlaFoundry" /></a>
                 </div>
                 <div class="navbar-collapse collapse">
                     {% block menu %}
