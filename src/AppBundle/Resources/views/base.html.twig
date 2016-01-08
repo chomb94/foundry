@@ -62,7 +62,7 @@
                                     <li class="{{ menu_myprofile | default('')}}"><a href="{{ path('userIndex') }}">My Profile</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li class="{{ menu_myprojects | default('')}}"><a href="{{ path('projectList') }}">My projects</a></li>
-                                    <li><a href="{% if family.id|default %}{{ path('projectPublish', {family_id: family.id}) }}{% else %}{{ path('projectPublish', {family_id: 0}) }}{% endif %}" >Start a project</a></li>
+                                    <li><a href="{% if family.id|default %}{{ path('projectPublish', {family_id: family.id}) }}{% else %}{{ path('projectPublish', {family_id: 0}) }}{% endif %}" >Start a new project</a></li>
                                     <li><a href="{{ path('familyPublish') }}">Create a new Space</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="{{ path('logout') }}">Logout</a></li>
@@ -97,7 +97,7 @@
                 <div class="row">
                     <div class="col-lg-10 text-center">
                         <p><a href="https://github.com/chomb94/foundry/"><img src="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/images/github.png') }}" width="32px" alt="GitHub" /> GitHub BlaBlaFoundry</a></p>
-                        <p>A huge thank to Pierre-Yves, Alain and NicoT for their contribution, involvement, dynamism and their valuable assistance !
+                        <p>A huge thank to Pierre-Yves, Alain and NicoT for their contribution, involvement, dynamism and their valuable assistance!
 
                     </div>
                     <div class="col-lg-2 footer-sillywalk">
