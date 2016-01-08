@@ -173,12 +173,37 @@
 		<h2>Achievements</h2>
 		{% for step in steps %}
 
-      <div class="one-step inprogress">
-                <div class="step-title">
-                    <h3>{{ step.title }}</h3>
-                </div>
-                <div class="clearfix"></div>
-                <p class="step-sidebar-description">{{ step.shortDescription|e }}</p>
+      <div class="one-step {% if step.isCompleted %}completed{% elseif step.isInProgress %}inprogress{% else %}tocomplete{% endif %}">
+        <div class="step-title">
+            <h3>{{ step.title }}</h3>
+        </div>
+        <div class="clearfix"></div>
+        <p class="step-sidebar-description">{{ step.shortDescription|e }}</p>
+        <div class="step-credits">
+            {% if step.isCompleted %}
+                <span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+                Completed!
+            {% elseif step.isInProgress %}
+                <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                In Progress...
+            {% else %}
+                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                Coming next...
+            {% endif %}
+        </div>
+        {% if myproject %}
+        <div class="step-credits text-center">
+          {% if step.isInProgress or step.isCompleted %}
+          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 0}) }}">Stop</a>
+          {% endif %}
+          {% if not step.isInProgress %}
+          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 50}) }}">In progress</a>
+          {% endif %}
+          {% if not step.isCompleted %}
+          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 100}) }}">Done</a>
+          {% endif %}
+        </div>
+        {% endif %}
       </div>
 
 

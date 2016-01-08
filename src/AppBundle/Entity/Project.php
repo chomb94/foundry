@@ -495,6 +495,20 @@ class Project
         return $this;
     }
 
+    public function setStepsWithStatus($allSteps)
+    {
+        $this->allSteps = $allSteps;
+        foreach ($allSteps as $oneStep) {
+            $status = $oneStep->getStatus();
+            if ($status == 100) {
+                $oneStep->setisCompleted(true);
+            } elseif ( $status < 100 and $status > 0 ) {
+                $oneStep->setisInProgress(true);
+            }
+        }
+
+    }
+/*
     public function setStepsAndCredits($allSteps, $allCredits)
     {
         $this->allSteps = $allSteps;
@@ -565,6 +579,8 @@ class Project
 
         return $nbCredits;
     }
+
+    */
 
     public function getDaysToGo()
     {

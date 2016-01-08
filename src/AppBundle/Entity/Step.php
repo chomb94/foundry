@@ -39,8 +39,13 @@ class Step
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $price;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $status;
 
     protected $isCompleted;
+    protected $isInProgress;
     protected $priceToFinish;
     protected $pricePaid;
     protected $displayPledgeForm;
@@ -200,6 +205,30 @@ class Step
     }
 
     /**
+     * Set status.
+     *
+     * @param string $status
+     *
+     * @return int
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status.
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
      * Set if the step is already completed or not.
      *
      * @param bool $isCompleted
@@ -221,6 +250,30 @@ class Step
     public function isCompleted()
     {
         return $this->isCompleted;
+    }
+
+    /**
+     * Set if the step is already completed or not.
+     *
+     * @param bool $isCompleted
+     *
+     * @return Step
+     */
+    public function setisInProgress($isInProgress)
+    {
+        $this->isInProgress = $isInProgress;
+
+        return $this;
+    }
+
+    /**
+     * Get price.
+     *
+     * @return bool
+     */
+    public function isInProgress()
+    {
+        return $this->isInProgress;
     }
 
     /**

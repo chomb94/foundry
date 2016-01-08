@@ -58,7 +58,7 @@ class ProjectController extends BaseController
 
         // Show participants
         $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($project);
-        $project->setStepsAndCredits($step_list, $all_credits);
+        $project->setStepsWithStatus($step_list);
 
         return [
             'project'     => $project,
@@ -195,7 +195,7 @@ class ProjectController extends BaseController
         foreach ($projects as $oneProject) {
             $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
             $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
-            $oneProject->setStepsAndCredits($step_list, $all_credits);
+            //$oneProject->setStepsAndCredits($step_list, $all_credits);
         }
 
         return [
@@ -437,6 +437,41 @@ class ProjectController extends BaseController
             'menu_myprojects' => 'active',
             'user'            => $user,
         ];
+    }
+
+
+    /**
+     * @Route("/project/{project_id}/step/{step_id}/{pourcent}", name="stepSetStatus")
+     * @Security("has_role('ROLE_USER')")
+     * @Template()
+     */
+    public function stepSetStatusAction($project_id, $step_id, $pourcent)
+    {
+        $project    = $this->get("doctrine")->getRepository("AppBundle:Project")->find($project_id);
+        $user       = $this->getUser();
+
+        if (is_null($project)) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($project->getUser()->getId() !== $this->getUser()->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $step = $this->get("doctrine")->getRepository("AppBundle:Step")->findById($step_id)[0];
+        if( $step->getProjectId() !== $project->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $step->setStatus($pourcent);
+
+        $manager = $this->get("doctrine")->getManager();
+        $manager->persist($step);
+        $manager->flush();
+
+        return $this->redirectToRoute('projectView', array(
+               'id' => $project_id,
+        ));
     }
 
     /**
