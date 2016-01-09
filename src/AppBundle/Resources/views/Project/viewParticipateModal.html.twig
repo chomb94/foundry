@@ -2,7 +2,7 @@
 
 
     <form id="participate-modal-form-{{ id }}" action="{{ path('projectContribute', {id: id}) }}" method="post">
-        <div class="">
+        <div class="text-center">
 
         <p>Do you really want to contribute to this project and to be a part of this crew ?</p>
 
@@ -13,7 +13,7 @@
             data-input="#participate-modal-form-{{ id }}"
             data-script-success=" window.location.reload() "
             name="step"
-            class="btn-success btn domajax click">
+            class="btn-success btn btn-xl domajax click">
             <span class="glyphicon glyphicon-wrench btn-sunglasses-invert" aria-hidden="true"></span> I'm in!
         </a>
 

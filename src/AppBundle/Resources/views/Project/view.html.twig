@@ -10,7 +10,7 @@
   <h1>{{ project.title|e }}</h1>
   <p>By {{ project.user.nickname }}
   </p>
-{% if myproject %}
+  {% if myproject %}
   <p>It's my project :
   <a class="btn btn-sm btn-default" href="{{ path('projectStepPublish', {id: project.id}) }}"><span class="glyphicon glyphicon-plus"></span> Add an Achievement</a>
 
@@ -25,26 +25,24 @@
       onclick="return confirm('Do you really want to DELETE the {{ project.title|e('html_attr') }} project?');">
       <span class="glyphicon glyphicon-trash"></span>
   </a>
-  {% if myproject %}
-     {% if project.getDaysToGo > 0 %}
-       <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-{% if project.isActive %}pause{% else %}play{% endif %}"></span> {% if project.isActive %}Pause{% else %}Resume{% endif %}</a>
-     {% endif %}
-  {% endif %}
+   {% if project.getDaysToGo > 0 %}
+     <a href="{{ path('enableProject', {id: project.id, enable: 1 - project.isActive }) }}" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-{% if project.isActive %}pause{% else %}play{% endif %}"></span> {% if project.isActive %}Pause{% else %}Resume{% endif %}</a>
+   {% endif %}
   </p>
 
-    {% set body %}
-        {{ render(controller('AppBundle:Project:edit', {id: project.id})) }}
-    {% endset %}
+  {% set body %}
+      {{ render(controller('AppBundle:Project:edit', {id: project.id})) }}
+  {% endset %}
 
-    {{
-        macros.modal(
-            'edit-project-' ~ project.id,
-            'Edit project "' ~ project.title ~ '"',
-            body
-        )
-    }}
+  {{
+      macros.modal(
+          'edit-project-' ~ project.id,
+          'Edit project "' ~ project.title ~ '"',
+          body
+      )
+  }}
 
-{% endif %}
+  {% endif %}
 </div>
 
 <div class="row">
@@ -132,7 +130,6 @@
         <p><span class="label label-warning">Project Stopped</span></p>
       {% endif %}
 
-      {% if project.isActive %}
       <div class="participants-frame">
         <span class="">Crew:</span>
         <div>
@@ -144,21 +141,19 @@
           {% endif %}
         </div>
       </div>
-      {% endif %}
 
-    <div class="row btn-footer-onecard">
-    {% if project.active %}
-
+      <div class="row btn-footer-onecard">
+      {% if project.isActive %}
         <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
-            {{
-                render(controller('AppBundle:Project:viewParticipate', {
-                    id: project.id,
-                    imInButton: true
-                }))
-            }}
 
         </div>
         {% if project.family.isActive|default or project.family.isActive is not defined %}
+        {{
+            render(controller('AppBundle:Project:viewParticipateModal', {
+                id: project.id
+            }))
+        }}
+
         <div class="col-md-6 opc-action-right" id="vote-{{ project.id }}">
             {{
                 render(controller('AppBundle:Project:viewVote', {
@@ -167,9 +162,9 @@
             }}
         </div>
         {% endif %}
-    {% endif %}
-    </div>
-  </div>
+      {% endif %}
+      </div>
+    </div> <!-- Summary -->
 
 
     {% if steps|length > 0 %}
