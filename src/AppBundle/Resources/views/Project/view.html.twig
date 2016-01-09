@@ -144,7 +144,7 @@
 
       <div class="row btn-footer-onecard">
       {% if project.isActive %}
-
+      
         {{
             render(controller('AppBundle:Project:viewParticipateModal', {
                 id: project.id
@@ -152,6 +152,12 @@
         }}
 
         <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
+            {{
+                render(controller('AppBundle:Project:viewParticipate', {
+                    id: project.id,
+                    imInButton: true
+                }))
+            }}
 
         </div>
         {% if project.family.isActive|default or project.family.isActive is not defined %}
