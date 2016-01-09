@@ -11,9 +11,7 @@
             id="project_save"
             data-endpoint="{{ path('projectContribute', {id: id}) }}"
             data-input="#participate-modal-form-{{ id }}"
-            data-output="#participate-{{ id }}"
-            data-lock="#participate-modal-form-{{ id }}"
-            data-script-success=" $('#participate-modal-{{ id }}').modal('hide'); "
+            data-script-success=" window.location.reload() "
             name="step"
             class="btn-success btn domajax click">
             <span class="glyphicon glyphicon-wrench btn-sunglasses-invert" aria-hidden="true"></span> I'm in!

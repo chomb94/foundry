@@ -42,4 +42,9 @@ class BaseController extends Controller
     {
         return '/_fragment' === $request->getPathInfo();
     }
+    
+    public function isAjax(Request $request)
+    {
+        return $request->isXmlHttpRequest();
+    }
 }
