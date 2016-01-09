@@ -601,10 +601,6 @@ background: none;
   padding: 6px 8px;
 }
 
-.yourein-label {
-    font-size: 14px;
-}
-
 .view-be-in {
   height: 26px;
   margin-top: 8px;
@@ -618,10 +614,6 @@ background: none;
 .family-label-view a:hover, .family-label a:hover {
   text-decoration: underline;
   color: white;
-}
-
-.label-gold {
-  background-color: gold;
 }
 
 tr.lovelyrow{
