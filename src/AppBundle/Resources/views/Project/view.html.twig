@@ -144,6 +144,13 @@
 
       <div class="row btn-footer-onecard">
       {% if project.isActive %}
+
+        {{
+            render(controller('AppBundle:Project:viewParticipateModal', {
+                id: project.id
+            }))
+        }}
+
         <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
 
         </div>
