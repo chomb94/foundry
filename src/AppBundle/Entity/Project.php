@@ -508,6 +508,7 @@ class Project
         }
 
     }
+    
 /*
     public function setStepsAndCredits($allSteps, $allCredits)
     {

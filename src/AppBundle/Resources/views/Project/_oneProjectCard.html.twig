@@ -19,14 +19,12 @@
                     </div>
                 </a>
             </div>
-            <!-- div class="project-image-container">
-            </div -->
             <div class="crew">
                 <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-circle img-crew-master">
 
             {% if project.participants|length > 0 %}
                 {% for participant in project.participants %}
-                    <img src="{{participant.profilePicture}}" alt="{{participant.username}}" class="img-circle img-crew" />
+                    <img src="{{participant.user.profilePicture}}" alt="{{participant.user.nickname}}" class="img-circle img-crew" />
                 {% endfor %}
             {% endif %}
             </div>
@@ -38,35 +36,6 @@
                 </a>
             </div>
 
-            {% if false %}
-{#
-            {% if project.steps|length >= 1 %}
-            <div class="panel-steps">
-                    {% set lastStepCompleted = "" %}
-                    {% set nextStep = "" %}
-                    {% for step in project.steps %}
-                        {% if step.isCompleted %}
-                            {% set lastStepCompleted = step.title %}
-                        {% endif %}
-                    {% endfor %}
-                    <br/>
-                    {% if lastStepCompleted != "" %}
-                        "{{ lastStepCompleted }}"<span class="text-light">: step confirmed!</span>
-                    {% endif %}
-            </div>
-#}
-            <div class="progress">
-                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ project.percentageOfProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percentageOfProgress }}%">
-                    <span class="sr-only">{{ project.percentageOfProgress }}% Complete (success)</span>
-                </div>
-            </div>
-            <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression pull-left"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                {{ project.nbCreditsDone }} <span class="text-light">{% if project.nbCreditsTotal >0 %}/ {{ project.nbCreditsTotal }} {% endif %} Involvement day{% if project.nbCreditsDone > 1 %}s{% endif %} given</span>
-            </div>
-           {% else %}
-            <div class="noprogress">
-            </div>
-           {% endif %}
             <div class="panel-footer {% if not project.active %}panel-inactive{% endif %} panel-footer-credits-progression pull-right">
 
             {% if project.active %}
@@ -78,15 +47,11 @@
             <div class="clearfix"></div>
             <div class="row btn-footer-onecard">
             {% if project.active %}
-
-{% if project.active %}
-    {{
-        render(controller('AppBundle:Project:viewParticipateModal', {
-            id: project.id
-        }))
-    }}
-{% endif %}
-
+                {{
+                    render(controller('AppBundle:Project:viewParticipateModal', {
+                        id: project.id
+                    }))
+                }}
 
                 <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
                     {{

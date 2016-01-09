@@ -57,12 +57,7 @@ class DefaultController extends BaseController
             ->setParameter("endDate", date("Y-m-d H:i:s", time()))
             ->setMaxResults(12)
             ->getResult();
-
         foreach ($projects as $oneProject) {
-            $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
-            $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
-            //$oneProject->setStepsAndCredits($step_list, $all_credits);
-            // Show participants
             $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject);
             $oneProject->setParticipants($participants);
         }
@@ -81,9 +76,6 @@ class DefaultController extends BaseController
             ->getResult();
 
         foreach ($old_projects as $oneProject) {
-            $step_list = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
-            $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
-            //$oneProject->setStepsAndCredits($step_list, $all_credits);
             $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject);
             $oneProject->setParticipants($participants);
         }

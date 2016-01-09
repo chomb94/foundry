@@ -17,41 +17,17 @@ class UserController extends BaseController
     public function indexAction()
     {
         $user        = $this->getUser();
-        $userCredits = $this
-              ->get("doctrine")
-              ->getRepository("AppBundle:UserCredits")
-              ->findBy(array('user_id' => $user->getId()))[0]
-        ;
 
-        $projectsPledged = $this
+        $projectsContributed = $this
            ->get("doctrine")
-           ->getRepository("AppBundle:CreditsHistory")
-           ->findBy(array('user_id' => $user->getId()))
+           ->getRepository("AppBundle:Contributor")
+           ->findBy(array('user' => $user))
         ;
 
         return [
             'menu_myprofile'  => 'active',
             'user'            => $user,
-            'userCredits'     => $userCredits,
-            'projectsPledged' => $projectsPledged,
+            'projectsContributed' => $projectsContributed,
         ];
-    }
-
-    /**
-     * @Security("has_role('ROLE_USER')")
-     * @Template()
-     */
-    public function myCreditsAction()
-    {
-        $user        = $this->getUser();
-        $userCredits = $this
-              ->get("doctrine")
-              ->getRepository("AppBundle:UserCredits")
-              ->findBy(array('user_id' => $user->getId()))[0]
-        ;
-
-        return [
-            'credits' => $userCredits->getCredits(),
-        ];
-    }
+    }   
 }

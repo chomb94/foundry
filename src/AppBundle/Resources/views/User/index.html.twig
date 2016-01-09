@@ -8,8 +8,8 @@
 
                 <h1>Supported projects</h1>
                 <ul>
-            	{% for projectPledged in projectsPledged %}
-                	<li><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> {{ projectPledged.nbCreditsSpent }} contribution for <a href="{{ path('projectView', {id: projectPledged.project.id}) }}"><strong>{{ projectPledged.project.title }}</strong></a> ({{ projectPledged.pledgeDate | date('d M Y, h\\hm') }})</li>
+            	{% for projectContributed in projectsContributed %}
+                	<li><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> contribution for <a href="{{ path('projectView', {id: projectContributed.project.id}) }}"><strong>{{ projectContributed.project.title }}</strong></a> ({{ projectContributed.contributionDate | date('d M Y, h\\hm') }})</li>
                 {% endfor %}
                 </ul>
         </div>

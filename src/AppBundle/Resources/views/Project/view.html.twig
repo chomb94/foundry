@@ -139,8 +139,7 @@
           <img src="{{ project.user.profilePicture }}" class="img-crew-master-big img-circle"/>
           {% if participants|length > 0 %}
             {% for participant in participants %}
-              <img src="{{participant.profilePicture}}" alt="{{participant.username}}" class="img-project-main-participant img-circle" />
-              <span class="label label-success label-badge-participant label-as-badge">{{participant.credits}}</span>
+              <img src="{{participant.user.profilePicture}}" alt="{{participant.user.nickname}}" class="img-project-main-participant img-circle" />
             {% endfor %}
           {% endif %}
         </div>
@@ -217,59 +216,16 @@
         </div>
         {% endif %}
       </div>
+      {% endfor %}
 
-
-    {# With Credits version
-			<div class="one-step {% if step.isCompleted %}completed{% elseif step.isDisplayPledgeForm %}inprogress{% else %}tocomplete{% endif %}">
-                <div class="step-title">
-                    <h3>{{ step.title }}</h3>
-                </div>
-                <div class="step-price">
-                    <span class="step-price-bg">{{ step.pricePaid }}</span>/ {{ step.price }} Involvement Days
-                </div>
-                <div class="clearfix"></div>
-                <p class="step-sidebar-description">{{ step.shortDescription|e }}</p>
-
-                {% if project.isActive %}
-                <div class="step-credits">
-                    {% if step.isCompleted %}
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                        Completed!
-                    {% elseif step.isDisplayPledgeForm %}
-                        <p>You want to participate, give your days :</p>
-                        {% if error == 1 %}
-                            <p><strong>Not enough Days available!</strong></p>
-                        {% endif %}
-                        <form class="steps-sidebar-form" action="{{ path('projectPledge', {id: project.id}) }}" method="post">
-                            <input type="number" id="price" name="price" required="required" class="form-control input-price" min="0" max="{{ userCredits.credits }}">
-                            <button type="submit" id="project_save" name="step" class="btn-default btn"><span class="glyphicon glyphicon-wrench btn-sunglasses-active" aria-hidden="true"></span> I'm in!</button>
-                        </form>
-                    {% else %}
-                        Coming next...
-                    {% endif %}
-                </div>
-                {% endif %}
-			</div>
-    #}
-		{% endfor %}
-		</div>
+    </div>
     {% endif %}
-		{% if myproject %}
-		<div class="sidebar-footer text-center">
-			<a href="{{ path('projectStepPublish', {id: project.id}) }}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add an Achievement</a>
-		</div>
-		{% endif %}
-	</div>
+    {% if myproject %}
+    <div class="sidebar-footer text-center">
+      <a href="{{ path('projectStepPublish', {id: project.id}) }}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> Add an Achievement</a>
+    </div>
+    {% endif %}
+  </div>
 </div>
-{#}
-{% if project.active %}
-
-    {{
-        render(controller('AppBundle:Project:viewParticipateModal', {
-            id: project.id
-        }))
-    }}
-{% endif %}
-#}
 
 {% endblock %}

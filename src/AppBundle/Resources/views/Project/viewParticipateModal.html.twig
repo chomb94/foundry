@@ -1,16 +1,15 @@
 {% set body %}
 
 
-    <form id="participate-modal-form-{{ id }}" action="{{ path('projectPledge', {id: id}) }}" method="post">
+    <form id="participate-modal-form-{{ id }}" action="{{ path('projectContribute', {id: id}) }}" method="post">
         <div class="">
 
-        <input type="hidden" id="price" name="price" required="required" class="form-control input-price-modal" min="0" max="{{ userCredits.credits }}" value="1">
         <p>Do you really want to contribute to this project and to be a part of this crew ?</p>
 
         <a
             href="#"
             id="project_save"
-            data-endpoint="{{ path('projectParticipate', {id: id}) }}"
+            data-endpoint="{{ path('projectContribute', {id: id}) }}"
             data-input="#participate-modal-form-{{ id }}"
             data-output="#participate-{{ id }}"
             data-lock="#participate-modal-form-{{ id }}"

@@ -38,17 +38,10 @@ class Step
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    protected $price;
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
     protected $status;
 
     protected $isCompleted;
     protected $isInProgress;
-    protected $priceToFinish;
-    protected $pricePaid;
-    protected $displayPledgeForm;
 
     /**
      * Get id.
@@ -243,19 +236,19 @@ class Step
     }
 
     /**
-     * Get price.
+     * Get if the step is already completed or not.
      *
      * @return bool
      */
-    public function isCompleted()
+    public function GetIsCompleted()
     {
         return $this->isCompleted;
     }
 
     /**
-     * Set if the step is already completed or not.
+     * Set if the step is in progress or not.
      *
-     * @param bool $isCompleted
+     * @param bool $isInProgress
      *
      * @return Step
      */
@@ -267,84 +260,12 @@ class Step
     }
 
     /**
-     * Get price.
+     * Get if the step is in progress or not.
      *
      * @return bool
      */
-    public function isInProgress()
+    public function GetIsInProgress()
     {
         return $this->isInProgress;
-    }
-
-    /**
-     * Set price to finish the step.
-     *
-     * @param string $priceToFinish
-     *
-     * @return int
-     */
-    public function setPriceToFinish($priceToFinish)
-    {
-        $this->priceToFinish = $priceToFinish;
-
-        return $this;
-    }
-
-    /**
-     * Get price to finish the step.
-     *
-     * @return int
-     */
-    public function getPriceToFinish()
-    {
-        return $this->priceToFinish;
-    }
-
-    /**
-     * Set price to finish the step.
-     *
-     * @param string $priceToFinish
-     *
-     * @return int
-     */
-    public function setPricePaid($pricePaid)
-    {
-        $this->pricePaid = $pricePaid;
-
-        return $this;
-    }
-
-    /**
-     * Get price to finish the step.
-     *
-     * @return int
-     */
-    public function getPricePaid()
-    {
-        return $this->pricePaid;
-    }
-
-    /**
-     * Set if twe should display the pledge form or not.
-     *
-     * @param bool $displayPledgeForm
-     *
-     * @return Step
-     */
-    public function setIsDisplayPledgeForm($displayPledgeForm)
-    {
-        $this->displayPledgeForm = $displayPledgeForm;
-
-        return $this;
-    }
-
-    /**
-     * Tell if we should display the pledge action.
-     *
-     * @return bool
-     */
-    public function isDisplayPledgeForm()
-    {
-        return $this->displayPledgeForm;
     }
 }
