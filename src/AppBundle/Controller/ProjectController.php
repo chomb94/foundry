@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
@@ -15,6 +16,7 @@ use AppBundle\Entity\Vote;
 use AppBundle\Entity\Step;
 use AppBundle\Entity\Contributor;
 use AppBundle\Base\BaseController;
+use AppBundle\Entity\Family;
 
 class ProjectController extends BaseController
 {
@@ -99,11 +101,12 @@ class ProjectController extends BaseController
         $user    = $this->getUser();
         $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
         $family = $project->getFamily();
-        if ( !is_null($family) ) {
-           $family_isActive  = $family->isActive();
-        } else {
-            $family_isActive = true;
+
+        if (is_null($family)) {
+            $family = new Family();
         }
+
+        $family_isActive  = $family->isActive();
 
         if (is_null($project) || !$project->isActive() || !$family_isActive) {
             throw $this->createNotFoundException();
@@ -122,10 +125,10 @@ class ProjectController extends BaseController
             } else {
                 // Check with max_votes
                 $max_votes = $family->getMaxVotes();
-                $user_nb_votes = $this
+                $user_nb_votes = $family->getId() ? $this
                       ->getDoctrine()
                       ->getRepository("AppBundle:Vote")
-                      ->countByUserAndFamily($user, $family);
+                      ->countByUserAndFamily($user, $family) : null;
                 if( ($user_nb_votes < $max_votes) || ($max_votes == null) || ($max_votes < 1) )
                 {
                     // If < max_votes : save vote
@@ -146,7 +149,7 @@ class ProjectController extends BaseController
      * @Route("/project/{id}/contribute", name="projectContribute")
      * @Security("has_role('ROLE_USER')")
      */
-    public function contributeAction($id)
+    public function contributeAction($id, Request $request)
     {
         $user         = $this->getUser();
         $project      = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
@@ -182,16 +185,20 @@ class ProjectController extends BaseController
         // Send mail to project owner
         if ($this->getUser()) {
             $this->get('app.mail')->send(
-               $project->getUser(), 'New Contributore !', 'AppBundle:Email:newProjectPledge.html.twig', [
+               $project->getUser(), 'New Contributor !', 'AppBundle:Email:newPledge.html.twig', [
                 // context required by the template, except subject and user which are already available
                 'project' => $project,
                ]
             );
         }
 
-        return $this->redirectToRoute('projectView', array(
-               'id' => $project->getId(),
-        ));
+        if ($this->isAjax($request)) {
+            return new Response();
+        } else {
+            return $this->redirectToRoute('projectView', array(
+                   'id' => $project->getId(),
+            ));
+        }
     }
 
     /**
