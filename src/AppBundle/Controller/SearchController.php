@@ -26,7 +26,7 @@ class SearchController extends BaseController
             foreach ($projects as $oneProject) {
                 $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
                 $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
-                $oneProject->setStepsAndCredits($step_list, $all_credits);
+                //$oneProject->setStepsAndCredits($step_list, $all_credits);
             }
         }
 
@@ -54,7 +54,7 @@ class SearchController extends BaseController
             foreach ($projects as $oneProject) {
                 $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $oneProject->getId()]);
                 $all_credits = $this->get("doctrine")->getRepository("AppBundle:CreditsHistory")->findBy(['project' => $oneProject]);
-                $oneProject->setStepsAndCredits($step_list, $all_credits);
+                //$oneProject->setStepsAndCredits($step_list, $all_credits);
             }
         }
 

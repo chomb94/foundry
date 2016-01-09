@@ -441,7 +441,7 @@ class ProjectController extends BaseController
 
 
     /**
-     * @Route("/project/{project_id}/step/{step_id}/{pourcent}", name="stepSetStatus")
+     * @Route("/project/{project_id}/step/{step_id}/status/{pourcent}", name="stepSetStatus")
      * @Security("has_role('ROLE_USER')")
      * @Template()
      */
@@ -472,6 +472,47 @@ class ProjectController extends BaseController
         return $this->redirectToRoute('projectView', array(
                'id' => $project_id,
         ));
+    }
+
+    /**
+     * @Route("/project/{project_id}/step/{step_id}/delete", name="stepDelete")
+     * @Security("has_role('ROLE_USER')")
+     * @Template()
+     */
+    public function stepDeleteAction($project_id, $step_id)
+    {
+        $project    = $this->get("doctrine")->getRepository("AppBundle:Project")->find($project_id);
+        $user       = $this->getUser();
+
+        if (is_null($project)) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($project->getUser()->getId() !== $this->getUser()->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $step = $this->get("doctrine")->getRepository("AppBundle:Step")->findById($step_id)[0];
+        if( $step->getProjectId() !== $project->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+       $dql = " DELETE AppBundle\Entity\Step s
+                WHERE s.id = :id
+         ";
+
+        $this
+            ->get("doctrine")
+            ->getEntityManager()
+            ->createQuery($dql)
+            ->setParameter('id', $step_id)
+            ->getResult();
+
+
+        return $this->redirectToRoute('projectView', array(
+               'id' => $project_id,
+        ));
+
     }
 
     /**
