@@ -4,21 +4,21 @@
 <h1>Active Spaces</h1>
 
 <div class="jumbotron">
-    <table class="table table-striped">
-        <thead>
+    <table class="table table-hover">
+        <!-- thead>
             <tr>
                 <td>Space</td>
                 <td>Description</td>
-                <td>Projects</td>
+                <td></td>
                 <td> </td>
             </tr>
-        </thead>
+        </thead -->
         <tbody>
         {% for family in families %}
             <tr>
                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
-                <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }}</a></td>
+                <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} projects</a></td>
                 <td class="text-left">
 
                     <a
@@ -58,21 +58,21 @@
 
     <h3>Inactive Spaces</h3>
 
-    <table class="table table-striped">
-        <thead>
+    <table class="table table-hover">
+        <!-- thead>
             <tr>
                 <td>Space</td>
                 <td>Description</td>
                 <td>Projects</td>
                 <td> </td>
             </tr>
-        </thead>
+        </thead -->
         <tbody>
         {% for family in inactive_families %}
             <tr>
                  <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
                  <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
-                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }}</a></td>
+                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} projects</a></td>
                  <td class="text-left">
                     {% if user.id == family.user_id %}
 
@@ -91,11 +91,6 @@
         </tbody>
     </table>
 {% endif %}
-
-
-<button class="btn btn-default" data-toggle="modal" data-target="#new-family">
-    <span class="glyphicon glyphicon-plus"></span> Create a new Space
-</button>
 
 </div>
 

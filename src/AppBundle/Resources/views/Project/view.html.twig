@@ -133,10 +133,10 @@
       <div class="participants-frame">
         <span class="">Crew:</span>
         <div>
-          <img src="{{ project.user.profilePicture }}" class="img-crew-master-big img-circle"/>
+          <img src="{{ project.user.profilePicture }}" class="img-crew-master-big img-circle" data-toggle="tooltip" data-placement="top" title="{{project.user.nickname}}"/>
           {% if participants|length > 0 %}
             {% for participant in participants %}
-              <img src="{{participant.user.profilePicture}}" alt="{{participant.user.nickname}}" class="img-project-main-participant img-circle" />
+              <img src="{{participant.user.profilePicture}}" alt="{{participant.user.nickname}}" class="img-project-main-participant img-circle" data-toggle="tooltip" data-placement="top" title="{{participant.user.nickname}}" />
             {% endfor %}
           {% endif %}
         </div>
@@ -144,7 +144,7 @@
 
       <div class="row btn-footer-onecard">
       {% if project.isActive %}
-      
+
         {{
             render(controller('AppBundle:Project:viewParticipateModal', {
                 id: project.id

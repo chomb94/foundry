@@ -13,7 +13,7 @@ class StepType extends AbstractType
         $builder
         ->add('title', 'text')
         ->add('shortDescription', 'textarea')
-        ->add('endDate',  'date')
+        //->add('endDate',  'date')
         ->add('add step', 'submit')
         ;
     }

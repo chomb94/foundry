@@ -1,9 +1,7 @@
 
 {% if isParticipant %}
     {% if imInButton %}
-            <span class="btn btn-warning disabled">
-                <span class="glyphicon glyphicon-wrench btn-sunglasses-invert" aria-hidden="true"></span> You are in!
-            </span>
+        <button type="button" class="btn btn-warning" data-container="body" data-toggle="popover" data-placement="top"  data-content="You are a contributor, and it's very exiting. Right?"> <span class="glyphicon glyphicon-wrench btn-sunglasses-invert"></span> You are in!</button>
     {% endif %}
 
 {% else %}

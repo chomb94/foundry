@@ -129,6 +129,7 @@ h1, h2 {
 }
 
 .well {
+  background-color: #eee;
   border: none;
   box-shadow: none;
 }
