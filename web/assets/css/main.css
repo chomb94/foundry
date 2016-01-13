@@ -104,8 +104,12 @@ h1, h2 {
 
 .view-crop {
     width: 100%;
-    height: 360px;
+    height: 330px;
     overflow: hidden;
+}
+
+.Project-shortdescription {
+  margin: 8px 0 24px;
 }
 
 .page-header {
@@ -380,6 +384,7 @@ background: none;
 .project-container-text {
   padding: 24px;
   text-align: justify;
+  font-size: 14px;
 }
 
 .project-image-container {

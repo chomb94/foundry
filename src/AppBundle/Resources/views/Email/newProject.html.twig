@@ -7,7 +7,7 @@
 
 {% block email_contents %}
 
-<p>You have a New Project inf your Family "{{family.name}}": </p>
+<p>You have a New Project in your Family "{{family.name}}": </p>
 <h1><a href="{{ app.request.getSchemeAndHttpHost() }}{{ path('projectView', {id: project.id}) }}">{{project.title}}</a></h1>
 <p>by: {{project.user.nickname}}
 
