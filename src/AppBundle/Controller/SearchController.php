@@ -46,6 +46,12 @@ class SearchController extends BaseController
             $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->projectSearchFromFamily($familyName);
         }
 
+        foreach ($projects as $oneProject) {
+            $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject);
+            $oneProject->setParticipants($participants);
+        }
+
+
         return [
             'family'          => $family,
             'projects'        => $projects,
