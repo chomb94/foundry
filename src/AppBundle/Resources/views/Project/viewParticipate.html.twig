@@ -1,13 +1,13 @@
 
 {% if isParticipant %}
     {% if imInButton %}
-        <button type="button" class="btn btn-warning" data-container="body" data-toggle="popover" data-placement="top"  data-content="You are a contributor, and it's very exiting. Right?"> <span class="glyphicon glyphicon-wrench btn-sunglasses-invert"></span> You are in!</button>
+        <button type="button" class="btn btn-warning" data-container="body" data-toggle="popover" data-placement="top"  data-content="You are a contributor, and it's very exiting. Right?"> <span class="glyphicon glyphicon-user btn-sunglasses-invert"></span> You are in!</button>
     {% endif %}
 
 {% else %}
 
     <a class="btn btn-default" data-toggle="modal" data-target="#participate-modal-{{ id }}">
-        <span id="participate-icon-{{ id }}" class="glyphicon glyphicon-wrench btn-onecard btn-glyphicon-{{ isParticipant ? 'inactive' : 'active' }}" aria-hidden="true"></span><span class="btn-onecard-text"> Contribute</span>
+        <span id="participate-icon-{{ id }}" class="glyphicon glyphicon-user btn-onecard btn-glyphicon-{{ isParticipant ? 'inactive' : 'active' }}" aria-hidden="true"></span><span class="btn-onecard-text"> Contribute</span>
     </a>
 
     {% if message %}
