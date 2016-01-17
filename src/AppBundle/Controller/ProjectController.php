@@ -274,6 +274,11 @@ class ProjectController extends BaseController
         $user     = $this->getUser();
         $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->findByUser($user);
 
+        foreach ($projects as $oneProject) {
+            $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject);
+            $oneProject->setParticipants($participants);
+        }
+
         return [
             'menu_myprojects' => 'active',
             'projects'        => $projects,
@@ -379,10 +384,26 @@ class ProjectController extends BaseController
     {
         $project = new Project();
         // Default family
+                // First list with only project before end date
+        $dql = "SELECT f FROM AppBundle:Family f
+                WHERE f.active = 1
+                ORDER BY f.id ASC
+                ";
+        $family_result = $this
+            ->get("doctrine")
+            ->getEntityManager()
+            ->createQuery($dql)
+            ->setMaxResults(1)
+            ->getResult();
+
         if ($family_id == 0) {
-            $family_id = 1;
+            $family = $family_result[0];
+            $family_id = $family->getId();
+        } else {
+            $family  = $this->getDoctrine()->getRepository("AppBundle:Family")->find($family_id);
         }
-        $family  = $this->getDoctrine()->getRepository("AppBundle:Family")->find($family_id);
+        
+
         $project->setFamily($family);
         // Max 90 days - defaut 90
         if ($family->getEndDate() <> null) {

@@ -495,7 +495,7 @@ class Project
 
     public function getParticipants()
     {
-        return $this->Participants;
+        return $this->participants;
     }
 
     public function setStepsWithStatus($allSteps)
