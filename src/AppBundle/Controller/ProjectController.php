@@ -10,11 +10,15 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\ProjectType;
 use AppBundle\Form\Type\StepType;
 use AppBundle\Form\Type\ParticipateType;
+use AppBundle\Form\Type\ProjectUpdateType;
+use AppBundle\Form\Type\ProjectMessageType;
 use AppBundle\Entity\Project;
 use AppBundle\Entity\UserGoogle;
 use AppBundle\Entity\Vote;
 use AppBundle\Entity\Step;
 use AppBundle\Entity\Contributor;
+use AppBundle\Entity\ProjectUpdate;
+use AppBundle\Entity\ProjectMessage;
 use AppBundle\Base\BaseController;
 use AppBundle\Entity\Family;
 
@@ -32,6 +36,7 @@ class ProjectController extends BaseController
         $user_id     = $user->getId();
         $myproject   = ($user_id == $project->getUser()->getId());
         $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $id]);
+        $activeTab   = "description";
 
         // Rewrite video url if it not contain "embed" for youtube
         $videoUrl = $project->getVideoUrl();
@@ -56,14 +61,75 @@ class ProjectController extends BaseController
         $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($project);
         $project->setStepsWithStatus($step_list);
 
+        // Write project update
+        $update = new ProjectUpdate();
+        $form = $this->createForm(new ProjectUpdateType(), $update);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            if ($project->getUser()->getId() != $user_id) {
+                throw $this->createAccessDeniedException();
+            }
+            $update->setCreationDate(new \DateTime());
+            $update->setProject($project);
+            $manager = $this->get("doctrine")->getManager();
+            $manager->persist($update);
+            $manager->flush();
+
+            $this->success("Your update have been published.");
+            $form = $this->createForm(new ProjectUpdateType());
+            $activeTab = "updates";
+        }
+
+        // Read project updates
+        $updates = $this->get("doctrine")->getRepository("AppBundle:Project")->findUpdates($project);
+
+        // Write project messages/comments
+        $messages = new ProjectMessage();
+        $formMessage = $this->createForm(new ProjectMessageType(), $messages);
+        $formMessage->handleRequest($request);
+
+        if ($formMessage->isValid()) {
+            if ($project->getUser()->getId() != $user_id) {
+                throw $this->createAccessDeniedException();
+            }
+            $messages->setCreationDate(new \DateTime());
+            $messages->setProject($project);
+            $messages->setUser($user);
+            
+            $manager = $this->get("doctrine")->getManager();
+            $manager->persist($messages);
+            $manager->flush();
+
+            $this->success("Your message have been published.");
+            $formMessage = $this->createForm(new ProjectMessageType());
+            $activeTab = "comments";
+        }
+
+        // Read project comments/messages
+        $messages = $this->get("doctrine")->getRepository("AppBundle:Project")->findMessages($project);
+        // Contributor ?
+        foreach ($participants as $oneParticipant) {
+            $participants_table[$oneParticipant->getUser()->getId()] = 1;
+        }
+        foreach ($messages as $oneMessage) {
+            $message_userId = $oneMessage->getUSer()->getId();
+            $oneMessage->setContributor(isset($participants_table[$message_userId])?1:0);
+        }
+
         return [
-            'project'     => $project,
-            'family'      => $project->getfamily(),
-            'myproject'   => $myproject,
-            'steps'       => $project->getSteps(),
-            'error'       => $request->get("error", 0),
-            'user'        => $user,
+            'family'        => $project->getfamily(),
+            'project'       => $project,
+            'myproject'     => $myproject,
+            'updates'       => $updates,
+            'messages'      => $messages,
+            'steps'         => $project->getSteps(),
+            'error'         => $request->get("error", 0),
+            'user'          => $user,
             'participants'  => $participants,
+            'form'          => $form->createView(),
+            'form_message'  => $formMessage->createView(),
+            'activeTab'     => $activeTab,
         ];
     }
 

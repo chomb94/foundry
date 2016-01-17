@@ -20,7 +20,7 @@
                 </a>
             </div>
             <div class="crew">
-                <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-circle img-crew-master"  data-toggle="tooltip" data-placement="top" title="{{project.user.nickname}}" />
+                <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-circle img-crew-master"  data-toggle="tooltip" data-placement="top" title="{{project.user.nickname}} (Owner)" />
 
             {% if project.participants|length > 0 %}
                 {% for participant in project.participants %}
