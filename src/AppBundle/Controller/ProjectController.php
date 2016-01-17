@@ -90,9 +90,6 @@ class ProjectController extends BaseController
         $formMessage->handleRequest($request);
 
         if ($formMessage->isValid()) {
-            if ($project->getUser()->getId() != $user_id) {
-                throw $this->createAccessDeniedException();
-            }
             $messages->setCreationDate(new \DateTime());
             $messages->setProject($project);
             $messages->setUser($user);
