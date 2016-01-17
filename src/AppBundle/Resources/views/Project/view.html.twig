@@ -272,50 +272,35 @@
 
     {% if steps|length > 0 %}
 		<div class="steps-sidebar">
-		<h2>Achievements</h2>
-		{% for step in steps %}
+  		<h2>Achievements</h2>
 
-      <div class="one-step {% if step.isCompleted %}completed{% elseif step.isInProgress %}inprogress{% else %}tocomplete{% endif %}">
-        <div class="step-title">
-            <h3>{{ step.title }}</h3>
-        </div>
-        <div class="clearfix"></div>
-        <p class="step-sidebar-description">{{ step.shortDescription|e }}</p>
-        <div class="step-credits">
-            {% if step.isCompleted %}
-                <span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
-                Completed!
-            {% elseif step.isInProgress %}
-                <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                In Progress...
-            {% else %}
-                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-                Coming next...
-            {% endif %}
-        </div>
-        {% if myproject %}
-        <div class="step-credits text-center">
-          {% if step.isInProgress or step.isCompleted %}
-          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 0}) }}"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Stop</a>
+      {% if project.countStepCompleted %}
+        <span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Completed!
+        {% for step in steps %}
+          {% if step.isCompleted %}
+            {{ include('AppBundle:Project:_oneStepBeyond.html.twig') }}
           {% endif %}
-          {% if not step.isInProgress %}
-          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 50}) }}"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> In progress</a>
+        {% endfor %}
+      {% endif %}
+      
+      {% if project.countStepInProgress %}
+        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> In Progress...
+        {% for step in steps %}
+          {% if step.isInProgress %}
+            {{ include('AppBundle:Project:_oneStepBeyond.html.twig') }}
           {% endif %}
-          {% if not step.isCompleted %}
-          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 100}) }}"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Done</a>
+        {% endfor %}
+      {% endif %}
+      
+      {% if project.countStepToComplete %}
+        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Coming next...
+        {% for step in steps %}
+          {% if not step.isCompleted and not step.isInProgress %}
+            {{ include('AppBundle:Project:_oneStepBeyond.html.twig') }}
           {% endif %}
-          <a
-            href="{{ path('stepDelete', {project_id: project.id, step_id: step.id}) }}"
-            class="btn btn-xs btn-danger"
-            onclick="return confirm('Do you really want to DELETE the {{ step.title|e('html_attr') }} achievement?');">
-            <span class="glyphicon glyphicon-trash"></span>
-          </a>
-
-        </div>
-        {% endif %}
-      </div>
-      {% endfor %}
-
+        {% endfor %}
+      {% endif %}
+  
     </div>
     {% endif %}
     {% if myproject %}
