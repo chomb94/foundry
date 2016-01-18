@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="user_credits",indexes={@ORM\index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="user_credits",indexes={@ORM\Index(name="user_id", columns={"user_id"})})
  */
 class UserCredits
 {

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
- * @ORM\Table(name="project_update",indexes={@ORM\index(name="project_id", columns={"project_id"})})
+ * @ORM\Table(name="project_update",indexes={@ORM\Index(name="project_id", columns={"project_id"})})
  * )
  */
 class ProjectUpdate

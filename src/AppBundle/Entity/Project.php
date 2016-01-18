@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
- * @ORM\Table(name="project",indexes={@ORM\index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="project",indexes={@ORM\Index(name="user_id", columns={"user_id"})})
  * @Vich\Uploadable
  */
 class Project
