@@ -1,14 +1,16 @@
 
 <div class="page-header">
-	<h1>Space: {{ family.name }}
+	<div class="title-family"><h2>Space: {{ family.name }}</h2></div>
 	{% if family.isActive and projects | length > 0 %}
+	<div class="family-project-btn">
 		<a
             data-toggle="modal"
             data-target="#new-project-{{ family.id }}"
             class="btn btn-sm btn-success">Start a new project</a>
+    </div>
 	{% endif %}
-	</h1>
-	<p>Create by: {{ family.user.nickname }}{% if family.maxVotes %} - Max Votes: {{ family.maxVotes }}{% endif %}
+	<div class="clearfix"></div>
+	<p>Create by: {{ family.user.nickname }}
 	{% if not family.isActive %}
 		<span class="label label-warning">Space Stopped</span>
 	{% endif %}
@@ -16,6 +18,7 @@
     {% if family.description %}
 	<div class="well">{{ family.description }}</div>
 	{% endif %}
+	<h4>{% if family.maxVotes %}<span class="label label-info">Max Vote{% if family.maxVotes > 1 %}s{% endif %}: {{ family.maxVotes }}</span>{% endif %}</h4> 
 	{% if user.id == family.user.id %}
     <p>
 	     <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}<span class="glyphicon glyphicon-pause"></span> Click to stop{% else %}<span class="glyphicon glyphicon-play"></span> Click to active{% endif %}</a>

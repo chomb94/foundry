@@ -58,14 +58,14 @@
     <div>
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" {% if activeTab == "description" %}class="active"{% endif %}><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
-        <li role="presentation" {% if activeTab == "updates" %}class="active"{% endif %}><a href="#updates" aria-controls="updates" role="tab" data-toggle="tab">Updates<span class="tab-badge">{{ updates|length }}</span></a></li>
-        <li role="presentation" {% if activeTab == "comments" %}class="active"{% endif %}><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments<span class="tab-badge">{{ messages|length }}</span></a></li>
+        <li role="presentation" {% if activeTab == "description" %}class="active"{% endif %}><a href="#description" aria-controls="description" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-lamp"></span> Description</a></li>
+        <li role="presentation" {% if activeTab == "updates" %}class="active"{% endif %}><a href="#updates" aria-controls="updates" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-bullhorn"></span> Updates<span class="tab-badge">{{ updates|length }}</span></a></li>
+        <li role="presentation" {% if activeTab == "comments" %}class="active"{% endif %}><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> Comments<span class="tab-badge">{{ messages|length }}</span></a></li>
       </ul>
 
         <!-- Tab panes -->
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane {% if activeTab == "description" %}active{% endif %}" id="description">
+        <div role="tabpanel" class="tab-pane fade {% if activeTab == "description" %}active{% endif %}" id="description">
 
       		<div class="project-container-text">
       			<div class="Project-shortdescription">
@@ -118,7 +118,7 @@
         </div>
 
         <!-- Updates -->
-        <div role="tabpanel" class="tab-pane {% if activeTab == "updates" %}active{% endif %}" id="updates">
+        <div role="tabpanel" class="tab-pane fade {% if activeTab == "updates" %}active{% endif %}" id="updates">
             <div class="project-container-text">
               {% if myproject %}
                 <div class="project-update-form">
@@ -150,7 +150,7 @@
         </div>
 
         <!-- Updates -->
-        <div role="tabpanel" class="tab-pane {% if activeTab == "comments" %}active{% endif %}" id="comments">
+        <div role="tabpanel" class="tab-pane fade {% if activeTab == "comments" %}active{% endif %}" id="comments">
             <div class="project-container-text">
                 <div class="project-message-form">
                 {% form_theme form_message 'AppBundle::form_theme.html.twig' %}

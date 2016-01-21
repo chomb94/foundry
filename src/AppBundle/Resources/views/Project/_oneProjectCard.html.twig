@@ -19,6 +19,12 @@
                     </div>
                 </a>
             </div>
+            {% if 0 %}
+            <div class="one-card-notif">
+                <a href="{{ path('projectView', {id: project.id}) }}"><span class="badge"><span class="glyphicon glyphicon-bullhorn"></span> 42</span></a>
+                <a href="{{ path('projectView', {id: project.id}) }}"><span class="badge"><span class="glyphicon glyphicon-comment"></span> 123</span></a>
+            </div>
+            {% endif %}
             <div class="crew">
                 <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-circle img-crew-master"  data-toggle="tooltip" data-placement="top" title="{{project.user.nickname}} (Owner)" />
 

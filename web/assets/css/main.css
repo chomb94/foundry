@@ -178,6 +178,18 @@ h1, h2 {
   /*height: 30px;*/
 }
 
+.one-card-notif {
+  display: block;
+  position: absolute;
+  margin: -25px 0 0 4px;
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 3px;
+}
+
+.one-card-notif .badge {
+  background: none;
+}
+
 .btn-project-disabled {
     background: none;
 }
@@ -605,6 +617,17 @@ background: none;
 
 .input-group-addon {
   color:red;
+}
+
+.title-family {
+  float: left;
+  display: block;
+}
+
+.family-project-btn {
+  display: block;
+  float: left;
+  margin: 21px 0 0 21px;
 }
 
 .family-label, .family-label-view {
