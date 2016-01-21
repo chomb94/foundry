@@ -65,7 +65,7 @@
 
         <!-- Tab panes -->
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade {% if activeTab == "description" %}active{% endif %}" id="description">
+        <div role="tabpanel" class="tab-pane {% if activeTab == "description" %}active{% endif %}" id="description">
 
       		<div class="project-container-text">
       			<div class="Project-shortdescription">
@@ -118,7 +118,7 @@
         </div>
 
         <!-- Updates -->
-        <div role="tabpanel" class="tab-pane fade {% if activeTab == "updates" %}active{% endif %}" id="updates">
+        <div role="tabpanel" class="tab-pane {% if activeTab == "updates" %}active{% endif %}" id="updates">
             <div class="project-container-text">
               {% if myproject %}
                 <div class="project-update-form">
@@ -150,7 +150,7 @@
         </div>
 
         <!-- Updates -->
-        <div role="tabpanel" class="tab-pane fade {% if activeTab == "comments" %}active{% endif %}" id="comments">
+        <div role="tabpanel" class="tab-pane {% if activeTab == "comments" %}active{% endif %}" id="comments">
             <div class="project-container-text">
                 <div class="project-message-form">
                 {% form_theme form_message 'AppBundle::form_theme.html.twig' %}
