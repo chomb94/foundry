@@ -4,7 +4,7 @@
     <form id="participate-modal-form-{{ id }}" action="{{ path('projectContribute', {id: id}) }}" method="post">
         <div class="text-center">
 
-        <img src="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/images/img_contributor_1.gif') }}" alt="Contributor" />
+        <img src="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/images/img_contributor_1.gif') }}" alt="Contributor" class="modal-img"/>
         <p>Do you really want to contribute to this project and to be a part of this crew ?</p>
 
         <a

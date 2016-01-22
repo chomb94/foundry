@@ -151,14 +151,7 @@
 
         <!-- Updates -->
         <div role="tabpanel" class="tab-pane {% if activeTab == "comments" %}active{% endif %}" id="comments">
-            <div class="project-container-text">
-                <div class="project-message-form">
-                {% form_theme form_message 'AppBundle::form_theme.html.twig' %}
-                {{ form_start(form_message) }}
-                {{ form_errors(form_message) }}
-                {{ form_rest(form_message) }}
-                {{ form_end(form_message) }}
-                </div>
+            <div class="project-comments">
                 <div class="project-comment-list">
                 {% if messages|length > 0%}
                   {% for message in messages %}
@@ -186,6 +179,14 @@
                   No comment today.
                 {% endif %}
                 </div>
+                <div class="project-comment-form">
+                  {% form_theme form_message 'AppBundle::form_theme.html.twig' %}
+                  {{ form_start(form_message) }}
+                  {{ form_errors(form_message) }}
+                  {{ form_rest(form_message) }}
+                  {{ form_end(form_message) }}
+                </div>
+
             </div>
         </div>
 
