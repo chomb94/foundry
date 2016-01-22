@@ -20,7 +20,7 @@
                 </a>
             </div>
             <div class="text-center">
-                {% if project.countUpdates > 0 and project.countMessages > 0 %}
+                {% if project.countUpdates > 0 or project.countMessages > 0 %}
                 <div class="one-card-notif">
                     {% if project.countUpdates > 0 %}
                         <a href="{{ path('projectViewOption', {id: project.id, option: 'updates'}) }}"><span class="badge"><span class="glyphicon glyphicon-bullhorn"></span> {{ project.countUpdates|default(0) }}</span></a>

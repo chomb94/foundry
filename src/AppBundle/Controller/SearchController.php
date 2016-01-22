@@ -49,6 +49,7 @@ class SearchController extends BaseController
         $projects_array = array();
 
         $projects_result = $this->get("doctrine")->getRepository("AppBundle:Project")->projectSearchByFamilyId($familyId);        
+        //\Symfony\Component\VarDumper\VarDumper::dump($projects_result);die();
 
         foreach ($projects_result as $oneProject_array) {
             //\Symfony\Component\VarDumper\VarDumper::dump($oneProject_array);die();
