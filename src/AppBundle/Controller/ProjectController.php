@@ -26,17 +26,19 @@ class ProjectController extends BaseController
 {
     /**
      * @Route("/project/view/{id}", name="projectView")
+     * @Route("/project/view/{id}/{option}", name="projectViewOption")
      * @Security("has_role('ROLE_USER')")
      * @Template()
      */
-    public function viewAction(Request $request, $id)
+    public function viewAction(Request $request, $id, $option = "")
     {
         $project     = $this->get("doctrine")->getRepository("AppBundle:Project")->find($id);
         $user        = $this->getUser();
         $user_id     = $user->getId();
         $myproject   = ($user_id == $project->getUser()->getId());
         $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $id]);
-        $activeTab   = "description";
+        $activeTab = ($option == ""? "description":$option);
+
 
         // Rewrite video url if it not contain "embed" for youtube
         $videoUrl = $project->getVideoUrl();
@@ -272,16 +274,32 @@ class ProjectController extends BaseController
     public function listAction()
     {
         $user     = $this->getUser();
-        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->findByUser($user);
+        $dql = "SELECT p as project,
+                        (SELECT count(u.id) FROM AppBundle:ProjectUpdate u WHERE p.id = u.project) as cnt_updates,
+                        (SELECT count(m.id) FROM AppBundle:ProjectMessage m WHERE p.id = m.project) as cnt_messages
+                    FROM AppBundle:Project p
+                    WHERE p.user = :user
+                    ORDER BY p.endDate ASC
+                    ";
+        $projects_result = $this
+            ->get("doctrine")
+            ->getEntityManager()
+            ->createQuery($dql)
+            ->setParameter("user", $user)
+            ->getResult();
 
-        foreach ($projects as $oneProject) {
-            $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject);
-            $oneProject->setParticipants($participants);
+        $projects_array = array();
+        foreach ($projects_result as $oneProject_array) {
+            $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject_array['project']);
+            $oneProject_array['project']->setParticipants($participants);
+            $oneProject_array['project']->setCountUpdates($oneProject_array['cnt_updates']);
+            $oneProject_array['project']->setCountMessages($oneProject_array['cnt_messages']);
+            array_push($projects_array, $oneProject_array['project']);
         }
 
         return [
             'menu_myprojects' => 'active',
-            'projects'        => $projects,
+            'projects'        => $projects_array,
             'user'            => $user,
         ];
     }

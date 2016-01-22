@@ -19,12 +19,18 @@
                     </div>
                 </a>
             </div>
-            {% if 0 %}
-            <div class="one-card-notif">
-                <a href="{{ path('projectView', {id: project.id}) }}"><span class="badge"><span class="glyphicon glyphicon-bullhorn"></span> 42</span></a>
-                <a href="{{ path('projectView', {id: project.id}) }}"><span class="badge"><span class="glyphicon glyphicon-comment"></span> 123</span></a>
+            <div class="text-center">
+                {% if project.countUpdates > 0 and project.countMessages > 0 %}
+                <div class="one-card-notif">
+                    {% if project.countUpdates > 0 %}
+                        <a href="{{ path('projectViewOption', {id: project.id, option: 'updates'}) }}"><span class="badge"><span class="glyphicon glyphicon-bullhorn"></span> {{ project.countUpdates|default(0) }}</span></a>
+                    {% endif %}
+                    {% if project.countMessages > 0 %}
+                        <a href="{{ path('projectViewOption', {id: project.id, option: 'comments'}) }}"><span class="badge"><span class="glyphicon glyphicon-comment"></span> {{ project.countMessages|default(0) }}</span></a>
+                    {% endif %}
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
             <div class="crew">
                 <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-circle img-crew-master"  data-toggle="tooltip" data-placement="top" title="{{project.user.nickname}} (Owner)" />
 

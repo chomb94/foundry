@@ -97,13 +97,14 @@ class ProjectRepository extends EntityRepository
 
     public function projectSearchFromFamily($familyName) {
         return $this->_em->createQuery("
-            SELECT p
-            FROM AppBundle\Entity\Project p
-            INNER JOIN AppBundle\Entity\Family f WITH p.family = f.id
-            WHERE
-                f.name = :search
-            ORDER BY p.active DESC, p.title ASC
-         ")->setParameters(array(
+                SELECT p as project,
+                    (SELECT count(u.id) FROM AppBundle:ProjectUpdate u WHERE p.id = u.project) as cnt_updates,
+                    (SELECT count(m.id) FROM AppBundle:ProjectMessage m WHERE p.id = m.project) as cnt_messages
+                FROM AppBundle:Project p
+                INNER JOIN AppBundle\Entity\Family f WITH p.family = f.id
+                WHERE f.name = :search
+                ORDER BY p.active DESC, p.title ASC
+        ")->setParameters(array(
              'search' => $familyName,
          ))->getResult();
     }

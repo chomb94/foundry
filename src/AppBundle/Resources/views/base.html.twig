@@ -7,6 +7,7 @@
         <link href='https://fonts.googleapis.com/css?family=Miss+Fajardose|Quicksand' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/css/main.css') }}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         {% block stylesheets %}{% endblock %}
         {% block head_only_web %}
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />

@@ -98,6 +98,8 @@ class Project
     protected $countStepInProgress = false;
     protected $countStepCompleted = false;
     protected $countStepToComplete = false;
+    protected $countUpdates = 0;
+    protected $countMessages = 0;
 
     /**
      * @Vich\UploadableField(mapping="project_image", fileNameProperty="imageName")
@@ -534,6 +536,18 @@ class Project
         return $this;
     }
 
+    public function setCountMessages($countMessages)
+    {
+        $this->countMessages = $countMessages;
+        return $this;
+    }
+
+    public function setCountUpdates($countUpdates)
+    {
+        $this->countUpdates = $countUpdates;
+        return $this;
+    }
+
     public function getCountStepCompleted()
     {
         return $this->countStepCompleted;
@@ -549,79 +563,15 @@ class Project
         return $this->countStepToComplete;
     }
 
-/*
-    public function setStepsAndCredits($allSteps, $allCredits)
+    public function getCountMessages()
     {
-        $this->allSteps = $allSteps;
-        $this->allCredits = $allCredits;
-
-        // Computing sum of all credit already pledged
-        $totalAlreadyPledged = 0;
-        foreach ($allCredits as $oneCredit) {
-            $totalAlreadyPledged += $oneCredit->getNbCreditsSpent();
-        }
-
-        // Checking for each step if it's already completed or not
-        $firstElementToDo = true;
-        foreach ($allSteps as $oneStep) {
-            if ($totalAlreadyPledged >= $oneStep->getPrice()) {
-                $oneStep->setIsCompleted(true);
-                $oneStep->setPriceToFinish(0);
-                $oneStep->setPricePaid($totalAlreadyPledged);
-                $oneStep->setIsDisplayPledgeForm(false);
-                $totalAlreadyPledged -= $oneStep->getPrice();
-            } elseif ($totalAlreadyPledged > 0) {
-                $oneStep->setIsCompleted(false);
-                $oneStep->setPriceToFinish($oneStep->getPrice() - $totalAlreadyPledged);
-                $oneStep->setPricePaid($totalAlreadyPledged);
-                $oneStep->setIsDisplayPledgeForm(true);
-                $totalAlreadyPledged = 0;
-                $firstElementToDo = false;
-            } else {
-                $oneStep->setIsCompleted(false);
-                $oneStep->setPriceToFinish($oneStep->getPrice());
-                $oneStep->setPricePaid(0);
-                $oneStep->setIsDisplayPledgeForm($firstElementToDo);
-                $firstElementToDo = false;
-            }
-        }
+        return $this->countMessages;
     }
 
-    public function getPercentageOfProgress()
+    public function getCountUpdates()
     {
-        $percentage = 0;
-
-        $step_currentValue = $this->getNbCreditsDone();
-        $step_totalValue = ($this->getNbCreditsTotal() == 0 ? 1 : $this->getNbCreditsTotal());
-
-        return round($step_currentValue * 100 / $step_totalValue);
+        return $this->countUpdates;
     }
-
-    public function getNbCreditsDone()
-    {
-        $nbCredits = 0;
-        foreach ($this->allSteps as $oneStep) {
-            if ($oneStep->isCompleted()) {
-                $nbCredits += $oneStep->getPrice();
-            } else {
-                $nbCredits += ($oneStep->getPrice() - $oneStep->getPriceToFinish());
-            }
-        }
-
-        return $nbCredits;
-    }
-
-    public function getNbCreditsTotal()
-    {
-        $nbCredits = 0;
-        foreach ($this->allSteps as $oneStep) {
-            $nbCredits += $oneStep->getPrice();
-        }
-
-        return $nbCredits;
-    }
-
-    */
 
     public function getDaysToGo()
     {

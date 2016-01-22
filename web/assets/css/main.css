@@ -180,14 +180,14 @@ h1, h2 {
 
 .one-card-notif {
   display: block;
-  position: absolute;
   margin: -25px 0 0 4px;
-  background-color: rgba(0,0,0,0.4);
+  /* background-color: rgba(0,0,0,0.4); */
   border-radius: 3px;
 }
 
 .one-card-notif .badge {
-  background: none;
+    background-color: rgba(238,162,54,0.7);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
 }
 
 .btn-project-disabled {

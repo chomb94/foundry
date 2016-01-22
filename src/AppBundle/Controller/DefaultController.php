@@ -46,28 +46,41 @@ class DefaultController extends BaseController
         $inactive_families = $inactive_families[0][1];
 
         // First list with only project before end date
-        $dql = "SELECT p FROM AppBundle:Project p
+        $dql = "SELECT p as project,
+                    (SELECT count(u.id) FROM AppBundle:ProjectUpdate u WHERE p.id = u.project) as cnt_updates,
+                    (SELECT count(m.id) FROM AppBundle:ProjectMessage m WHERE p.id = m.project) as cnt_messages
+                FROM AppBundle:Project p
                 WHERE p.endDate >= :endDate
                 ORDER BY p.endDate ASC
                 ";
-        $projects = $this
+
+        $projects_result = $this
             ->get("doctrine")
             ->getEntityManager()
             ->createQuery($dql)
             ->setParameter("endDate", date("Y-m-d H:i:s", time()))
             ->setMaxResults(12)
             ->getResult();
-        foreach ($projects as $oneProject) {
-            $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject);
-            $oneProject->setParticipants($participants);
+
+        $projects = array();
+        foreach ($projects_result as $oneProject_array) {
+            //\Symfony\Component\VarDumper\VarDumper::dump($oneProject_array);die();
+            $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject_array['project']);
+            $oneProject_array['project']->setParticipants($participants);
+            $oneProject_array['project']->setCountUpdates($oneProject_array['cnt_updates']);
+            $oneProject_array['project']->setCountMessages($oneProject_array['cnt_messages']);
+            array_push($projects, $oneProject_array['project']);
         }
 
         // Old projects (date < now)
-        $dql_old = "SELECT p FROM AppBundle:Project p
+        $dql_old = "SELECT p as project,
+                        (SELECT count(u.id) FROM AppBundle:ProjectUpdate u WHERE p.id = u.project) as cnt_updates,
+                        (SELECT count(m.id) FROM AppBundle:ProjectMessage m WHERE p.id = m.project) as cnt_messages
+                    FROM AppBundle:Project p
                     WHERE p.endDate < :endDate
                     ORDER BY p.endDate ASC
                     ";
-        $old_projects = $this
+        $old_projects_result = $this
             ->get("doctrine")
             ->getEntityManager()
             ->createQuery($dql_old)
@@ -75,9 +88,14 @@ class DefaultController extends BaseController
             ->setMaxResults(12)
             ->getResult();
 
-        foreach ($old_projects as $oneProject) {
-            $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject);
-            $oneProject->setParticipants($participants);
+        $old_projects = array();
+        foreach ($old_projects_result as $oneProject_array) {
+            //\Symfony\Component\VarDumper\VarDumper::dump($oneProject_array);die();
+            $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject_array['project']);
+            $oneProject_array['project']->setParticipants($participants);
+            $oneProject_array['project']->setCountUpdates($oneProject_array['cnt_updates']);
+            $oneProject_array['project']->setCountMessages($oneProject_array['cnt_messages']);
+            array_push($old_projects, $oneProject_array['project']);
         }
 
         return array(
