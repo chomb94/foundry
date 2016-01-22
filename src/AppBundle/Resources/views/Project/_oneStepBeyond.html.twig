@@ -1,0 +1,27 @@
+      <div class="one-step {% if step.isCompleted %}completed{% elseif step.isInProgress %}inprogress{% else %}tocomplete{% endif %}">
+        <div class="step-title">
+            <h3>{{ step.title }}</h3>
+        </div>
+        <div class="clearfix"></div>
+        <p class="step-sidebar-description">{{ step.shortDescription|e }}</p>
+        {% if myproject %}
+        <div class="step-credits text-center">
+          {% if step.isInProgress or step.isCompleted %}
+          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 0}) }}"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Stop</a>
+          {% endif %}
+          {% if not step.isInProgress %}
+          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 50}) }}"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> In progress</a>
+          {% endif %}
+          {% if not step.isCompleted %}
+          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 100}) }}"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Done</a>
+          {% endif %}
+          <a
+            href="{{ path('stepDelete', {project_id: project.id, step_id: step.id}) }}"
+            class="btn btn-xs btn-danger"
+            onclick="return confirm('Do you really want to DELETE the {{ step.title|e('html_attr') }} achievement?');">
+            <span class="glyphicon glyphicon-trash"></span>
+          </a>
+
+        </div>
+        {% endif %}
+      </div>

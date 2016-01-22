@@ -71,6 +71,30 @@ class ProjectRepository extends EntityRepository
          ))->getResult();
     }
 
+    public function findUpdates($project) {
+        return $this->_em->createQuery("
+            SELECT u
+            FROM AppBundle\Entity\ProjectUpdate u
+            WHERE u.project = :project
+            ORDER by u.creationDate DESC
+         ")->setParameters(array(
+             'project' => $project,
+         ))->getResult();
+    }
+
+    public function findMessages($project) {
+            // LEFT JOIN AppBundle\Entity\Contributor c
+            // WITH c.user = m.user AND c.project = :project
+        return $this->_em->createQuery("
+            SELECT m
+            FROM AppBundle\Entity\ProjectMessage m
+            WHERE m.project = :project 
+            ORDER by m.creationDate DESC
+         ")->setParameters(array(
+             'project' => $project,
+         ))->getResult();
+    }
+
     public function projectSearchFromFamily($familyName) {
         return $this->_em->createQuery("
             SELECT p

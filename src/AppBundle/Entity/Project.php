@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
- * @ORM\Table(name="project",indexes={@ORM\index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="project",indexes={@ORM\Index(name="user_id", columns={"user_id"})})
  * @Vich\Uploadable
  */
 class Project
@@ -95,6 +95,9 @@ class Project
      */
     protected $allSteps;
     protected $allCredits;
+    protected $countStepInProgress = false;
+    protected $countStepCompleted = false;
+    protected $countStepToComplete = false;
 
     /**
      * @Vich\UploadableField(mapping="project_image", fileNameProperty="imageName")
@@ -483,16 +486,16 @@ class Project
         return $this->allCredits;
     }
 
-    public function setParticipants($Participants)
+    public function setParticipants($participants)
     {
-        $this->participants = $Participants;
+        $this->participants = $participants;
     
         return $this;
     }
 
     public function getParticipants()
     {
-        return $this;
+        return $this->participants;
     }
 
     public function setStepsWithStatus($allSteps)
@@ -502,13 +505,50 @@ class Project
             $status = $oneStep->getStatus();
             if ($status == 100) {
                 $oneStep->setisCompleted(true);
+                $this->setCountStepCompleted(true);
             } elseif ( $status < 100 and $status > 0 ) {
                 $oneStep->setisInProgress(true);
+                $this->setCountStepInProgress(true);
+            } else {
+                $this->setCountStepToComplete(true);                
             }
         }
-
     }
-    
+
+
+    public function setCountStepCompleted($countStepCompleted)
+    {
+        $this->countStepCompleted = $countStepCompleted;
+        return $this;
+    }
+
+    public function setCountStepInProgress($countStepInProgress)
+    {
+        $this->countStepInProgress = $countStepInProgress;
+        return $this;
+    }
+
+    public function setCountStepToComplete($countStepToComplete)
+    {
+        $this->countStepToComplete = $countStepToComplete;
+        return $this;
+    }
+
+    public function getCountStepCompleted()
+    {
+        return $this->countStepCompleted;
+    }
+
+    public function getCountStepInProgress()
+    {
+        return $this->countStepInProgress;
+    }
+
+    public function getCountStepToComplete()
+    {
+        return $this->countStepToComplete;
+    }
+
 /*
     public function setStepsAndCredits($allSteps, $allCredits)
     {

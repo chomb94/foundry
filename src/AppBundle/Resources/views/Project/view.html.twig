@@ -54,54 +54,144 @@
       </div>
     {% endif %}
 		</div>
-		<div class="project-container-text">
-			<div class="Project-shortdescription">
-				<p>
-				  {{ project.shortDescription|e|nl2br }}
-				</p>
-			</div>
 
-      {% if project.videoUrl != ""  and asset(vich_uploader_asset(project, 'imageFile')) %}
-        <p>      <!-- 16:9 aspect ratio -->
-          <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="{{ project.videoUrl|e('html_attr') }}"></iframe>
-          </div>
-        </p>
-      {% endif %}
+    <div>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" {% if activeTab == "description" %}class="active"{% endif %}><a href="#description" aria-controls="description" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-lamp"></span> Description</a></li>
+        <li role="presentation" {% if activeTab == "updates" %}class="active"{% endif %}><a href="#updates" aria-controls="updates" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-bullhorn"></span> Updates<span class="tab-badge">{{ updates|length }}</span></a></li>
+        <li role="presentation" {% if activeTab == "comments" %}class="active"{% endif %}><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> Comments<span class="tab-badge">{{ messages|length }}</span></a></li>
+      </ul>
 
-			{% if project.fullDescription != '' %}
-      <hr>
-          <p>
-            {{ project.fullDescription|e|nl2br }}
-          </p>
-			{% endif %}
+        <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane {% if activeTab == "description" %}active{% endif %}" id="description">
 
-			{% if project.team != '' %}
-  			<h3>People needed:</h3>
-  			<p>
-  			  {{ project.team|e|nl2br }}
-  			</p>
-			{% endif %}
+      		<div class="project-container-text">
+      			<div class="Project-shortdescription">
+      				<p>
+      				  {{ project.shortDescription|e|nl2br }}
+      				</p>
+      			</div>
 
-			{% if project.risksChallenges != '' %}
-                <h3>Risks and Challenges:</h3>
+            {% if project.videoUrl != ""  and asset(vich_uploader_asset(project, 'imageFile')) %}
+              <p>      <!-- 16:9 aspect ratio -->
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" src="{{ project.videoUrl|e('html_attr') }}"></iframe>
+                </div>
+              </p>
+            {% endif %}
+
+      			{% if project.fullDescription != '' %}
+            <hr>
                 <p>
-                  {{ project.risksChallenges|e|nl2br }}
+                  {{ project.fullDescription|e|nl2br }}
                 </p>
-			{% endif %}
+      			{% endif %}
 
-			{% if project.deliveryPromise != '' %}
-                <h3>DeliveryPromise:</h3>
-                <p>
-                  {{ project.deliveryPromise|e|nl2br }}
-                </p>
-			{% endif %}
+      			{% if project.team != '' %}
+        			<h3>People needed:</h3>
+        			<p>
+        			  {{ project.team|e|nl2br }}
+        			</p>
+      			{% endif %}
 
-      <hr>
-      <p>
-      Creation Date: {{ project.creationDate.date|date('Y-m-d H:i:s') }}
-			</p>
-		</div>
+      			{% if project.risksChallenges != '' %}
+                      <h3>Risks and Challenges:</h3>
+                      <p>
+                        {{ project.risksChallenges|e|nl2br }}
+                      </p>
+      			{% endif %}
+
+      			{% if project.deliveryPromise != '' %}
+                      <h3>DeliveryPromise:</h3>
+                      <p>
+                        {{ project.deliveryPromise|e|nl2br }}
+                      </p>
+      			{% endif %}
+
+            <hr>
+            <p>
+            Creation Date: {{ project.creationDate.date|date('Y-m-d H:i:s') }}
+      			</p>
+      		</div>
+        </div>
+
+        <!-- Updates -->
+        <div role="tabpanel" class="tab-pane {% if activeTab == "updates" %}active{% endif %}" id="updates">
+            <div class="project-container-text">
+              {% if myproject %}
+                <div class="project-update-form">
+                {% form_theme form 'AppBundle::form_theme.html.twig' %}
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+                </div>
+              {% endif %}
+                <div class="project-update-list">
+                {% if updates|length > 0%}
+                  {% for update in updates %}
+                    <div class="project-update">
+                      <div class="update-date-bubble"></div>
+                      <div class="update-date">
+                        {{ update.creationDate.date|date('M d, Y') }}
+                      </div>
+                      <div class="update-description">
+                        {{ update.shortDescription|e|nl2br }}
+                      </div>
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  No update today.
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Updates -->
+        <div role="tabpanel" class="tab-pane {% if activeTab == "comments" %}active{% endif %}" id="comments">
+            <div class="project-container-text">
+                <div class="project-message-form">
+                {% form_theme form_message 'AppBundle::form_theme.html.twig' %}
+                {{ form_start(form_message) }}
+                {{ form_errors(form_message) }}
+                {{ form_rest(form_message) }}
+                {{ form_end(form_message) }}
+                </div>
+                <div class="project-comment-list">
+                {% if messages|length > 0%}
+                  {% for message in messages %}
+                    <div class="project-comment">
+                      <div class="project-comment-user">
+                        <img src="{{ message.user.profilePicture }}" alt="{{ message.user.nickname }}" class="img-project-main-participant img-circle" data-toggle="tooltip" data-placement="top" title="{{ message.user.nickname }}" />
+                        {% if project.user.id == message.user.id %}
+                          <span class="label comment-label-owner">Owner</span>
+                        {% elseif message.contributor %}
+                          <span class="label label-info comment-label">Crew</span>
+                        {% endif %}
+
+                      </div>
+                      <div class="arrow-left"></div>
+                      <div class="comment-message">
+                        {{ message.message|e|nl2br }}
+                        <div class="comment-date">
+                          {{ message.creationDate.date|date('M d, Y') }}
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  No comment today.
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+
 	</div>
 	<div class="col-md-4">
 		<div class="summary">
@@ -132,6 +222,7 @@
       <div class="participants-frame">
         <span class="">Crew:</span>
         <div>
+          <span class="label comment-label-owner-summary">Owner</span>
           <img src="{{ project.user.profilePicture }}" class="img-crew-master-big img-circle" data-toggle="tooltip" data-placement="top" title="{{project.user.nickname}}"/>
           {% if participants|length > 0 %}
             {% for participant in participants %}
@@ -181,50 +272,35 @@
 
     {% if steps|length > 0 %}
 		<div class="steps-sidebar">
-		<h2>Achievements</h2>
-		{% for step in steps %}
+  		<h2>Achievements</h2>
 
-      <div class="one-step {% if step.isCompleted %}completed{% elseif step.isInProgress %}inprogress{% else %}tocomplete{% endif %}">
-        <div class="step-title">
-            <h3>{{ step.title }}</h3>
-        </div>
-        <div class="clearfix"></div>
-        <p class="step-sidebar-description">{{ step.shortDescription|e }}</p>
-        <div class="step-credits">
-            {% if step.isCompleted %}
-                <span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
-                Completed!
-            {% elseif step.isInProgress %}
-                <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                In Progress...
-            {% else %}
-                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-                Coming next...
-            {% endif %}
-        </div>
-        {% if myproject %}
-        <div class="step-credits text-center">
-          {% if step.isInProgress or step.isCompleted %}
-          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 0}) }}"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Stop</a>
+      {% if project.countStepCompleted %}
+        <span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Completed!
+        {% for step in steps %}
+          {% if step.isCompleted %}
+            {{ include('AppBundle:Project:_oneStepBeyond.html.twig') }}
           {% endif %}
-          {% if not step.isInProgress %}
-          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 50}) }}"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> In progress</a>
+        {% endfor %}
+      {% endif %}
+      
+      {% if project.countStepInProgress %}
+        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> In Progress...
+        {% for step in steps %}
+          {% if step.isInProgress %}
+            {{ include('AppBundle:Project:_oneStepBeyond.html.twig') }}
           {% endif %}
-          {% if not step.isCompleted %}
-          <a class="btn btn-xs btn-default" href="{{ path('stepSetStatus', {project_id: project.id, step_id: step.id, pourcent: 100}) }}"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Done</a>
+        {% endfor %}
+      {% endif %}
+      
+      {% if project.countStepToComplete %}
+        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Coming next...
+        {% for step in steps %}
+          {% if not step.isCompleted and not step.isInProgress %}
+            {{ include('AppBundle:Project:_oneStepBeyond.html.twig') }}
           {% endif %}
-          <a
-            href="{{ path('stepDelete', {project_id: project.id, step_id: step.id}) }}"
-            class="btn btn-xs btn-danger"
-            onclick="return confirm('Do you really want to DELETE the {{ step.title|e('html_attr') }} achievement?');">
-            <span class="glyphicon glyphicon-trash"></span>
-          </a>
-
-        </div>
-        {% endif %}
-      </div>
-      {% endfor %}
-
+        {% endfor %}
+      {% endif %}
+  
     </div>
     {% endif %}
     {% if myproject %}
