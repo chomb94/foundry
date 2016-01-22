@@ -31,26 +31,20 @@ class SearchController extends BaseController
     }
 
     /**
-     * @Route("/search/family/{familyName}", name="familySearch")
+     * @Route("/search/family/{familyId}/{familyName}", name="familySearch")
      * @Template()
      */
-    public function familyAction(Request $request, $familyName)
+    public function familyAction(Request $request, $familyId, $familyName)
     {
         $user     = $this->getUser();
-        $familyName = trim($familyName);
-        $family_array = $this->get("doctrine")->getRepository("AppBundle:Project")->familySearchFromName($familyName);
-        $familyId = $family_array[0]->getId();
+        $familyId = trim($familyId);
         $family = $this->get("doctrine")->getRepository("AppBundle:Family")->find($familyId);
-
-        if (strlen($familyName) > 0) {
-            $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->projectSearchFromFamily($familyName);
-        }
+        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->projectSearchByFamilyId($familyId);
 
         foreach ($projects as $oneProject) {
             $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject);
             $oneProject->setParticipants($participants);
         }
-
 
         return [
             'family'          => $family,

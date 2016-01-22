@@ -16,9 +16,9 @@
         <tbody>
         {% for family in families %}
             <tr>
-                <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
-                <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
-                <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} projects</a></td>
+                <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.name }}</a></td>
+                <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
+                <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.nbProjects }} projects</a></td>
                 <td class="text-left">
 
                     <a
@@ -76,9 +76,9 @@
         <tbody>
         {% for family in inactive_families %}
             <tr>
-                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
-                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
-                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} projects</a></td>
+                 <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.name }}</a></td>
+                 <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
+                 <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.nbProjects }} projects</a></td>
                  <td class="text-left">
                     {% if user.id == family.user_id %}
 
