@@ -16,9 +16,9 @@
         <tbody>
         {% for family in families %}
             <tr>
-                <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
-                <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
-                <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} projects</a></td>
+                <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.name }}</a></td>
+                <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
+                <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.nbProjects }} projects</a></td>
                 <td class="text-left">
 
                     <a
@@ -27,7 +27,13 @@
                         class="btn btn-success {% if not family.active %}disabled{% endif %}">Start a new project</a>
 
                     {% if user.id == family.user_id %}
-                        <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}<span class="glyphicon glyphicon-pause"></span>  to stop{% else %}Click to active{% endif %}</a>
+                        <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
+                            {% if family.active %}
+                                <span class="glyphicon glyphicon-pause"></span>  Disable
+                            {% else %}
+                                Activate
+                            {% endif %}
+                        </a>
                         <a
                             href="{{ path('familyVotes', {id: family.id}) }}"
                             class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span>
@@ -70,13 +76,16 @@
         <tbody>
         {% for family in inactive_families %}
             <tr>
-                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.name }}</a></td>
-                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
-                 <td><a href="{{ path('familySearch', {familyName: family.name}) }}">{{ family.nbProjects }} projects</a></td>
+                 <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.name }}</a></td>
+                 <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
+                 <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.nbProjects }} projects</a></td>
                  <td class="text-left">
                     {% if user.id == family.user_id %}
 
-                        <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if not family.active %}<span class="glyphicon glyphicon-play"></span> to activate{% endif %}</a>
+                        <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
+                        {% if not family.active %}
+                            <span class="glyphicon glyphicon-play"></span> Activate
+                        {% endif %}</a>
 
                         <a
                             href="{{ path('familyVotes', {id: family.id}) }}"

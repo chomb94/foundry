@@ -21,9 +21,15 @@
 	<h4>{% if family.maxVotes %}<span class="label label-info">Max Vote{% if family.maxVotes > 1 %}s{% endif %}: {{ family.maxVotes }}</span>{% endif %}</h4> 
 	{% if user.id == family.user.id %}
     <p>
-	     <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">{% if family.active %}<span class="glyphicon glyphicon-pause"></span> Click to stop{% else %}<span class="glyphicon glyphicon-play"></span> Click to active{% endif %}</a>
+	     <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
+	     	{% if family.active %}
+	     		<span class="glyphicon glyphicon-pause"></span> Disable
+	     	{% else %}
+	     		<span class="glyphicon glyphicon-play"></span> Activate
+	     	{% endif %}
+	     </a>
          <a href="{{ path('familyVotes', {id: family.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> View votes</a>
-         <a href="{{ path('familySearch', {familyName: family.name}) }}" class="btn btn-default"><span class="glyphicon glyphicon-th-large"></span> Projects</a>
+         <a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-default"><span class="glyphicon glyphicon-th-large"></span> Projects</a>
     </p>
     {% endif %}
 </div>

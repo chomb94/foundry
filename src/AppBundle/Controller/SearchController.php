@@ -31,23 +31,25 @@ class SearchController extends BaseController
     }
 
     /**
-     * @Route("/search/family/{familyName}", name="familySearch")
+     * @Route("/search/family/{familyId}/{familyName}", name="familySearch")
+     * @Route("/search/family/{familyName}", name="familySearchOld")
      * @Template()
      */
-    public function familyAction(Request $request, $familyName)
+    public function familyAction(Request $request, $familyId = 0, $familyName)
     {
         $user     = $this->getUser();
         $familyName = trim($familyName);
-        $family_array = $this->get("doctrine")->getRepository("AppBundle:Project")->familySearchFromName($familyName);
-        $familyId = $family_array[0]->getId();
+        if ( $familyId == 0 ) {
+            $family_array = $this->get("doctrine")->getRepository("AppBundle:Project")->familySearchFromName($familyName);
+            $familyId = $family_array[0]->getId();
+        } else {
+            $familyId = trim($familyId);
+        }
         $family = $this->get("doctrine")->getRepository("AppBundle:Family")->find($familyId);
         $projects_array = array();
 
-        if (strlen($familyName) > 0) {
-            $projects_result = $this->get("doctrine")->getRepository("AppBundle:Project")->projectSearchFromFamily($familyName);
-            //\Symfony\Component\VarDumper\VarDumper::dump($projects_result);die();
-        }
-        
+        $projects_result = $this->get("doctrine")->getRepository("AppBundle:Project")->projectSearchByFamilyId($familyId);        
+
         foreach ($projects_result as $oneProject_array) {
             //\Symfony\Component\VarDumper\VarDumper::dump($oneProject_array);die();
             $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($oneProject_array['project']);

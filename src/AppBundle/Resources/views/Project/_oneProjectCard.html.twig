@@ -7,7 +7,7 @@
         <div class="panel-body">
             {% if project.family.name is defined %}
             <span class="label label-primary family-label">
-                <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
+                <a href="{{ path('familySearch', {familyId: project.family.id, familyName: project.family.name}) }}">{{ project.family.name|default }}</a>
             </span>
             {% endif %}
             <div class="crop">

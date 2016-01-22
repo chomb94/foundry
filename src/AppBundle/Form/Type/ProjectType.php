@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Repository\FamilyRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,7 +15,12 @@ class ProjectType extends AbstractType
             ->add('family', 'entity', array(
                 'label' => 'Family',
                 'class' => 'AppBundle\Entity\Family',
-                'property' => 'name'
+                'property' => 'name',
+                'query_builder' => function(FamilyRepository $repository) {
+                    return $repository->createQueryBuilder('f')
+                        ->where('f.active = 1')
+                        ->orderBy('f.name', 'ASC');
+                },
             ))
             ->add('title', 'text')
             ->add('imageFile', 'vich_file', array(
