@@ -10,26 +10,56 @@
     </div>
 	{% endif %}
 	<div class="clearfix"></div>
-	<p>Created by: {{ family.user.nickname }}
-	{% if not family.isActive %}
-		<span class="label label-warning">Space Stopped</span>
-	{% endif %}
-	</p>
+	<div class="family-sub-titles">
+		<div class="pull-left">Created by: {{ family.user.nickname }}</div>
+		{% if family.maxVotes %}
+			<div class="pull-left"><span class="label label-info">Max Vote{% if family.maxVotes > 1 %}s{% endif %}: {{ family.maxVotes }}</span></div>
+		{% endif %}
+		{% if not family.isActive %}
+			<div class="pull-left"><span class="label label-warning">Space Stopped</span></div>
+		{% endif %}
+	</div>
+	<div class="clearfix"></div>
     {% if family.description %}
 	<div class="well">{{ family.description }}</div>
 	{% endif %}
-	<h4>{% if family.maxVotes %}<span class="label label-info">Max Vote{% if family.maxVotes > 1 %}s{% endif %}: {{ family.maxVotes }}</span>{% endif %}</h4> 
-	{% if user.id == family.user.id %}
+
+	{% if user.id == family.user.id and family.maxVotes %}
+		{% if family.publishVotes and family.maxVotes %}
+		<h4 class="pull-left"><span class="label label-success">Votes are <strong>published</strong>! visibility: <strong>Public</strong></span></h4>
+		{% else %}
+		<h4 class="pull-left"><span class="label label-default">Votes are <strong>offline</strong>! visibility: <strong>only you</strong></span></h4>
+		{% endif %}
+    {% endif %}
+	<div class="clearfix"></div>
     <p>
-	     <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
+
+   
+	{% if user.id == family.user.id %}
+		<a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-default"><span class="glyphicon glyphicon-th-large"></span> View projects</a>
+
+		{% if family.maxVotes %}
+		<a href="{{ path('familyVotes', {id: family.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> View votes</a>
+		{% endif %}
+	    
+	    <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active}) }}" class="btn btn-default">
 	     	{% if family.active %}
 	     		<span class="glyphicon glyphicon-pause"></span> Disable
 	     	{% else %}
 	     		<span class="glyphicon glyphicon-play"></span> Activate
 	     	{% endif %}
 	     </a>
-         <a href="{{ path('familyVotes', {id: family.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> View votes</a>
-         <a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-default"><span class="glyphicon glyphicon-th-large"></span> Projects</a>
-    </p>
+      	{% if not family.isActive and family.maxVotes %}
+            <a href="{{ path('familyPublishVotes', {id: family.id, enable: 1 - family.publishVotes}) }}" class="btn btn-default"><span class="glyphicon glyphicon-share"></span> {% if family.publishVotes %}Unpublish{% else %}Publish{% endif %} votes</a>
+        {% endif %}
+   	{% else %}
+    	{% if family.publishVotes and not family.isActive and family.maxVotes %}
+		<a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-default"><span class="glyphicon glyphicon-th-large"></span> View projects</a>
+
+		<a href="{{ path('familyVotes', {id: family.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> View votes</a>
+		{% endif %}
     {% endif %}
+    </p>
+    <div class="clearfix"></div>
+
 </div>

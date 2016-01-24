@@ -20,9 +20,11 @@ class FamilyController extends BaseController
     public function displayTableAction()
     {
         $user = $this->getUser();
+        $families_array = array();
+        $inactive_families_array = array();
 
-        $families          = $this->getDoctrine()->getRepository("AppBundle:Family")->listActiveFamilies();
-        $inactive_families = $this->getDoctrine()->getRepository("AppBundle:Family")->listInactiveFamilies();
+        $families          = $this->getDoctrine()->getRepository("AppBundle:Family")->listActiveFamilies(1);
+        $inactive_families = $this->getDoctrine()->getRepository("AppBundle:Family")->listActiveFamilies(0);
 
         $family = new Family();
         $family->setEndDate(new \DateTime(date("Y-m-d", time() + 60 * 60 * 24 * project::MAX_DURATION)));
@@ -30,20 +32,30 @@ class FamilyController extends BaseController
 
         $forms = [];
         foreach (array($families, $inactive_families) as $family_group) {
-            foreach ($family_group as $family) {
-                if ($family['entity']->getUser()->getId() == $user->getId()) {
-                    $forms[$family['entity']->getId()] = $this
+            foreach ($family_group as $family_tb) {
+                $family = $family_tb['family'];
+                $family->setCountProjects($family_tb['nbProjects']);
+                if ($family->getUser()->getId() == $user->getId()) {
+                    $forms[$family->getId()] = $this
                        ->get('form.factory')
-                       ->createNamedBuilder("family_form_".$family['entity']->getId(), FamilyType::class, $family['entity'], [])
+                       ->createNamedBuilder("family_form_".$family->getId(), FamilyType::class, $family, [])
                        ->getForm()
                        ->createView();
+                }
+
+                if ( $family->isActive()) {
+                    array_push($families_array, $family);
+                } else {
+                    array_push($inactive_families_array, $family);
                 }
             }
         }
 
+        //\Symfony\Component\VarDumper\VarDumper::dump($families_array);die();
+
         return array(
-            'families'          => $families,
-            'inactive_families' => $inactive_families,
+            'families'          => $families_array,
+            'inactive_families' => $inactive_families_array,
             'user'              => $user,
             'form'              => $form->createView(),
             'forms'             => $forms,
@@ -119,12 +131,13 @@ class FamilyController extends BaseController
         }
 
         $family->setActive($enable);
+        $family->setPublishVotes(1-$enable);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($family);
         $em->flush();
 
-        return $this->redirectToRoute('homepage');
+        return $this->redirectToRoute('familySearch', ['familyId' => $family->getId(), 'familyName' => $family->getName()]);
     }
 
     /**
@@ -166,7 +179,7 @@ class FamilyController extends BaseController
             throw $this->createNotFoundException();
         }
 
-        if ($family->getUser()->getId() !== $this->getUser()->getId()) {
+        if ( ( ($family->getUser()->getId() !== $this->getUser()->getId())) && (!$family->getPublishVotes() || $family->isActive())  ) {
             throw $this->createAccessDeniedException();
         }
 
@@ -176,4 +189,32 @@ class FamilyController extends BaseController
             'user'        => $user,
         ];
     }
+
+    /**
+     * @Route("/publish-votes-{id}-{enable}", name="familyPublishVotes")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function publishVotes($id, $enable)
+    {
+        $user       = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository("AppBundle:Family");
+        $family     = $repository->find($id);
+
+        if (is_null($family)) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($family->getUser()->getId() !== $user->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $family->setPublishVotes($enable);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($family);
+        $em->flush();
+
+        return $this->redirectToRoute('familySearch', ['familyId' => $family->getId(), 'familyName' => $family->getName()]);
+    }
+
 }

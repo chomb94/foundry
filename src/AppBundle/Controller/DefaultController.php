@@ -15,36 +15,6 @@ class DefaultController extends BaseController
      */
     public function indexAction()
     {
-        $user = $this->getUser();
-
-        // Family list
-        $dql = "SELECT f.id, f.name, f.description, f.active, count(p.id) as nbProjects, ug.nickname as username, ug.id as user_id
-                FROM AppBundle:Family f
-                LEFT JOIN AppBundle:Project p
-                WITH p.family = f.id
-                LEFT JOIN AppBundle\Entity\UserGoogle ug
-                WITH f.user = ug.id
-                GROUP BY f.name
-                ORDER BY f.name
-                ";
-        $families = $this
-            ->get("doctrine")
-            ->getEntityManager()
-            ->createQuery($dql)
-            ->getResult();
-
-        // Inactive families flag
-        $dql = "SELECT count(f)
-                FROM AppBundle:Family f
-                WHERE f.active = 0
-                ";
-        $inactive_families = $this
-            ->get("doctrine")
-            ->getEntityManager()
-            ->createQuery($dql)
-            ->getResult();
-        $inactive_families = $inactive_families[0][1];
-
         // First list with only project before end date
         $dql = "SELECT p as project,
                     (SELECT count(u.id) FROM AppBundle:ProjectUpdate u WHERE p.id = u.project) as cnt_updates,
@@ -97,14 +67,10 @@ class DefaultController extends BaseController
             $oneProject_array['project']->setCountMessages($oneProject_array['cnt_messages']);
             array_push($old_projects, $oneProject_array['project']);
         }
-
         return array(
             'menu_hp' => 'active',
             'projects' => $projects,
             'old_projects' => $old_projects,
-            'families' => $families,
-            'inactive_families' => $inactive_families,
-            'user' => $user,
         );
     }
 }

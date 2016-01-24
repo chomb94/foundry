@@ -42,7 +42,15 @@ class Family
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $max_votes;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $publish_votes = false;
 
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     */
+    protected $countProjects = 0;
 
     /**
      * Get id.
@@ -210,6 +218,41 @@ class Family
     public function isActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set publish_votes.
+     *
+     * @param string $publish_votes
+     *
+     * @return int
+     */
+    public function setPublishVotes($publish_votes)
+    {
+        $this->publish_votes = $publish_votes;
+    }
+
+    /**
+     * Get publish_votes.
+     *
+     * @return int
+     */
+    public function getPublishVotes()
+    {
+        return $this->publish_votes;
+    }
+
+
+
+    public function setCountProjects($countProjects)
+    {
+        $this->countProjects = $countProjects;
+        return $this;
+    }
+
+    public function getCountProjects()
+    {
+        return $this->countProjects;
     }
 
 }
