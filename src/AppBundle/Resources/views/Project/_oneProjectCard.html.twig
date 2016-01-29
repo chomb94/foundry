@@ -43,7 +43,7 @@
 
             <div class="cropdescription">
                 <a href="{{ path('projectView', {id: project.id}) }}">
-                    {{ project.shortDescription|e }}
+                    {{ project.shortDescription|e|nl2br }}
             <span class="paragraph-end"></span>
                 </a>
             </div>
