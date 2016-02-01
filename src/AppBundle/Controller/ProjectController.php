@@ -250,7 +250,7 @@ class ProjectController extends BaseController
         // Send mail to project owner
         if ($this->getUser()) {
             $this->get('app.mail')->send(
-               $project->getUser(), 'New Contributor !', 'AppBundle:Email:newPledge.html.twig', [
+               $project->getUser(), 'New Contributor !', 'AppBundle:Email:newContributor.html.twig', [
                 // context required by the template, except subject and user which are already available
                 'project' => $project,
                ]

@@ -1,33 +1,41 @@
-{% extends 'AppBundle::base.html.twig' %}
+{# % block title %}{{ subject }}{% endblock % #}
 
-{% block title %}{{ subject }}{% endblock %}
-
-{% block user %}
+{# % block user %}
     <li><p class="navbar-text">{{ user.nickname }}</p></li>
     <li><img src="{{ user.profilePicture }}" alt="{{ user.nickname }}" class="img-navbar"/></li>
-{% endblock %}
+{% endblock % #}
 
 {% block body %}
-    <p>&nbsp;</p>
-    <div class="col-sm-12 projectCard">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title project_title_panel">{% block email_title %}{% endblock %}</h3>
-            </div>
-            <div class="panel-body">
-                {% block email_contents %}{% endblock %}
-            </div>
-        </div>
-    </div>
+<div style="font-family:helvetica,arial,sans-serif;padding:0;margin:0" bgcolor="#FFF">
+  <center>
+    <table border="0" cellpadding="0" cellspacing="0" width="500px">
+      <tbody><tr>
+        <td>
+
+          <table cellpadding="0" cellspacing="0" width="100%">
+            <tbody><tr><td height="50px" width="600px"></td></tr>
+            <tr>
+              <td align="center">
+                  <img style="display:block" src="http://www.chomb.com/wp-content/uploads/2012/09/BlaBlaFoundry_aith_icone.png" alt="BlaBlaFoundry - Share more, Build more" title="BlaBlaFoundry - Share more, Build more" width="400" tabindex="0" />
+              </td>
+            </tr>
+            <tr><td height="24px" width="600px"></td></tr>
+            <tr>
+              <td style="text-align:center;line-height:22px;font-size:16px">
+                <p><strong>{% block email_title %}{% endblock %}</strong></p>
+                <p>{% block email_contents %}{% endblock %}</p>
+                <br>
+                <div>
+                      <a style="background-color:#ffbf00;border-radius:25px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:18px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:300px" href="{% block email_btn_link %}{% endblock %}" target="_blank">{% block email_btn_label %}{% endblock %}</span></a>
+                  </div>
+              </td>
+            </tr>
+          </tbody></table>
+
+        </td>
+      </tr>
+     </tbody>
+    </table>
+    </center>
+</div>
 {% endblock %}
-
-{# Emptying useless blocks for email templates #}
-{% block head_only_web %}{% endblock %}
-{% block menu %}{% endblock %}
-{% block search %}{% endblock %}
-{% block jumbotron %}{% endblock %}
-{% block flash %}{% endblock %}
-{% block javascripts %}{% endblock %}
-{% block available_credits %}{% endblock %}
-
-
