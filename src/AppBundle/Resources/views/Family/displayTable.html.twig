@@ -18,7 +18,7 @@
                         data-target="#new-project-{{ family.id }}"
                         class="btn btn-success {% if not family.active %}disabled{% endif %}">Start a new project</a>
 
-                    {% if user.id == family.user.id || user.id == 8 %}
+                    {% if user.id == family.user.id or user.id == 8 %}
                         <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-pause"></span>  Disable
                         </a>
@@ -53,7 +53,7 @@
                  <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
                  <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.countProjects }} projects</a></td>
                  <td class="text-left">
-                    {% if user.id == family.user.id || user.id == 8 %}
+                    {% if user.id == family.user.id or user.id == 8 %}
 
                         <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-play"></span> Activate
