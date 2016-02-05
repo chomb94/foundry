@@ -59,8 +59,8 @@
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" {% if activeTab == "description" %}class="active"{% endif %}><a href="#description" aria-controls="description" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-lamp"></span> Description</a></li>
-        <li role="presentation" {% if activeTab == "updates" %}class="active"{% endif %}><a href="#updates" aria-controls="updates" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-bullhorn"></span> Updates<span class="tab-badge">{{ updates|length }}</span></a></li>
-        <li role="presentation" {% if activeTab == "comments" %}class="active"{% endif %}><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> Comments<span class="tab-badge">{{ messages|length }}</span></a></li>
+        <li role="presentation" {% if activeTab == "updates" %}class="active"{% endif %}><a href="#updates" aria-controls="updates" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-bullhorn"></span> Updates{% if updates|length > 0 %}<span class="tab-badge">{{ updates|length }}</span>{% endif %}</a></li>
+        <li role="presentation" {% if activeTab == "comments" %}class="active"{% endif %}><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> Comments{% if messages|length > 0 %}<span class="tab-badge">{{ messages|length }}</span>{% endif %}</a></li>
       </ul>
 
         <!-- Tab panes -->

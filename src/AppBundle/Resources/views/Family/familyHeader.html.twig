@@ -21,7 +21,7 @@
 	</div>
 	<div class="clearfix"></div>
     {% if family.description %}
-	<div class="well">{{ family.description|nl2br }}</div>
+	<div class="well">{{ family.description|raw }}</div>
 	{% endif %}
 
 	{% if user.id == family.user.id and family.maxVotes %}

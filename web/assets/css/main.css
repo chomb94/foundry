@@ -716,17 +716,19 @@ table.nogap{
 }
 
 .tab-badge {
-  margin: -12px 0 0 0;
-  display: inline-block;
-  min-width: 10px;
-  padding: 3px 7px;
-  font-size: 10px;
-  font-weight: 200;
-  line-height: 1;
-  color: #31708f;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
+    margin: -13px 0px 0px 4px;
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 10px;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: rgba(238,162,54,0.7);
+    border-radius: 10px;
+    font-weight: bold;
+    color: white
 }
 
 .project-update-form {
