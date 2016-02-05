@@ -28,7 +28,7 @@ class ProjectType extends AbstractType
                 'allow_delete' => true, // not mandatory, default is true
                 'download_link' => true, // not mandatory, default is true
             ))
-            ->add('shortDescription', 'textarea')
+            ->add('shortDescription', 'ckeditor')
             ->add('endDate',  'date')
             ->add('videoUrl', 'text', ['required'=>false])
             /*

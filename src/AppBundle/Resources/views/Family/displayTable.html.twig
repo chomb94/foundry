@@ -13,10 +13,12 @@
                 <td class="hidden-xs"><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.countProjects }} projects</a></td>
                 <td class="text-left">
 
-                    <a
+                    <!-- REMOVE BECAUSE CONFLICT WITH CKEDITOR (need ofrm number for the loop because same project_shortdescription field ID
+                        a
                         data-toggle="modal"
                         data-target="#new-project-{{ family.id }}"
-                        class="btn btn-success {% if not family.active %}disabled{% endif %}">Start a new project</a>
+                        class="btn btn-success {% if not family.active %}disabled{% endif %}">Start a new project</a -->
+                    <a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-primary">Projects list</a>
 
                     {% if user.id == family.user.id %}
                         <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">

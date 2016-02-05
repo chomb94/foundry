@@ -70,7 +70,7 @@
       		<div class="project-container-text">
       			<div class="Project-shortdescription">
       				<p>
-      				  {{ project.shortDescription|e|nl2br }}
+      				  {{ project.shortDescription|raw }}
       				</p>
       			</div>
 
@@ -85,7 +85,7 @@
       			{% if project.fullDescription != '' %}
             <hr>
                 <p>
-                  {{ project.fullDescription|e|nl2br }}
+                  {{ project.fullDescription|raw }}
                 </p>
       			{% endif %}
 
