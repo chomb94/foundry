@@ -21,7 +21,7 @@ class DefaultController extends BaseController
                     (SELECT count(m.id) FROM AppBundle:ProjectMessage m WHERE p.id = m.project) as cnt_messages
                 FROM AppBundle:Project p
                 WHERE p.endDate >= :endDate
-                ORDER BY p.endDate ASC
+                ORDER BY p.creationDate DESC
                 ";
 
         $projects_result = $this
@@ -48,7 +48,7 @@ class DefaultController extends BaseController
                         (SELECT count(m.id) FROM AppBundle:ProjectMessage m WHERE p.id = m.project) as cnt_messages
                     FROM AppBundle:Project p
                     WHERE p.endDate < :endDate
-                    ORDER BY p.endDate ASC
+                    ORDER BY p.creationDate DESC
                     ";
         $old_projects_result = $this
             ->get("doctrine")

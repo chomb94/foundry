@@ -103,7 +103,7 @@ class ProjectRepository extends EntityRepository
                 FROM AppBundle:Project p
                 WHERE
                     p.family = :familyId
-                ORDER BY p.active DESC, p.title ASC
+                ORDER BY p.active DESC, p.creationDate DESC
         ")->setParameters(array(
              'familyId' => $familyId,
          ))->getResult();
