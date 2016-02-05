@@ -39,7 +39,6 @@ class ProjectController extends BaseController
         $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $id]);
         $activeTab = ($option == ""? "description":$option);
 
-
         // Rewrite video url if it not contain "embed" for youtube
         $videoUrl = $project->getVideoUrl();
         if (($videoUrl != "" ) && !(strpos($videoUrl, 'embed'))) {
@@ -95,7 +94,7 @@ class ProjectController extends BaseController
             $messages->setCreationDate(new \DateTime());
             $messages->setProject($project);
             $messages->setUser($user);
-            
+
             $manager = $this->get("doctrine")->getManager();
             $manager->persist($messages);
             $manager->flush();
@@ -420,7 +419,7 @@ class ProjectController extends BaseController
         } else {
             $family  = $this->getDoctrine()->getRepository("AppBundle:Family")->find($family_id);
         }
-        
+
 
         $project->setFamily($family);
         // Max 90 days - defaut 90
