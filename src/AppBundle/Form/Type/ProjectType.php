@@ -38,7 +38,11 @@ class ProjectType extends AbstractType
             ->add('deliveryPromise',  'textarea', ['required'=>false])
             ->add('published',  'checkbox', ['required'=>false])
             */
-            ->add('save', 'submit')
+            ->add('save', 'submit', array(
+               'label' => 'Create',
+               'attr'  => array(
+                   'class' => 'btn btn-success',
+               )))
         ;
     }
 
