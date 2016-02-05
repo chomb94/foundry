@@ -67,7 +67,7 @@ ivory_ck_editor:
     default_config: my_config
     configs:
         my_config:
-            toolbar:                [ [ "Source" ,"-", 'Bold','Italic','Underline','Strike', "-", 'BulletedList','-','Outdent','Indent','-','Blockquote','-','Styles','Format','Font','FontSize','-','TextColor','BGColor', '-','RemoveFormat', "-", "Link", "-", "Maximize" ] ]
+            toolbar:                [ [ 'Bold','Italic','Underline','Strike', "-", 'BulletedList','-','Outdent','Indent','-','Blockquote','-','Styles','Format','Font','FontSize','-','TextColor','BGColor', '-','RemoveFormat', '-', 'Link', '-', 'Maximize' ] ]
             uiColor:                "#EEEEEE"
 
 hwi_oauth:
