@@ -89,7 +89,7 @@ class ProjectRepository extends EntityRepository
             SELECT m
             FROM AppBundle\Entity\ProjectMessage m
             WHERE m.project = :project 
-            ORDER by m.creationDate DESC
+            ORDER by m.creationDate ASC
          ")->setParameters(array(
              'project' => $project,
          ))->getResult();
