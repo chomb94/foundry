@@ -33,7 +33,6 @@
             </div>
             <div class="crew">
                 <span class="text-light"> Crew :</span> <img src="{{ project.user.profilePicture }}" alt="{{ project.user.nickname | e }}" class="img-circle img-crew-master"  data-toggle="tooltip" data-placement="top" title="{{project.user.nickname}} (Owner)" />
-
             {% if project.participants|length > 0 %}
                 {% for participant in project.participants %}
                     <img src="{{participant.user.profilePicture}}" alt="{{participant.user.nickname}}" data-toggle="tooltip" data-placement="top" title="{{participant.user.nickname}}" class="img-circle img-crew" />
