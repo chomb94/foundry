@@ -21,7 +21,7 @@
 	</div>
 	<div class="clearfix"></div>
     {% if family.description %}
-	<div class="well">{{ family.description|raw|nl2br }}</div>
+	<div class="well">{{ family.description|purify }}</div>
 	{% endif %}
 
 	{% if user.id == family.user.id and family.maxVotes %}
@@ -34,14 +34,14 @@
 	<div class="clearfix"></div>
     <p>
 
-   
+
 	{% if user.id == family.user.id %}
 		<a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-default"><span class="glyphicon glyphicon-th-large"></span> View projects</a>
 
 		{% if family.maxVotes %}
 		<a href="{{ path('familyVotes', {id: family.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> View votes</a>
 		{% endif %}
-	    
+
 	    <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active}) }}" class="btn btn-default">
 	     	{% if family.active %}
 	     		<span class="glyphicon glyphicon-pause"></span> Disable
