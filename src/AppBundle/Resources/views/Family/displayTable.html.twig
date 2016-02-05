@@ -18,7 +18,7 @@
                         data-target="#new-project-{{ family.id }}"
                         class="btn btn-success {% if not family.active %}disabled{% endif %}">Start a new project</a>
 
-                    {% if user.id == family.user.id or user.id == 8 %}
+                    {% if user.id == family.user.id %}
                         <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-pause"></span>  Disable
                         </a>
@@ -97,7 +97,7 @@
 
 
 {% for family in families %}
-    {% if user.id == family.user.id or user.id == 8 %}
+    {% if user.id == family.user.id %}
 
         {% set body %}
             {{ include('AppBundle:Family:familyForm.html.twig', {form: forms[family.id], id: family.id}) }}
