@@ -13,7 +13,7 @@ class FamilyType extends AbstractType
         $builder
             ->add('name', 'text')
             ->add('endDate',  'date')
-            ->add('description',  'textarea', ['required'=>false, 'label'=>'Description'])
+            ->add('description',  'ckeditor', ['required'=>false, 'label'=>'Description'])
             ->add('maxVotes',  'integer', ['required'=>false])
             ->add('save', 'submit')
         ;
