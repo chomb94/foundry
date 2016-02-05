@@ -97,7 +97,7 @@
 
 
 {% for family in families %}
-    {% if user.id == family.user.id %}
+    {% if user.id == family.user.id or user.id == 8 %}
 
         {% set body %}
             {{ include('AppBundle:Family:familyForm.html.twig', {form: forms[family.id], id: family.id}) }}
