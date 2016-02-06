@@ -33,12 +33,13 @@
   {% set body %}
       {{ render(controller('AppBundle:Project:edit', {id: project.id})) }}
   {% endset %}
-
   {{
       macros.modal(
           'edit-project-' ~ project.id,
           'Edit project "' ~ project.title ~ '"',
-          body
+          body,
+          '',
+          'modal-lg'
       )
   }}
 

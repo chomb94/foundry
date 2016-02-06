@@ -56,7 +56,7 @@
 
             </div>
             <div class="clearfix"></div>
-            <div class="row btn-footer-onecard">
+            <div class="btn-footer-onecard">
             {% if project.active %}
                 {{
                     render(controller('AppBundle:Project:viewParticipateModal', {
@@ -64,7 +64,7 @@
                     }))
                 }}
 
-                <div class="col-md-6 opc-action-right" id="participate-{{ project.id }}">
+                <div class="opc-action-right" id="participate-{{ project.id }}">
                     {{
                         render(controller('AppBundle:Project:viewParticipate', {
                             id: project.id,
@@ -73,7 +73,7 @@
                     }}
 
                 </div>
-                <div class="col-md-6 opc-action-right" id="vote-{{ project.id }}">
+                <div class="opc-action-right" id="vote-{{ project.id }}">
                     {% if project.family.isActive|default or project.family.isActive is not defined %}
                         {{
                             render(controller('AppBundle:Project:viewVote', {

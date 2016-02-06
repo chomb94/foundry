@@ -609,22 +609,14 @@ background: none;
 
 .opc-action-right {
   text-align: center;
+  width: 50%;
+  float: left;
 }
 
 .btn-onecard {
-  /*
-  top: 3px;
-  font-size: 24px;
-  */
 }
 
 .btn-onecard-text {
-  /*
-  font-size: 12px;
-  float: right;
-  display: block;
-  padding: 8px 0 0 12px;
-  */
 }
 
 .btn-heart-inactive {
