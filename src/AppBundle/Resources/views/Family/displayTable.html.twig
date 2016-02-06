@@ -9,7 +9,7 @@
         {% for family in families %}
             <tr>
                 <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.name }}</a></td>
-                <td class="hidden-xs"><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|striptags|length > 50 ? family.description|striptags|slice(0, 50) ~ '...' : family.description  }}</a></td>
+                <td class="hidden-xs"><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|striptags|length > 50 ? family.description|striptags|slice(0, 50) ~ '...' : family.description|striptags }}</a></td>
                 <td class="hidden-xs"><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.countProjects }} projects</a></td>
                 <td class="text-left">
 
