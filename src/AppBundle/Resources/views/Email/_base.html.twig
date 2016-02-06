@@ -1,10 +1,3 @@
-{# % block title %}{{ subject }}{% endblock % #}
-
-{# % block user %}
-    <li><p class="navbar-text">{{ user.nickname }}</p></li>
-    <li><img src="{{ user.profilePicture }}" alt="{{ user.nickname }}" class="img-navbar"/></li>
-{% endblock % #}
-
 {% block body %}
 <div style="font-family:helvetica,arial,sans-serif;padding:0;margin:0" bgcolor="#FFF">
   <center>
@@ -16,13 +9,13 @@
             <tbody><tr><td height="50px" width="600px"></td></tr>
             <tr>
               <td align="center">
-                  <a href="https://blablafoundry.ext.blablacar.net/"><img style="display:block" src="http://www.chomb.com/wp-content/uploads/2012/09/BlaBlaFoundry_aith_icone.png" alt="BlaBlaFoundry - Share more, Build more" title="BlaBlaFoundry - Share more, Build more" width="400" tabindex="0" /></a>
+                  <a href="https://blablafoundry.ext.blablacar.net/"><img style="display:block" src="http://www.chomb.com/wp-content/uploads/2016/02/BlaBlaFoundry_aith_icone.png" alt="BlaBlaFoundry - Share more, Build more" title="BlaBlaFoundry - Share more, Build more" width="400" tabindex="0" /></a>
               </td>
             </tr>
             <tr><td height="24px" width="600px"></td></tr>
             <tr>
-              <td style="text-align:center;line-height:22px;font-size:16px">
-                <p><strong>{% block email_title %}{% endblock %}</strong></p>
+              <td style="text-align:left;line-height:22px;font-size:16px">
+                <p>{% block email_title %}{% endblock %}</p>
                 <p>{% block email_contents %}{% endblock %}</p>
                 <br>
                 <div>

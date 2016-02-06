@@ -1,0 +1,20 @@
+
+{% extends 'AppBundle:Email:_base.html.twig' %}
+
+{% block email_title %}
+<p>Hello, {{ user.nickname }}!</p>
+{% endblock %}
+
+{% block email_contents %}
+<p>You have a New comment on your project:</p>
+<p><i><span style="color:#999">"{{ message|nl2br }}"<br/>
+--{{ message_user.nickname }}</span></i></p>
+{% endblock %}
+
+{% block email_btn_link %}
+{{ app.request.getSchemeAndHttpHost() }}{{ path('projectViewOption', {id: project.id, option: 'comments'}) }}
+{% endblock %}
+
+{% block email_btn_label %}
+Click to answer!
+{% endblock %}

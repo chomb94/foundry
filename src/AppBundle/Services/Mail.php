@@ -12,7 +12,6 @@ class Mail extends BaseService
         if ($users instanceof UserGoogle) {
             $users = array($users);
         }
-
         $message = \Swift_Message::newInstance()
            ->setSubject($subject)
            ->setFrom($this->getParameter('mailer_from'))

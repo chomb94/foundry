@@ -77,6 +77,20 @@ class ProjectController extends BaseController
             $manager->persist($update);
             $manager->flush();
 
+
+            // Send mail to crew
+            if ($this->getUser()) {
+                foreach ($participants as $participant) {
+                    $crew_email[] = $participant->getUser();
+                }
+                //\Symfony\Component\VarDumper\VarDumper::dump($crew_email);die();
+                $this->get('app.mail')->send(
+                   $crew_email, 'Your project has a new update!', 'AppBundle:Email:newUpdate.html.twig', [
+                    'project' => $project,
+                    'update' => $update->getShortDescription(),
+                   ]
+                );
+            }
             $this->success("Your update have been published.");
             $form = $this->createForm(new ProjectUpdateType());
             $activeTab = "updates";
@@ -99,6 +113,17 @@ class ProjectController extends BaseController
             $manager->persist($messages);
             $manager->flush();
 
+            // Send mail to project owner
+            if ($this->getUser()) {
+                //\Symfony\Component\VarDumper\VarDumper::dump($messages);die();
+                $this->get('app.mail')->send(
+                   $project->getUser(), 'New comment on your project!', 'AppBundle:Email:newMessage.html.twig', [
+                    'project' => $project,
+                    'message' => $messages->getMessage(),
+                    'message_user' => $user
+                   ]
+                );
+            }
             $this->success("Your message have been published.");
             $formMessage = $this->createForm(new ProjectMessageType());
             $activeTab = "comments";
