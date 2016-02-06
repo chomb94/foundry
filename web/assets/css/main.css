@@ -203,6 +203,7 @@ h1, h2 {
 }
 
 .one-card-notif {
+  position: relative;
   display: block;
   margin: -25px 0 0 4px;
   padding-bottom: 4px;
