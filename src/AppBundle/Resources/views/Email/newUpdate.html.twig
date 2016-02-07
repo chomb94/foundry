@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block email_contents %}
-<p>Your project has a new update:</p>
+<p>Your project "{{ project.title }}" has a new update:</p>
 <p><i><span style="color:#999">"{{ update|nl2br }}"<br/>
 --{{ project.user.nickname }}</span></i></p>
 {% endblock %}
