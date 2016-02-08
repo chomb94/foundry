@@ -489,7 +489,7 @@ class ProjectController extends BaseController
             }
 
             // Send a Slack Notification 
-            $fp = '{"text": "Ho, \"<https://blablafoundry.ext.blablacar.net/'.$this->generateUrl('projectView', ['id' => $project->getId()] ).'|'.$project->getTitle().'>\" just published on \"<https://blablafoundry.ext.blablacar.net/'.$this->generateUrl('familySearch',['familyId' => $family->getId(), 'familyName' => $family->getName()]) .'|'.$family->getName().'>\" Space!"}';
+            $fp = '{"text": "Ho, \"<https://blablafoundry.ext.blablacar.net'.$this->generateUrl('projectView', ['id' => $project->getId()] ).'|'.$project->getTitle().'>\" just published on \"<https://blablafoundry.ext.blablacar.net'.$this->generateUrl('familySearch',['familyId' => $family->getId(), 'familyName' => $family->getName()]) .'|'.$family->getName().'>\" Space!"}';
             $ch = curl_init("https://hooks.slack.com/services/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");
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
             curl_setopt($ch, CURLOPT_POST, 1);
