@@ -7,6 +7,7 @@
 
 {% block body %}
 <div class="page-header">
+  <a href="{{ path('familySearch', {familyName: project.family.name}) }}">{{ family.name|default }}:</a>
   <h1>{{ project.title|e }}</h1>
   <p>By {{ project.user.nickname }}
   </p>

@@ -605,6 +605,7 @@ class Project
                ->addViolation()
             ;
         }
+        /* Remove 90 days constraint
         if ($tm > time() + 60 * 60 * 24 * self::MAX_DURATION) {
             $context
                ->buildViolation(sprintf("The end date can't be greater than %d days.", self::MAX_DURATION))
@@ -612,6 +613,7 @@ class Project
                ->addViolation()
             ;
         }
+        */
     }
 
     public function setActive($active)
