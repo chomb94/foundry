@@ -489,21 +489,17 @@ class ProjectController extends BaseController
             }
 
             // Send a Slack Notification 
-            /*
-            $fp = '{"text": "Ho, \"<https://blablafoundry.ext.blablacar.net'.$this->generateUrl('projectView', ['id' => $project->getId()] ).'|'.$project->getTitle().'>\" just published on \"<https://blablafoundry.ext.blablacar.net'.$this->generateUrl('familySearch',['familyId' => $family->getId(), 'familyName' => $family->getName()]) .'|'.$family->getName().'>\" Space!"}';
-            $ch = curl_init("https://hooks.slack.com/services/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");
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $fp);
-            $result = curl_exec($ch);
-            curl_close($ch);
-            */
-             $this->get('app.slack')->send('Bob La Mouche', '#blablafoundry', 'Hello, world!');
+            if( $family->getSlackChannel() != "" ) {
+                $slack_project_lnk = $this->getParameter('bbf_domain_name').$this->generateUrl('projectView', ['id' => $project->getId()]);
+                $slack_family_lnk = $this->getParameter('bbf_domain_name').$this->generateUrl('familySearch',['familyId' => $family->getId(), 'familyName' => $family->getName()]);
+                $slack_text = "Ho, \"<".$slack_project_lnk."|".$project->getTitle().">\" just published on \"<".$slack_family_lnk."|".$family->getName().">\" Space!";
+
+                 $this->get('app.slack')->send($this->getParameter('slack.label'), $family->getSlackChannel(), $slack_text);
+            }
 
             //return $this->redirectToRoute('projectStepPublish', ['id' => $project->getId(), 'user' => $user]);
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
         }
-
         return $context;
     }
 

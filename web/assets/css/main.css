@@ -493,6 +493,11 @@ background: none;
     border: 1px dotted gold;
 }
 
+.label-slack, .label-slack a:hover {
+  background-color: #41bc98;
+  text-decoration: none;
+}
+
 .label-as-badge {
     border-radius: 1em;
 }

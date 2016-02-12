@@ -21,6 +21,7 @@
                     <a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-primary">Projects list</a>
 
                     {% if user.id == family.user.id %}
+                     {#
                         <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-pause"></span>  Disable
                         </a>
@@ -32,10 +33,12 @@
                             Votes
                         </a>
                         {% endif %}
+                        #}
 
                         <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
                             <span class="glyphicon glyphicon-edit"></span>
                         </button>
+
                     {% endif %}
                 </td>
             </tr>
@@ -52,14 +55,14 @@
         {% for family in inactive_families %}
             <tr>
                  <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.name }}</a></td>
-                 <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|length > 50 ? family.description|slice(0, 50) ~ '...' : family.description  }}</a></td>
+                <td class="hidden-xs"><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|striptags|length > 50 ? family.description|striptags|slice(0, 50) ~ '...' : family.description|striptags }}</a></td>
                  <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.countProjects }} projects</a></td>
                  <td class="text-left">
                     {% if user.id == family.user.id %}
 
-                        <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
+                        <!--a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-play"></span> Activate
-                        </a>
+                        </a -->
 
                         {% if family.maxVotes %}
                         <a
