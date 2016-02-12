@@ -43,7 +43,15 @@ class Family
      */
     protected $max_votes;
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    protected $slack_channel;
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    protected $slack_nickname;
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
      */
     protected $publish_votes = false;
 
@@ -206,6 +214,55 @@ class Family
     {
         return $this->max_votes;
     }
+
+    /**
+     * Set slack_channel.
+     *
+     * @param string $slack_channel
+     *
+     * @return Family
+     */
+    public function setSlackChannel($slack_channel)
+    {
+        $this->slack_channel = $slack_channel;
+
+        return $this;
+    }
+
+    /**
+     * Get slack_channel.
+     *
+     * @return string
+     */
+    public function getSlackChannel()
+    {
+        return $this->slack_channel;
+    }
+
+    /**
+     * Set slack_nickname.
+     *
+     * @param string $slack_nickname
+     *
+     * @return Family
+     */
+    public function setSlackNickname($slack_nickname)
+    {
+        $this->slack_nickname = $slack_nickname;
+
+        return $this;
+    }
+
+    /**
+     * Get slack_nickname.
+     *
+     * @return string
+     */
+    public function GetSlackNickname()
+    {
+        return $this->slack_nickname;
+    }
+
 
     /**
      * @Assert\Callback

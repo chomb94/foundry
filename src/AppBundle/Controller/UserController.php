@@ -25,8 +25,8 @@ class UserController extends BaseController
         ;
 
         return [
-            'menu_myprofile'  => 'active',
-            'user'            => $user,
+            'menu_myprofile'      => 'active',
+            'user'                => $user,
             'projectsContributed' => $projectsContributed,
         ];
     }   
