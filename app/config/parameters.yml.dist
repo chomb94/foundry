@@ -29,4 +29,4 @@ parameters:
     oauth.timeout: 5
 
     # Slack
-    slack.endpoint: https://hooks.slack.com/services/...
+    slack.endpoint: https://hooks.slack.com/services/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(edited)
