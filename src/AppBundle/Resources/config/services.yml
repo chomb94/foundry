@@ -2,6 +2,7 @@ parameters:
     app.base.class: AppBundle\Base\BaseService
     app.user.provider.class: AppBundle\Security\UserProvider
     app.mail.class: AppBundle\Services\Mail
+    app.slack.class: AppBundle\Services\Slack
 
 services:
     app.base:
@@ -16,4 +17,8 @@ services:
 
     app.mail:
         class: %app.mail.class%
+        parent: app.base
+
+    app.slack:
+        class: %app.slack.class%
         parent: app.base

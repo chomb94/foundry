@@ -27,3 +27,6 @@ parameters:
     # Proxy OAuth
     oauth.proxy: ~
     oauth.timeout: 5
+
+    # Slack
+    slack.endpoint: https://hooks.slack.com/services/...
