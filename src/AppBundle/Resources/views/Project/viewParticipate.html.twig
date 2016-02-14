@@ -1,7 +1,7 @@
 
 {% if isParticipant %}
     {% if imInButton %}
-        <button type="button" class="btn btn-warning" data-container="body" data-toggle="popover" data-placement="top"  data-content="You are a contributor, and it's very exiting. Right?"> <span class="glyphicon glyphicon-user btn-sunglasses-invert"></span> You are in!</button>
+        <button type="button" class="btn btn-warning" data-container="body" data-toggle="popover" data-placement="top" data-html="true" data-content='<p>You are a contributor, and it&rsquo;s very exiting. Right?</p><p><small>No, please <a href="">remove me</a>...</small></p>''> <span class="glyphicon glyphicon-user btn-sunglasses-invert"></span> You are in!</button>
     {% endif %}
 
 {% else %}

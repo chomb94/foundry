@@ -8,38 +8,31 @@
         <tbody>
         {% for family in families %}
             <tr>
-                <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.name }}</a></td>
-                <td class="hidden-xs"><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|striptags|length > 50 ? family.description|striptags|slice(0, 50) ~ '...' : family.description|striptags }}</a></td>
-                <td class="hidden-xs"><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.countProjects }} projects</a></td>
-                <td class="text-left">
+                <td>
+                    <a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.name }}</a>
+                </td>
+                <td class="hidden-xs">
+                    <a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|striptags|length > 50 ? family.description|striptags|slice(0, 50) ~ '...' : family.description|striptags }}</a>
+                </td>
+                <td class="hidden-xs">
+                    <a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.countProjects }} projects</a>
+                </td>
+                <td class="hidden-xs text-left">
 
                     <!-- REMOVE BECAUSE CONFLICT WITH CKEDITOR (need ofrm number for the loop because same project_shortdescription field ID
                         a
                         data-toggle="modal"
                         data-target="#new-project-{{ family.id }}"
                         class="btn btn-success {% if not family.active %}disabled{% endif %}">Start a new project</a -->
-                    <a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-primary">Projects list</a>
 
                     {% if user.id == family.user.id %}
-                     {#
-                        <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
-                            <span class="glyphicon glyphicon-pause"></span>  Disable
-                        </a>
-
-                        {% if family.maxVotes %}
-                        <a
-                            href="{{ path('familyVotes', {id: family.id}) }}"
-                            class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span>
-                            Votes
-                        </a>
-                        {% endif %}
-                        #}
-
                         <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
                             <span class="glyphicon glyphicon-edit"></span>
                         </button>
-
                     {% endif %}
+                </td>
+                <td class="text-left">
+                    <a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-primary">Projects list</a>
                 </td>
             </tr>
         {% endfor %}
@@ -54,24 +47,18 @@
         <tbody>
         {% for family in inactive_families %}
             <tr>
-                 <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.name }}</a></td>
+                <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.name }}</a></td>
                 <td class="hidden-xs"><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.description|striptags|length > 50 ? family.description|striptags|slice(0, 50) ~ '...' : family.description|striptags }}</a></td>
-                 <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.countProjects }} projects</a></td>
-                 <td class="text-left">
+                <td><a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}">{{ family.countProjects }} projects</a></td>
+                <td class="hidden-xs text-left">
                     {% if user.id == family.user.id %}
-
-                        <!--a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active }) }}" class="btn btn-default">
-                            <span class="glyphicon glyphicon-play"></span> Activate
-                        </a -->
-
-                        {% if family.maxVotes %}
-                        <a
-                            href="{{ path('familyVotes', {id: family.id}) }}"
-                            class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span>
-                            Votes ({% if family.publishVotes %}Public{% else %}Private{% endif %})
-                        </a>
-                        {% endif %}
+                        <button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
                     {% endif %}
+                </td>
+                <td class="text-left">
+                    <a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-primary">Projects list</a>
                 </td>
             </tr>
         {% endfor %}
@@ -80,7 +67,7 @@
     </div>
 {% endif %}
 
-<button class="btn btn-default" data-toggle="modal" data-target="#new-family">
+<button class="btn btn-success" data-toggle="modal" data-target="#new-family">
     <span class="glyphicon glyphicon-plus"></span> Create a new Space
 </button>
 

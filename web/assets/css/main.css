@@ -467,15 +467,15 @@ background: none;
     margin: 6px 0 0 0;
     border: 3px dotted LightSkyBlue;
     */
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     margin: 6px 0 0 0;
-    border: 1px dotted gold;
+    border: 2x dotted gold;
 }
 
 .crew {
     margin: 16px 0 0 0;
-    max-height: 34px;
+    max-height: 38px;
     overflow: hidden;
     padding: 5px;
 }
@@ -487,10 +487,10 @@ background: none;
 }
 
 .img-crew-master {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     margin: 0;
-    border: 1px dotted gold;
+    border: 2px dotted gold;
 }
 
 .label-slack, .label-slack a:hover {
