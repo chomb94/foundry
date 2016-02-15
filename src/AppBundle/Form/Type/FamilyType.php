@@ -13,9 +13,16 @@ class FamilyType extends AbstractType
         $builder
             ->add('name', 'text')
             ->add('endDate',  'date')
-            ->add('description',  'ckeditor', ['required'=>false, 'label'=>'Description'])
-            ->add('maxVotes',  'integer', ['required'=>false])
-            ->add('slackChannel', 'text', ['empty_data' => '#'])
+            ->add('description',  'ckeditor', [
+                'required'=>false,
+                'label'=>'Description'
+                ])
+            ->add('maxVotes',  'integer', [
+                'required'=>false
+                ])
+            ->add('slackChannel', 'text', [
+                'required'=>false
+                ])
             ->add('save', 'submit', array(
                'label' => 'Create',
                'attr'  => array(

@@ -167,6 +167,11 @@ h1, h2 {
   margin-bottom: 12px;
 }
 
+.well-footer {
+  margin-top: 14px;
+  
+}
+
 .paragraph-end  {
     background-image: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(255,255,255,0)),color-stop(100%,rgba(255,255,255,1)));
     background-image: -webkit-linear-gradient(left,rgba(255,255,255,0),rgba(255,255,255,1));
@@ -491,11 +496,6 @@ background: none;
     height: 32px;
     margin: 0;
     border: 2px dotted gold;
-}
-
-.label-slack, .label-slack a:hover {
-  background-color: #41bc98;
-  text-decoration: none;
 }
 
 .label-as-badge {

@@ -28,7 +28,7 @@
             {{ form_errors(form.maxVotes) }}
 
             {{ form_label(form.slackChannel) }}
-            {{ form_widget(form.slackChannel, {help_text:"Optionnal: if you want to publish your Space update (new project,...) on a Slack Channel, fill this in."}) }}
+            {{ form_widget(form.slackChannel, {help_text:"Optionnal: if you want to publish your Space update (new project,...) on a Slack Channel, fill this in. Ex: #tech, #general,..."}) }}
             {{ form_errors(form.slackChannel) }}
 
             {{ form_rest(form) }}

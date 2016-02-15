@@ -12,21 +12,28 @@
 	<div class="clearfix"></div>
 	<div class="family-sub-titles">
 		<div class="pull-left">Created by: {{ family.user.nickname }}</div>
-		{% if family.maxVotes %}
-			<div class="pull-left"><span class="label label-info">Max Vote{% if family.maxVotes > 1 %}s{% endif %}: {{ family.maxVotes }}</span></div>
-		{% endif %}
-		{% if family.slackChannel %}
-			<div class="pull-left"><a href="https://blablacar.slack.com/messages/{{ family.slackChannel }}" class="label label-slack" target="_blank">Notification: {{ family.slackChannel }}</a></div>
-		{% endif %}
-
-		{% if not family.isActive %}
-			<div class="pull-left"><span class="label label-warning">Space Stopped</span></div>
-		{% endif %}
 	</div>
 	<div class="clearfix"></div>
-    {% if family.description %}
-	<div class="well">{{ family.description|purify }}</div>
+	{% if family.description %}
+	<div class="well">
+		{{ family.description|purify }}
 	{% endif %}
+		<div class="well-footer">
+			{% if family.maxVotes %}
+				<span class="label label-default">Max Vote{% if family.maxVotes > 1 %}s{% endif %}: {{ family.maxVotes }}</span>
+			{% endif %}
+			{% if family.slackChannel %}
+				<a href="https://blablacar.slack.com/messages/{{ family.slackChannel }}" class="label label-default" target="_blank">Notification: {{ family.slackChannel }}</a>
+			{% endif %}
+
+			{% if not family.isActive %}
+				<span class="label label-warning">Space Stopped</span>
+			{% endif %}
+		{% if family.description %}
+		</div>
+	{% endif %}
+
+	</div>
 
 	{% if user.id == family.user.id and family.maxVotes %}
 		{% if family.publishVotes and family.maxVotes %}
@@ -40,6 +47,10 @@
 
 
 	{% if user.id == family.user.id %}
+		<button class="btn btn-default" data-toggle="modal" data-target="#edit-family-{{ family.id }}">
+			<span class="glyphicon glyphicon-edit"></span>
+		</button>
+
 		<a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-default"><span class="glyphicon glyphicon-th-large"></span> View projects</a>
 
 		{% if family.maxVotes %}
@@ -67,3 +78,18 @@
     <div class="clearfix"></div>
 
 </div>
+
+{% if user.id == family.user.id %}
+
+    {% set body %}
+        {{ include('AppBundle:Family:familyForm.html.twig', {form: form, id: family.id}) }}
+    {% endset %}
+
+    {{
+        macros.modal(
+            'edit-family-' ~ family.id,
+            'Edit Space ' ~ family.name,
+            body
+        )
+    }}
+{% endif %}

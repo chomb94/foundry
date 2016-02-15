@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Type\FamilyType;
 use AppBundle\Base\BaseController;
 
 class SearchController extends BaseController
@@ -50,6 +51,11 @@ class SearchController extends BaseController
 
         $projects_result = $this->get("doctrine")->getRepository("AppBundle:Project")->projectSearchByFamilyId($familyId);        
         //\Symfony\Component\VarDumper\VarDumper::dump($projects_result);die();
+        $form = $this
+           ->get('form.factory')
+           ->createNamedBuilder("family_form_".$family->getId(), FamilyType::class, $family, [])
+           ->getForm()
+           ->createView();
 
         foreach ($projects_result as $oneProject_array) {
             //\Symfony\Component\VarDumper\VarDumper::dump($oneProject_array);die();
@@ -64,6 +70,7 @@ class SearchController extends BaseController
             'family'          => $family,
             'projects'        => $projects_array,
             'user'            => $user,
+            'form'            => $form,
         ];
     }
 }
