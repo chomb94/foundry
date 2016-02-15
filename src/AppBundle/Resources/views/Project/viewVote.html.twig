@@ -11,5 +11,10 @@
         <span id="vote-icon-{{ id }}" class="glyphicon glyphicon-heart{{ vote ? '' : '-empty' }} btn-onecard btn-heart-active" aria-hidden="true"></span>
         <span class="btn-onecard-text">Vote</span>
     </a>
+
+    {% if error|length %}
+        <div class="red">{{ error }}</div>
+    {% endif %}
+    
 </div>
 
