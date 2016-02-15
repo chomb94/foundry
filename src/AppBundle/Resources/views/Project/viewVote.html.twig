@@ -13,8 +13,14 @@
     </a>
 
     {% if error|length %}
-        <div class="red">{{ error }}</div>
+
+        <script type="text/javascript">
+
+            $('#too-much-votes-msg-{{ id }}').html("{{ error }}");
+            $('#too-much-votes-{{ id }}').modal('show');
+
+        </script>
     {% endif %}
-    
+
 </div>
 
