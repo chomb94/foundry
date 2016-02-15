@@ -1,17 +1,27 @@
 
 {% if isParticipant %}
     {% if imInButton %}
-        <button type="button" class="btn btn-warning" data-container="body" data-toggle="popover" data-placement="top" data-html="true" data-content='<p>You are a contributor, and it&rsquo;s very exiting. Right?</p><p><small>No, please <a href="">remove me</a>...</small></p>''> <span class="glyphicon glyphicon-user btn-sunglasses-invert"></span> You are in!</button>
+        <button
+        	type="button" 
+        	class="btn btn-warning" 
+        	data-container="body" 
+        	data-toggle="popover" 
+        	data-placement="top" 
+        	data-html="true" 
+        	data-content='<p>You are a contributor, and it&rsquo;s very exiting. Right?</p><p><small>No, please 
+			<a
+	            href="#"
+	            id="unvote_{{id}}"
+	            data-endpoint="{{ path('projectContribute', {id: id}) }}"
+	            data-script-success=" window.location.reload() "
+	            name="step"
+	            class="domajax click">
+	            	remove me
+	        </a>
+        	...</small></p>''>
+        		<span class="glyphicon glyphicon-user btn-sunglasses-invert"></span> You are in!
+        </button>
     {% endif %}
-    	<a
-            href="#"
-            id="project_save"
-            data-endpoint="{{ path('projectContribute', {id: id}) }}"
-            data-script-success=" window.location.reload() "
-            name="step"
-            class="btn btn-warning domajax click">
-            <span class="glyphicon glyphicon-wrench btn-sunglasses-invert" aria-hidden="true"></span> I'm out!
-        </a>
 
 {% else %}
 

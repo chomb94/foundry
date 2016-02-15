@@ -282,8 +282,8 @@ class ProjectController extends BaseController
 
             $this->success("Your pledge has been taken into account.");
         } else {
-            die();
-            $this->getDoctrine()->getManager()->getRepository("AppBundle:Contributor")->remove($contribute->getId());
+            $this->getDoctrine()->getManager()->remove($contribute);
+            $this->getDoctrine()->getManager()->flush();
         }
 
         // Send mail to project owner
