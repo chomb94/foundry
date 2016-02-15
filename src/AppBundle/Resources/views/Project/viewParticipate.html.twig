@@ -1,8 +1,14 @@
 
 {% if isParticipant %}
-    {% if imInButton %}
-        <button type="button" class="btn btn-warning" data-container="body" data-toggle="popover" data-placement="top"  data-content="You are a contributor, and it's very exiting. Right?"> <span class="glyphicon glyphicon-user btn-sunglasses-invert"></span> You are in!</button>
-    {% endif %}
+    	<a
+            href="#"
+            id="project_save"
+            data-endpoint="{{ path('projectContribute', {id: id}) }}"
+            data-script-success=" window.location.reload() "
+            name="step"
+            class="btn btn-warning domajax click">
+            <span class="glyphicon glyphicon-wrench btn-sunglasses-invert" aria-hidden="true"></span> I'm out!
+        </a>
 
 {% else %}
 

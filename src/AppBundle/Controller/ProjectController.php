@@ -248,37 +248,40 @@ class ProjectController extends BaseController
         }
 
 
-        if ($user) {
-            $contribute = $this
-              ->getDoctrine()
-              ->getRepository("AppBundle:Contributor")
-              ->findByUserAndProject($user, $project)
-            ;
+        $contribute = $this
+          ->getDoctrine()
+          ->getRepository("AppBundle:Contributor")
+          ->findByUserAndProject($user, $project)
+        ;
 
-            if (!$contribute) {
-                $em = $this->getDoctrine()->getManager();
+        if (!$contribute) {
+            $em = $this->getDoctrine()->getManager();
 
-                $contributor = new Contributor();
-                $contributor->setUser($user);
-                $contributor->setProject($project);
-                $contributor->setStatus(1); // Actif
-                $contributor->setContributionDate(new \DateTime());
+            $contributor = new Contributor();
+            $contributor->setUser($user);
+            $contributor->setProject($project);
+            $contributor->setStatus(1); // Actif
+            $contributor->setContributionDate(new \DateTime());
 
-                $em->persist($contributor);
-                $em->flush();
+            $em->persist($contributor);
+            $em->flush();
 
-                $this->success("Your pledge has been taken into account.");
-            }
+            $this->success("Your pledge has been taken into account.");
+        } else {
+            die();
+            $this->getDoctrine()->getManager()->getRepository("AppBundle:Contributor")->remove($contribute->getId());
         }
 
         // Send mail to project owner
         if ($this->getUser()) {
-            $this->get('app.mail')->send(
-               $project->getUser(), 'New Contributor !', 'AppBundle:Email:newContributor.html.twig', [
-                // context required by the template, except subject and user which are already available
-                'project' => $project,
-               ]
-            );
+            if (!$contribute) {
+                $this->get('app.mail')->send(
+                   $project->getUser(), 'New Contributor !', 'AppBundle:Email:newContributor.html.twig', [
+                    // context required by the template, except subject and user which are already available
+                    'project' => $project,
+                   ]
+                );
+            }
         }
 
         if ($this->isAjax($request)) {
