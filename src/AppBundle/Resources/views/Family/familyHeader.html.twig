@@ -15,6 +15,10 @@
 		{% if family.maxVotes %}
 			<div class="pull-left"><span class="label label-info">Max Vote{% if family.maxVotes > 1 %}s{% endif %}: {{ family.maxVotes }}</span></div>
 		{% endif %}
+		{% if family.slackChannel %}
+			<div class="pull-left"><a href="https://blablacar.slack.com/messages/{{ family.slackChannel }}" class="label label-slack" target="_blank">Notification: {{ family.slackChannel }}</a></div>
+		{% endif %}
+
 		{% if not family.isActive %}
 			<div class="pull-left"><span class="label label-warning">Space Stopped</span></div>
 		{% endif %}

@@ -15,6 +15,7 @@ class FamilyType extends AbstractType
             ->add('endDate',  'date')
             ->add('description',  'ckeditor', ['required'=>false, 'label'=>'Description'])
             ->add('maxVotes',  'integer', ['required'=>false])
+            ->add('slackChannel', 'text', ['empty_data' => '#'])
             ->add('save', 'submit', array(
                'label' => 'Create',
                'attr'  => array(
