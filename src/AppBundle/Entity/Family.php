@@ -236,7 +236,13 @@ class Family
      */
     public function getSlackChannel()
     {
-        return $this->slack_channel;
+        $return_channel = $this->slack_channel;
+        if ($return_channel != "") {
+            if ($return_channel[0] != '#' and $return_channel[0] != '@') {
+                $return_channel = "#".$return_channel;
+            }
+        }
+        return $return_channel;
     }
 
     /**

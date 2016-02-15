@@ -78,19 +78,33 @@ class ProjectController extends BaseController
             $manager->flush();
 
 
-            // Send mail to crew
+            // Send mail to crew and Slack
             if ($this->getUser()) {
+                $crew_email = [];
                 foreach ($participants as $participant) {
                     $crew_email[] = $participant->getUser();
                 }
-                //\Symfony\Component\VarDumper\VarDumper::dump($crew_email);die();
+                //\Symfony\Component\VarDumper\VarDumper::dump($project->getFamily());die();
+
                 $this->get('app.mail')->send(
                    $crew_email, 'Your project has a new update!', 'AppBundle:Email:newUpdate.html.twig', [
                     'project' => $project,
                     'update' => $update->getShortDescription(),
                    ]
                 );
+
+                // Slack
+                $familyName = $project->getFamily()->getSlackChannel();
+                if( $familyName != "" ) {
+                    $slack_project_lnk = $this->getParameter('bbf_domain_name').$this->generateUrl('projectViewOption', ['id' => $project->getId(), 'option' => 'updates']);
+                    $slack_text = "He, \"<".$slack_project_lnk."|".$project->getTitle().">\" has an <".$slack_project_lnk."|update>!";
+
+                     $this->get('app.slack')->send($this->getParameter('slack.label'), $familyName, $slack_text);
+                }
+
+
             }
+
             $this->success("Your update have been published.");
             $form = $this->createForm(new ProjectUpdateType());
             $activeTab = "updates";
@@ -488,22 +502,18 @@ class ProjectController extends BaseController
                 );
             }
 
-            // Send a Slack Notification 
-            /*
-            $fp = '{"text": "Ho, \"<https://blablafoundry.ext.blablacar.net'.$this->generateUrl('projectView', ['id' => $project->getId()] ).'|'.$project->getTitle().'>\" just published on \"<https://blablafoundry.ext.blablacar.net'.$this->generateUrl('familySearch',['familyId' => $family->getId(), 'familyName' => $family->getName()]) .'|'.$family->getName().'>\" Space!"}';
-            $ch = curl_init("https://hooks.slack.com/services/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");
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $fp);
-            $result = curl_exec($ch);
-            curl_close($ch);
-            */
-             $this->get('app.slack')->send('Bob La Mouche', '#blablafoundry', 'Hello, world!');
+            // Send a Slack Notification
+            if( $family->getSlackChannel() != "" ) {
+                $slack_project_lnk = $this->getParameter('bbf_domain_name').$this->generateUrl('projectView', ['id' => $project->getId()]);
+                $slack_family_lnk = $this->getParameter('bbf_domain_name').$this->generateUrl('familySearch',['familyId' => $family->getId(), 'familyName' => $family->getName()]);
+                $slack_text = "Ho, \"<".$slack_project_lnk."|".$project->getTitle().">\" just published on \"<".$slack_family_lnk."|".$family->getName().">\" Space!";
+
+                $this->get('app.slack')->send($this->getParameter('slack.label'), $family->getSlackChannel(), $slack_text);
+            }
 
             //return $this->redirectToRoute('projectStepPublish', ['id' => $project->getId(), 'user' => $user]);
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
         }
-
         return $context;
     }
 
