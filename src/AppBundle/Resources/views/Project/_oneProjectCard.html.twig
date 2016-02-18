@@ -1,3 +1,5 @@
+{% import 'AppBundle::macros.html.twig' as macros %}
+
 <div class="col-sm-4">
     <div class="panel panel-default {% if not project.active %}panel-inactive{% endif %}">
         <div class="panel-heading {% if project.active %}panel-active{% else %}panel-inactive{% endif %}">
@@ -81,8 +83,28 @@
                             }))
                         }}
                     {% endif %}
-
                 </div>
+
+
+
+           {% set body %}
+                <div id="too-much-votes-msg-{{ project.id }}" class="red">
+                </div>
+           {% endset %}
+
+           {% set footer %}
+                <button type="button" class="btn btn-default" data-dismiss="modal" title="Close the window">Close</button>
+           {% endset %}
+
+           {{
+                macros.modal(
+                    'too-much-votes-' ~ project.id,
+                    'Error',
+                    body,
+                    footer
+                )
+           }}
+
             {% else %}
                 <div class="col-md-12 text-center btn-footer-onecard-inactive">
                 <button type="button" class="btn btn-project-disabled" disabled="disabled">Project Inactive</button>

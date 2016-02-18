@@ -11,5 +11,16 @@
         <span id="vote-icon-{{ id }}" class="glyphicon glyphicon-heart{{ vote ? '' : '-empty' }} btn-onecard btn-heart-active" aria-hidden="true"></span>
         <span class="btn-onecard-text">Vote</span>
     </a>
+
+    {% if error|length %}
+
+        <script type="text/javascript">
+
+            $('#too-much-votes-msg-{{ id }}').html("{{ error }}");
+            $('#too-much-votes-{{ id }}').modal('show');
+
+        </script>
+    {% endif %}
+
 </div>
 

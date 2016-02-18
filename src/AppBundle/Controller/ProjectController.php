@@ -173,7 +173,7 @@ class ProjectController extends BaseController
     /**
      * @Template()
      */
-    public function viewVoteAction($id)
+    public function viewVoteAction($id, $error = '')
     {
         $user    = $this->getUser();
         $project = $this->getDoctrine()->getRepository("AppBundle:Project")->find($id);
@@ -190,6 +190,7 @@ class ProjectController extends BaseController
 
         return [
             'readonly' => is_null($this->getUser()),
+            'error'    => $error,
             'id'       => $id,
             'vote'     => $vote,
         ];
@@ -221,6 +222,8 @@ class ProjectController extends BaseController
               ->findByUserAndProject($user, $project)
         ;
 
+        $error = false;
+
         if ($user) {
             $em = $this->getDoctrine()->getManager();
             if ($vote) {
@@ -239,12 +242,17 @@ class ProjectController extends BaseController
                     $vote->setUser($user);
                     $vote->setProject($project);
                     $em->persist($vote);
+                } else {
+                    $error = "Sorry, you can't vote more in this space.";
                 }
             }
             $em->flush();
         }
 
-        return $this->forward('AppBundle:Project:viewVote', ['id' => $id]);
+        return $this->forward('AppBundle:Project:viewVote', [
+               'id'    => $id,
+               'error' => $error,
+        ]);
     }
 
 
@@ -505,13 +513,13 @@ class ProjectController extends BaseController
                 );
             }
 
-            // Send a Slack Notification 
+            // Send a Slack Notification
             if( $family->getSlackChannel() != "" ) {
                 $slack_project_lnk = $this->getParameter('bbf_domain_name').$this->generateUrl('projectView', ['id' => $project->getId()]);
                 $slack_family_lnk = $this->getParameter('bbf_domain_name').$this->generateUrl('familySearch',['familyId' => $family->getId(), 'familyName' => $family->getName()]);
                 $slack_text = "Ho, \"<".$slack_project_lnk."|".$project->getTitle().">\" just published on \"<".$slack_family_lnk."|".$family->getName().">\" Space!";
 
-                 $this->get('app.slack')->send($this->getParameter('slack.label'), $family->getSlackChannel(), $slack_text);
+                $this->get('app.slack')->send($this->getParameter('slack.label'), $family->getSlackChannel(), $slack_text);
             }
 
             //return $this->redirectToRoute('projectStepPublish', ['id' => $project->getId(), 'user' => $user]);

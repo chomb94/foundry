@@ -67,6 +67,7 @@ class DefaultController extends BaseController
             $oneProject_array['project']->setCountMessages($oneProject_array['cnt_messages']);
             array_push($old_projects, $oneProject_array['project']);
         }
+
         return array(
             'menu_hp' => 'active',
             'projects' => $projects,
