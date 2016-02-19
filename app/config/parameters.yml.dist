@@ -32,4 +32,4 @@ parameters:
     slack.endpoint: https://hooks.slack.com/services/...
     slack.label: 'BlaBlaFoundry'
 
-    bbf_domain_name: 'https://foundry.net'
+    bbf_domain_name: 'https://youdomain.net'

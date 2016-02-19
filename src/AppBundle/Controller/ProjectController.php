@@ -98,7 +98,6 @@ class ProjectController extends BaseController
                 if( $familyName != "" ) {
                     $slack_project_lnk = $this->getParameter('bbf_domain_name').$this->generateUrl('projectViewOption', ['id' => $project->getId(), 'option' => 'updates']);
                     $slack_text = "He, \"<".$slack_project_lnk."|".$project->getTitle().">\" has an <".$slack_project_lnk."|update>!";
-
                      $this->get('app.slack')->send($this->getParameter('slack.label'), $familyName, $slack_text);
                 }
 
