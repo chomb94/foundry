@@ -101,6 +101,36 @@ class FamilyController extends BaseController
 
             $this->success("Your family have been published.");
 
+            //Slack Notification
+            $slack_title = "New Space!";
+            $slack_link = $this->getParameter('bbf_domain_name').$this->generateUrl('familySearch', [
+                'familyId' => $family->getId(),
+                'familyName' => $family->getName(),
+                ]);
+            $slack_text = "He, the new Space \"<".$slack_link."|".$family->getName().">\" just published on BlaBlaFoundry!\nGo and add your project, event or whatever.";
+            
+            // Send notification to #general slack channel...
+            $this->get('app.slack')->send(
+                $this->getParameter('slack.label'),
+                "#general",
+                $slack_title,
+                $slack_link,
+                $slack_text,
+                'create_family'
+            );
+            
+            // ... And into specific channel if defined
+            if( $family->getSlackChannel() != "" ) {
+                $this->get('app.slack')->send(
+                    $this->getParameter('slack.label'),
+                    $family->getSlackChannel(),
+                    $slack_title,
+                    $slack_link,
+                    $slack_text,
+                    'create_family'
+                );
+            }
+
             return $this->redirectToRoute('homepage');
         }
 

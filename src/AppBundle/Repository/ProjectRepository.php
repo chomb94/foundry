@@ -38,6 +38,13 @@ class ProjectRepository extends EntityRepository
          ))->execute();
 
         $this->_em->createQuery("
+            DELETE AppBundle\Entity\ProjectUpdate u
+            WHERE u.project = :project
+         ")->setParameters(array(
+             'project' => $project,
+         ))->execute();
+
+        $this->_em->createQuery("
             DELETE AppBundle\Entity\Project p
             WHERE p.id = :id
          ")->setParameters(array(

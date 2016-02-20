@@ -84,7 +84,7 @@ class ProjectController extends BaseController
                 foreach ($participants as $participant) {
                     $crew_email[] = $participant->getUser();
                 }
-                //\Symfony\Component\VarDumper\VarDumper::dump($project->getFamily());die();
+                //\Symfony\Component\VarDumper\VarDumper::dump($project->getUser()->getNickname());die();
 
                 $this->get('app.mail')->send(
                    $crew_email, 'Your project has a new update!', 'AppBundle:Email:newUpdate.html.twig', [
@@ -96,9 +96,16 @@ class ProjectController extends BaseController
                 // Slack
                 $familyName = $project->getFamily()->getSlackChannel();
                 if( $familyName != "" ) {
-                    $slack_project_lnk = $this->getParameter('bbf_domain_name').$this->generateUrl('projectViewOption', ['id' => $project->getId(), 'option' => 'updates']);
-                    $slack_text = "He, \"<".$slack_project_lnk."|".$project->getTitle().">\" has an <".$slack_project_lnk."|update>!";
-                     $this->get('app.slack')->send($this->getParameter('slack.label'), $familyName, $slack_text);
+                    $slack_title = "New update!";
+                    $slack_link = $this->getParameter('bbf_domain_name').$this->generateUrl('projectViewOption', ['id' => $project->getId(), 'option' => 'updates']);
+                    $slack_text = "He, \"<".$slack_link."|".$project->getTitle().">\" has an update!\n You would make ".$project->getUser()->getNickname()." very happy if you go to read it :heart:";
+                    $this->get('app.slack')->send(
+                        $this->getParameter('slack.label'),
+                        $familyName,
+                        $slack_title,
+                        $slack_link,
+                        $slack_text
+                    );
                 }
 
 
@@ -514,14 +521,19 @@ class ProjectController extends BaseController
 
             // Send a Slack Notification
             if( $family->getSlackChannel() != "" ) {
-                $slack_project_lnk = $this->getParameter('bbf_domain_name').$this->generateUrl('projectView', ['id' => $project->getId()]);
-                $slack_family_lnk = $this->getParameter('bbf_domain_name').$this->generateUrl('familySearch',['familyId' => $family->getId(), 'familyName' => $family->getName()]);
-                $slack_text = "Ho, \"<".$slack_project_lnk."|".$project->getTitle().">\" just published on \"<".$slack_family_lnk."|".$family->getName().">\" Space!";
+                $slack_title = "New \"".$family->getName()."\"!";
+                $slack_link = $this->getParameter('bbf_domain_name').$this->generateUrl('projectView', ['id' => $project->getId()]);
+                $slack_text = "Ho, \"<".$slack_link."|".$project->getTitle().">\" just published on \"".$family->getName()."\" Space!\nVote, contribute or just see.";
 
-                $this->get('app.slack')->send($this->getParameter('slack.label'), $family->getSlackChannel(), $slack_text);
+                $this->get('app.slack')->send(
+                    $this->getParameter('slack.label'),
+                    $family->getSlackChannel(),
+                    $slack_title,
+                    $slack_link,
+                    $slack_text
+                );
             }
 
-            //return $this->redirectToRoute('projectStepPublish', ['id' => $project->getId(), 'user' => $user]);
             return $this->redirectToRoute('projectView', ['id' => $project->getId(), 'user' => $user]);
         }
         return $context;
