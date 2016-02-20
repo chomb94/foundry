@@ -1,3 +1,4 @@
+{% import 'AppBundle::macros.html.twig' as macros %}
 
 <div class="page-header">
 	<div class="title-family"><h2>Space: {{ family.name }}</h2></div>
@@ -57,6 +58,10 @@
 		<a href="{{ path('familyVotes', {id: family.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span> View votes</a>
 		{% endif %}
 
+      	{% if not family.isActive and family.maxVotes %}
+            <a href="{{ path('familyPublishVotes', {id: family.id, enable: 1 - family.publishVotes}) }}" class="btn btn-default"><span class="glyphicon glyphicon-share"></span> {% if family.publishVotes %}Unpublish{% else %}Publish{% endif %} votes</a>
+        {% endif %}
+
 	    <a href="{{ path('enableFamily', {id: family.id, enable: 1 - family.active}) }}" class="btn btn-default">
 	     	{% if family.active %}
 	     		<span class="glyphicon glyphicon-pause"></span> Disable
@@ -64,9 +69,6 @@
 	     		<span class="glyphicon glyphicon-play"></span> Activate
 	     	{% endif %}
 	     </a>
-      	{% if not family.isActive and family.maxVotes %}
-            <a href="{{ path('familyPublishVotes', {id: family.id, enable: 1 - family.publishVotes}) }}" class="btn btn-default"><span class="glyphicon glyphicon-share"></span> {% if family.publishVotes %}Unpublish{% else %}Publish{% endif %} votes</a>
-        {% endif %}
    	{% else %}
     	{% if family.publishVotes and not family.isActive and family.maxVotes %}
 		<a href="{{ path('familySearch', {familyId: family.id, familyName: family.name}) }}" class="btn btn-default"><span class="glyphicon glyphicon-th-large"></span> View projects</a>

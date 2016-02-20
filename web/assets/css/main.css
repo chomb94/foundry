@@ -702,20 +702,34 @@ table.nogap{
   border-collapse: collapse;
 }
 
-.nav-tabs {
+.project_tabs .nav-tabs {
   margin: 8px;
   border-bottom: 1px solid #ddd;
   border-top: 1px solid #ddd;
 }
 
-.nav-tabs>li>a {
+ul.family_list_navtabs {
+  margin: 16px 8px 0 0;
+}
+
+.family_list_navtabs>li{
+  display: block;
+}
+
+.family_list_navtabs>li.active{
+  display: none;
+}
+
+.project_tabs .nav-tabs>li>a {
     margin-right: 2px;
     line-height: 1.42857143;
     border-bottom: 4px solid transparent;
     border-radius: initial;
 }
 
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+.project_tabs .nav-tabs>li.active>a,
+.project_tabs .nav-tabs>li.active>a:focus,
+.project_tabs .nav-tabs>li.active>a:hover {
   color: #555;
   cursor: default;
   background-color: #fff;

@@ -213,10 +213,18 @@ class FamilyController extends BaseController
             throw $this->createAccessDeniedException();
         }
 
+        $form = $this
+           ->get('form.factory')
+           ->createNamedBuilder("family_form_".$family->getId(), FamilyType::class, $family, [])
+           ->getForm()
+           ->createView();
+
+
         return [
             'family'          => $family,
             'projects'        => $projects,
-            'user'        => $user,
+            'user'            => $user,
+            'form'            => $form,
         ];
     }
 

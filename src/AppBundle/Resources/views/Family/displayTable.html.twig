@@ -1,9 +1,12 @@
 
 {% import 'AppBundle::macros.html.twig' as macros %}
 
-<h1>Active Spaces</h1>
+<h1>Spaces</h1>
 
 <div class="jumbotron">
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="active_family">
     <table class="table table-hover">
         <tbody>
         {% for family in families %}
@@ -38,11 +41,11 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
+
 
 {% if inactive_families|length %}
-    <div  class="hidden-xs">
-    <h3>Inactive Spaces</h3>
-
+    <div role="tabpanel" class="tab-pane" id="inactive_family" class="hidden-xs">
     <table class="table table-hover">
         <tbody>
         {% for family in inactive_families %}
@@ -61,6 +64,13 @@
     </table>
     </div>
 {% endif %}
+  </div>
+
+ <ul class="family_list_navtabs pull-right" role="tablist">
+    <li role="presentation" class="active"><a href="#active_family" aria-controls="active_family" role="tab" data-toggle="tab">Active Spaces</a></li>
+    <li role="presentation"><a href="#inactive_family" aria-controls="inactive_family" role="tab" data-toggle="tab">Inactive Spaces</a></li>
+ </ul>
+
 
 <button class="btn btn-success" data-toggle="modal" data-target="#new-family">
     <span class="glyphicon glyphicon-plus"></span> Create a new Space
