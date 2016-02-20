@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/css/main.css') }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% block stylesheets %}{% endblock %}
+        {% block header_card %}{% endblock %}
         {% block head_only_web %}
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
             <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}" />
