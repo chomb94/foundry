@@ -284,7 +284,6 @@ class ProjectController extends BaseController
 
         if (!$contribute) {
             $em = $this->getDoctrine()->getManager();
-
             $contributor = new Contributor();
             $contributor->setUser($user);
             $contributor->setProject($project);
@@ -295,22 +294,23 @@ class ProjectController extends BaseController
             $em->flush();
 
             $this->success("Your pledge has been taken into account.");
+
+            // Send mail to project owner
+            if ($this->getUser()) {
+                $this->get('app.mail')->send(
+                   $project->getUser(), 'New Contributor !', 'AppBundle:Email:newContributor.html.twig', [
+                    // context required by the template, except subject and user which are already available
+                    'project' => $project,
+                    'contributor' => $contributor->getUser(),
+                   ]
+                );
+            }
+
         } else {
             $this->getDoctrine()->getManager()->remove($contribute);
             $this->getDoctrine()->getManager()->flush();
         }
 
-        // Send mail to project owner
-        if ($this->getUser()) {
-            if (!$contribute) {
-                $this->get('app.mail')->send(
-                   $project->getUser(), 'New Contributor !', 'AppBundle:Email:newContributor.html.twig', [
-                    // context required by the template, except subject and user which are already available
-                    'project' => $project,
-                   ]
-                );
-            }
-        }
 
         if ($this->isAjax($request)) {
             return new Response();
