@@ -1,7 +1,10 @@
 $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('[data-toggle="popover"]').popover();
+
+    $('body').linkify();
+
 });
 
-$(function () {
-  $('[data-toggle="popover"]').popover()
-});
