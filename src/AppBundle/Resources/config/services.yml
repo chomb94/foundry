@@ -3,6 +3,7 @@ parameters:
     app.user.provider.class: AppBundle\Security\UserProvider
     app.mail.class: AppBundle\Services\Mail
     app.slack.class: AppBundle\Services\Slack
+    app.twig_extension.class: AppBundle\Twig\AppExtension
 
 services:
     app.base:
@@ -24,7 +25,7 @@ services:
         parent: app.base
 
     app.twig_extension:
-        class: AppBundle\Twig\AppExtension
+        class: %app.twig_extension.class%
         public: false
         arguments: [ %twig.photo.provider.url% ]
         tags:
