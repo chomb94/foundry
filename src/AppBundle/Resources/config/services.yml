@@ -22,10 +22,3 @@ services:
     app.slack:
         class: %app.slack.class%
         parent: app.base
-
-    app.twig_extension:
-        class: AppBundle\Twig\AppExtension
-        public: false
-        arguments: [ %twig.photo.provider.url% ]
-        tags:
-            - { name: twig.extension }
