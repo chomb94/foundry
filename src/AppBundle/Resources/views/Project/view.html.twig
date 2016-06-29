@@ -159,7 +159,7 @@
                   {% for message in messages %}
                     <div class="project-comment">
                       <div class="project-comment-user">
-                        <img src="{{ message.user.profilePicture }}" alt="{{ message.user.nickname }}" class="img-project-main-participant img-circle" data-toggle="tooltip" data-placement="top" title="{{ message.user.nickname }}" />
+                        <img src="{{ pictureProviderURL(message.user.email) }}" alt="{{ message.user.nickname }}" class="img-project-main-participant img-circle" data-toggle="tooltip" data-placement="top" title="{{ message.user.nickname }}" />
                         {% if project.user.id == message.user.id %}
                           <span class="label comment-label-owner">Owner</span>
                         {% elseif message.contributor %}
@@ -226,10 +226,10 @@
         <span class="">Crew:</span>
         <div>
           <span class="label comment-label-owner-summary">Owner</span>
-          <img src="{{ project.user.profilePicture }}" class="img-crew-master-big img-circle" data-toggle="tooltip" data-placement="top" title="{{project.user.nickname}}"/>
+          <img src="{{ pictureProviderURL(project.user.email) }}" class="img-crew-master-big img-circle" data-toggle="tooltip" data-placement="top" title="{{project.user.nickname}}"/>
           {% if participants|length > 0 %}
             {% for participant in participants %}
-              <img src="{{participant.user.profilePicture}}" alt="{{participant.user.nickname}}" class="img-project-main-participant img-circle" data-toggle="tooltip" data-placement="top" title="{{participant.user.nickname}}" />
+              <img src="{{ pictureProviderURL(participant.user.email) }}" alt="{{participant.user.nickname}}" class="img-project-main-participant img-circle" data-toggle="tooltip" data-placement="top" title="{{participant.user.nickname}}" />
             {% endfor %}
           {% endif %}
         </div>

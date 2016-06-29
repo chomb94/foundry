@@ -4,7 +4,7 @@
     <div id="wrapper">
         <div id="container">
                 <h1>I am {{ user.nickname }}</h1>
-                <p><img class="img-profile-main" src="{{ user.profilePicture }} " alt="{{ user.username }}"/></p>
+                <p><img class="img-profile-main" src="{{ pictureProviderURL(user.email) }}" alt="{{ user.username }}"/></p>
 
                 <h1>Supported projects</h1>
                 <ul>
