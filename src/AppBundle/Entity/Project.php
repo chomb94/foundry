@@ -102,7 +102,7 @@ class Project
     protected $countMessages = 0;
 
     /**
-     * @Vich\UploadableField(mapping="medial_file", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="media_file", fileNameProperty="imageName")
      *
      * @var File
      */
@@ -491,7 +491,7 @@ class Project
     public function setParticipants($participants)
     {
         $this->participants = $participants;
-    
+
         return $this;
     }
 
@@ -512,7 +512,7 @@ class Project
                 $oneStep->setisInProgress(true);
                 $this->setCountStepInProgress(true);
             } else {
-                $this->setCountStepToComplete(true);                
+                $this->setCountStepToComplete(true);
             }
         }
     }
