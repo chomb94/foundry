@@ -102,7 +102,7 @@ class Project
     protected $countMessages = 0;
 
     /**
-     * @Vich\UploadableField(mapping="medial_file", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="media_file", fileNameProperty="imageName")
      *
      * @var File
      */
