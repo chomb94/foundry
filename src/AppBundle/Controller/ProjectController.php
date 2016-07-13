@@ -37,7 +37,7 @@ class ProjectController extends BaseController
         $user_id     = $user->getId();
         $myproject   = ($user_id == $project->getUser()->getId());
         $step_list   = $this->get("doctrine")->getRepository("AppBundle:Step")->findBy(['project_id' => $id]);
-        $activeTab = ($option == ""? "description":$option);
+        $activeTab   = ($option == ""? "description":$option);
 
         // Rewrite video url if it not contain "embed" for youtube
         $videoUrl = $project->getVideoUrl();
@@ -60,6 +60,8 @@ class ProjectController extends BaseController
 
         // Show participants
         $participants = $this->get("doctrine")->getRepository("AppBundle:Project")->participants($project);
+        $iamcrew      = $this->get("doctrine")->getRepository("AppBundle:Project")->isUserInCrew($this->getUser(),$project); ;
+
         $project->setStepsWithStatus($step_list);
 
         // Write project update
@@ -68,7 +70,7 @@ class ProjectController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            if ($project->getUser()->getId() != $user_id) {
+            if ( ($project->getUser()->getId() != $user_id) and !$iamcrew ) {
                 throw $this->createAccessDeniedException();
             }
             $update->setCreationDate(new \DateTime());
@@ -96,9 +98,9 @@ class ProjectController extends BaseController
                 // Slack
                 $familyName = $project->getFamily()->getSlackChannel();
                 if( $familyName != "" ) {
-                    $slack_title = "New update!";
+                    $slack_title = ":loudspeaker: New update!";
                     $slack_link = $this->getParameter('bbf_domain_name').$this->generateUrl('projectViewOption', ['id' => $project->getId(), 'option' => 'updates']);
-                    $slack_text = "He, \"<".$slack_link."|".$project->getTitle().">\" has an update!\n You would make ".$project->getUser()->getNickname()." very happy if you go to read it :heart:";
+                    $slack_text = "He, \"<".$slack_link."|".$project->getTitle().">\" has an update from ". $this->getUser()->getNickname().":\n\"".$update->getShortDescription()."\"";
                     $this->get('app.slack')->send(
                         $this->getParameter('slack.label'),
                         $familyName,
@@ -164,6 +166,7 @@ class ProjectController extends BaseController
             'family'        => $project->getfamily(),
             'project'       => $project,
             'myproject'     => $myproject,
+            'iamcrew'       => $iamcrew,
             'updates'       => $updates,
             'messages'      => $messages,
             'steps'         => $project->getSteps(),

@@ -77,6 +77,22 @@ class ProjectRepository extends EntityRepository
          ))->getResult();
     }
 
+    public function isUserInCrew($user, $project) {
+        $data = $this->_em->createQuery("
+            SELECT count(c)
+            FROM AppBundle\Entity\Contributor c
+            WHERE c.project = :project and c.user=:user
+         ")->setParameters(array(
+             'project' => $project,
+             'user' => $user,
+         ))->execute();
+         //\Symfony\Component\VarDumper\VarDumper::dump($data[0][1]);die();
+        if ($data[0][1]>0)
+            $ret = true;
+        else $ret = false;
+        return $ret;
+    }    
+
     public function findUpdates($project) {
         return $this->_em->createQuery("
             SELECT u

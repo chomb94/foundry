@@ -122,7 +122,7 @@
         <!-- Updates -->
         <div role="tabpanel" class="tab-pane {% if activeTab == "updates" %}active{% endif %}" id="updates">
             <div class="project-container-text">
-              {% if myproject %}
+              {% if myproject or iamcrew %}
                 <div class="project-update-form">
                 {% form_theme form 'AppBundle::form_theme.html.twig' %}
                 {{ form_start(form) }}
