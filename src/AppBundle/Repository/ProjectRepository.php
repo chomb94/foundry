@@ -77,6 +77,17 @@ class ProjectRepository extends EntityRepository
          ))->getResult();
     }
 
+    public function voters($project) {
+        return $this->_em->createQuery("
+            SELECT ug.nickname
+            FROM AppBundle\Entity\Vote v
+            LEFT JOIN AppBundle\Entity\UserGoogle ug WITH v.user = ug.id
+            WHERE v.project = :project
+         ")->setParameters(array(
+             'project' => $project,
+         ))->getResult();
+    }
+
     public function isUserInCrew($user, $project) {
         $data = $this->_em->createQuery("
             SELECT count(c)

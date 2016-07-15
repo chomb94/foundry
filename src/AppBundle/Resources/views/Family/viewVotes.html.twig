@@ -18,17 +18,16 @@
 					<td>Project</td>
 					<td>Owner</td>
 					<td>Votes</td>
-					<td></td>
 				</tr>
 			</thead>
 			</tbody>
 		</thead>
+
 		{% for project in projects %}
-			<tr class="lovelyrow"  onclick="location.href='{{ path('projectView', {id: project.id}) }}'">
-				<td>{{ project.title }}</td>
+			<tr class="lovelyrow">
+				<td><a href="{{ path('projectView', {id: project.id}) }}">{{ project.title }}</a></td>
 				<td>{{ project.nickname }}</td>
-				<td>{{ project.votes}} <span class="glyphicon glyphicon-heart btn-heart-active"></span></td>
-				<td><button class="btn btn-default"><span class="glyphicon glyphicon-open"></span> View project</button></td>
+				<td data-toggle="tooltip" data-placement="right" data-html="true" title="{{ project.voters }}">{{ project.votes }} <span class="glyphicon glyphicon-heart btn-heart-active"></span></td>
 			</tr>
 		{% endfor %}
 		</table>

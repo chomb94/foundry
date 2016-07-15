@@ -203,7 +203,24 @@ class FamilyController extends BaseController
         $user       = $this->getUser();
 
         $family = $this->get("doctrine")->getRepository("AppBundle:Family")->find($id);
-        $projects = $this->get("doctrine")->getRepository("AppBundle:Project")->projectByVotesFromFamily($id);
+        $projects_result = $this->get("doctrine")->getRepository("AppBundle:Project")->projectByVotesFromFamily($id);
+        //\Symfony\Component\VarDumper\VarDumper::dump($projects_db);
+
+        $projects = array();
+
+        foreach ($projects_result as $oneProject_array) {
+            $voters_result = $this->get("doctrine")->getRepository("AppBundle:Project")->voters($oneProject_array['id']);
+            $voters = "";
+            foreach ($voters_result as $oneVoter) {
+                if ($voters != "")
+                    $voters .= ", ";
+                $voters .= str_replace("-", "&#8209", str_replace(" ", "&nbsp;", $oneVoter['nickname']));
+            }
+            $oneProject_array['voters'] = $voters;
+            array_push($projects, $oneProject_array);
+        }
+
+//        \Symfony\Component\VarDumper\VarDumper::dump($projects);die();
 
         if (!$family) {
             throw $this->createNotFoundException();
