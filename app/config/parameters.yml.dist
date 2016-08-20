@@ -33,4 +33,4 @@ parameters:
     slack.label: 'BlaBlaFoundry'
 
     bbf_domain_name: 'https://youdomain.net'
-    twig.photo.provider.url: "http://blab...."
+    twig.photo.provider.url: "https://blab...."
