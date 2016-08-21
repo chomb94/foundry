@@ -4,7 +4,10 @@ $(function () {
 
     $('[data-toggle="popover"]').popover();
 
-    $('body').linkify();
+    $('body').linkify({
+        ignoreTags: ['textarea'],
+        linkAttributes: { rel: 'noopener' }
+    });
 
 });
 
