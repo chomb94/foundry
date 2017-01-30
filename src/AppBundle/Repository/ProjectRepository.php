@@ -136,9 +136,12 @@ class ProjectRepository extends EntityRepository
                 FROM AppBundle:Project p
                 WHERE
                     p.family = :familyId
+                    AND p.active = 1
+                    AND p.endDate > :ts
                 ORDER BY p.active DESC, p.endDate ASC, p.creationDate DESC
         ")->setParameters(array(
              'familyId' => $familyId,
+             'ts' => new \DateTime('-30 days'),
          ))->getResult();
     }
 

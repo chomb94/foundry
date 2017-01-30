@@ -301,7 +301,6 @@ class Family
     }
 
 
-
     public function setCountProjects($countProjects)
     {
         $this->countProjects = $countProjects;

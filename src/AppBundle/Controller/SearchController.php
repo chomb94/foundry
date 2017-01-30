@@ -65,6 +65,7 @@ class SearchController extends BaseController
             $oneProject_array['project']->setCountMessages($oneProject_array['cnt_messages']);
             array_push($projects_array, $oneProject_array['project']);
         }
+        //\Symfony\Component\VarDumper\VarDumper::dump($projects_result);die();
 
         return [
             'family'          => $family,

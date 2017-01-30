@@ -31,6 +31,7 @@ class FamilyController extends BaseController
         $form   = $this->createForm(FamilyType::class, $family);
 
         $forms = [];
+
         foreach (array($families, $inactive_families) as $family_group) {
             foreach ($family_group as $family_tb) {
                 $family = $family_tb['family'];

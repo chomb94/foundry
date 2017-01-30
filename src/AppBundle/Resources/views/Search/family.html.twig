@@ -6,7 +6,7 @@
 {% include 'AppBundle:Family:familyHeader.html.twig' %}
 
 {% if projects | length == 0 %}
-	<div>No projects found</div>
+	<div>No active (during the last 30 days) projects found</div>
 	{% if family.isActive %}
 	<h2>
         <a
