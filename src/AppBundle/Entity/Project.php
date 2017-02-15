@@ -577,7 +577,7 @@ class Project
     {
         $endDate = $this->getEndDate()->getTimestamp();
         $now = time();
-        $diff = (integer) (($endDate - $now) / (60 * 60 * 24));
+        $diff = (integer) (($endDate - $now + 86399) / (60 * 60 * 24));
 
         return $diff;
     }
