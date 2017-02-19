@@ -11,7 +11,11 @@ class ProjectUpdateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('shortDescription', 'textarea', ['label'=>'Your project\'s update:'])
+//        ->add('shortDescription', 'textarea', ['label'=>'Your project\'s update:'])
+        ->add('shortDescription',  'ckeditor', [
+            'required'=>false,
+            'label'=>'Your project\'s update:'
+            ])
         ->add('Update!', 'submit')
         ;
     }

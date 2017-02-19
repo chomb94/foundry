@@ -431,6 +431,10 @@ background: none;
   font-size: 14px;
 }
 
+.project-container-text .update-description img {
+  width: 100%;
+}
+
 .project-image-container {
   text-align: center;
 }
@@ -449,6 +453,12 @@ background: none;
     margin: 6px 0 0 0;
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
     border: 1px solid white;
+}
+
+.img-project-participant-update {
+    width: 32px;
+    height: 32px;
+    margin: -6px 0 0 -5px;
 }
 
 .img-project-main {

@@ -135,12 +135,16 @@
                 {% if updates|length > 0%}
                   {% for update in updates %}
                     <div class="project-update">
-                      <div class="update-date-bubble"></div>
+                      <div class="update-date-bubble">
+                        {% if update.user.email is defined %}
+                        <img src="{{ pictureProviderURL(update.user.email) }}" alt="{{ update.user.nickname }}" class="img-project-participant-update img-circle" data-toggle="tooltip" data-placement="top" title="{{ update.user.nickname }}" />
+                        {% endif %}
+                      </div>
                       <div class="update-date">
                         {{ update.creationDate.date|date('M d, Y') }}
                       </div>
                       <div class="update-description">
-                        {{ update.shortDescription|e|nl2br }}
+                        {{ update.shortDescription|raw }}
                       </div>
                     </div>
                   {% endfor %}

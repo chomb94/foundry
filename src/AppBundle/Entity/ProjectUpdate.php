@@ -25,6 +25,12 @@ class ProjectUpdate
     protected $project;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserGoogle")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
+    /**
      * @ORM\Column(type="text")
      */
     protected $short_description;
@@ -48,6 +54,17 @@ class ProjectUpdate
     public function setProject($project)
     {
         $this->project = $project;
+        return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
         return $this;
     }
 

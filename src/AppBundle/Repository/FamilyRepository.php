@@ -21,7 +21,6 @@ class FamilyRepository extends EntityRepository
                 WITH p.family = f.id
                 WHERE f.active = :active
                     AND p.active = 1
-                    AND p.endDate > :ts
                 GROUP BY f.name
                 ORDER BY f.name
         ";
@@ -30,7 +29,6 @@ class FamilyRepository extends EntityRepository
               ->createQuery($dql)
               ->setParameters([
                 'active' => $active,
-                'ts' => new \DateTime('-30 days'),
             ])->getResult();
     }
 

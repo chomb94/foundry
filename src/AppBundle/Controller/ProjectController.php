@@ -74,6 +74,7 @@ class ProjectController extends BaseController
                 throw $this->createAccessDeniedException();
             }
             $update->setCreationDate(new \DateTime());
+            $update->setUser($user);
             $update->setProject($project);
             $manager = $this->get("doctrine")->getManager();
             $manager->persist($update);
@@ -114,12 +115,15 @@ class ProjectController extends BaseController
             }
 
             $this->success("Your update have been published.");
+
             $form = $this->createForm(new ProjectUpdateType());
             $activeTab = "updates";
         }
 
         // Read project updates
         $updates = $this->get("doctrine")->getRepository("AppBundle:Project")->findUpdates($project);
+        //\Symfony\Component\VarDumper\VarDumper::dump($updates);die();
+
 
         // Write project messages/comments
         $messages = new ProjectMessage();
