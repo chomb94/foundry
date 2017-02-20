@@ -4,6 +4,9 @@ parameters:
     app.mail.class: AppBundle\Services\Mail
     app.slack.class: AppBundle\Services\Slack
     app.twig_extension.class: AppBundle\Twig\AppExtension
+    app.routing.class: AppBundle\Services\Routing
+    pagerfanta.view.light.class: AppBundle\Pagerfanta\View\LightView
+    pagerfanta.template.light.class: AppBundle\Pagerfanta\Template\LightTemplate
 
 services:
     app.base:
@@ -28,5 +31,23 @@ services:
         class: %app.twig_extension.class%
         public: false
         arguments: [ %twig.photo.provider.url% ]
+        calls:
+          - [setContainer, ["@service_container"]]
         tags:
-            - { name: twig.extension }
+          - { name: twig.extension }
+
+    app.routing:
+        class: '%app.routing.class%'
+        parent: app.base
+
+    pagerfanta.view.light:
+        class: '%pagerfanta.view.light.class%'
+        public: false
+        arguments: ['@pagerfanta.template.light']
+        tags:
+            - { name: pagerfanta.view, alias: light }
+
+    pagerfanta.template.light:
+        class: '%pagerfanta.template.light.class%'
+        public: false
+        arguments: ['@translator']

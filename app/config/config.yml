@@ -71,7 +71,7 @@ ivory_ck_editor:
             uiColor:                "#EEEEEE"
 
 hwi_oauth:
-    firewall_name: secured_area
+    firewall_names: ["secured_area"]
     http_client:
         proxy: %oauth.proxy%
         timeout: %oauth.timeout%

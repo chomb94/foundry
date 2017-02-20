@@ -44,3 +44,10 @@ notes
 
 # Small project, no need of composer.lock
 composer.lock
+
+# Uploads CKEditor
+/web/upload/*
+/web/upload/ckeditor/*
+!/web/upload/index.html
+!/web/upload/ckeditor
+!/web/upload/ckeditor/index.html
