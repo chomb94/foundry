@@ -5,13 +5,14 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Form\Type\CKEditorType;
 
 class ProjectUpdateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('shortDescription',  'ckeditor', [
+        ->add('shortDescription', CKEditorType::class, [
             'required'=>false,
             'label'=>'Your project\'s update:'
             ])

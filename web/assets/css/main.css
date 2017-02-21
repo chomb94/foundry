@@ -169,7 +169,7 @@ h1, h2 {
 
 .well-footer {
   margin-top: 14px;
-  
+
 }
 
 .paragraph-end  {
@@ -498,7 +498,7 @@ background: none;
 .img-crew {
     width: 28px;
     height: 28px;
-    margin: 0;    
+    margin: 0;
 }
 
 .img-crew-master {
@@ -689,7 +689,7 @@ background: none;
 .view-be-in {
   height: 26px;
   margin-top: 8px;
-} 
+}
 
 .family-label-view a, .family-label a {
   text-decoration: none;
@@ -764,7 +764,7 @@ ul.family_list_navtabs {
 }
 
 .project-update-form {
-  margin-bottom: 48px;    
+  margin-bottom: 48px;
 }
 
 .project-update-list {
@@ -801,7 +801,7 @@ ul.family_list_navtabs {
 }
 
 .update-description {
-  margin: 24px 0 32px 48px;  
+  margin: 24px 0 32px 48px;
 }
 
 .project-comments {
@@ -809,7 +809,7 @@ ul.family_list_navtabs {
 }
 
 .project-comment {
-  margin-top: 24px;  
+  margin-top: 24px;
 }
 
 .project-comment-user {
@@ -823,11 +823,11 @@ ul.family_list_navtabs {
 
 .arrow-left {
   position: absolute;
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;  
-  border-right:10px solid #f6f6f6; 
+  border-bottom: 10px solid transparent;
+  border-right:10px solid #f6f6f6;
   margin: 14px 0 0 52px;
 }
 
@@ -863,4 +863,13 @@ ul.family_list_navtabs {
 
 .comment-label-owner-summary {
   margin: 44px 0 0 0px;
+}
+
+img.gallery {
+   width: 100%;
+   height: 200px;
+}
+
+.thumbnail:hover {
+    background-color: #fdf5ce;
 }

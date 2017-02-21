@@ -12,10 +12,53 @@
                 </div>
                 {% if footer %}
                 <div class="modal-footer">
-                        {{ footer }}
+                    {{ footer }}
                 </div>
                 {% endif %}
             </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro pager(pager, prefix = '', hash = '') %}
+    <div class="row">
+        <div class="text-center col-md-12">
+            {{
+                pagerfanta(pager, 'light', {
+                    'pageParameter': '[' ~ prefix ~ 'page]',
+                    'hash': hash,
+                })
+            }}
+        </div>
+        <div class="text-left col-md-4">
+            <div>Rows per page</div>
+            <ul class="pagination">
+                {% for perPage in [10,25,50] %}
+                    {% set isCurrent = perPage == pager.maxPerPage %}
+                    <li {% if isCurrent %}class="active"{% endif %}>
+                        {% if isCurrent %}<span>{% else %}<a href="?{{ http_build_query(app.request.query.all|merge({(prefix ~ 'per-page'): perPage})) ~ (hash ? '#' ~ hash : '') }}">{% endif %}
+                            {{ perPage }}
+                        {% if isCurrent %}</span>{% else %}</a>{% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="text-center col-md-4">
+            <br/>
+            <p>{{ pager.nbResults }} result(s)</p>
+        </div>
+        <div class="text-right col-md-4">
+            <div>Go to page</div>
+            {% set currentRoute = current_route() %}
+            <form class="form-inline" action="{{ path(currentRoute.name, currentRoute.params) ~ (hash ? '#' ~ hash : '') }}" method="get">
+                <div class="form-group">
+                    <input class="form-control" name="{{ prefix }}page" style="width: 100px;" type="text"/>
+                    {% for key, value in app.request.query.all if key != prefix ~ 'page' %}
+                        {{ array_to_query_fields(key, value) }}
+                    {% endfor %}
+                    <input class="btn btn-primary" value="Go" type="submit"/>
+                </div>
+            </form>
         </div>
     </div>
 {% endmacro %}
