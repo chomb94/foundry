@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Base\BaseController;
-use AppBundle\Tools\Gd;
 use AppBundle\Tools\Math;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -68,21 +67,19 @@ class CKEditorController extends BaseController
         }
 
         $source = $upload->getPathName();
-        $target = $this->getParameter('kernel.root_dir').'/../web/upload/ckeditor/'.date('Ymd-His-').Math::rand(8).'.png';
 
-        $error  = null;
-        $img    = Gd::load($source);
-        if (!$img) {
-            $error = $this->trans('base.ckeditor.invalid_file');
-        } else {
-            Gd::save($img, $target);
+        $ext = str_replace('/', '', substr(substr($upload->getClientOriginalName(), strrpos($upload->getClientOriginalName(), '.') + 1), 0, 3));
+        if (!in_array(strtolower($ext), ['png', 'jpg', 'jpeg', 'gif'])) {
+            throw $this->createNotFoundException();
         }
+
+        $target = $this->getParameter('kernel.root_dir').'/../web/upload/ckeditor/'.date('Ymd-His-').Math::rand(8).'.'.$ext;
+        rename($source, $target);
 
         return [
             'CKEditor' => $CKEditor,
             'funcNum'  => $funcNum,
             'target'   => basename($target),
-            'error'    => $error,
         ];
     }
 
