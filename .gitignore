@@ -42,9 +42,6 @@ web/uploads/
 nbproject
 notes
 
-# Small project, no need of composer.lock
-composer.lock
-
 # Uploads CKEditor
 /web/upload/*
 /web/upload/ckeditor/*
